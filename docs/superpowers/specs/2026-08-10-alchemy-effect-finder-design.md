@@ -36,8 +36,10 @@ no internet access) that:
    a toggle to show all ingredients.
 2. **Discovery tracker** — per-ingredient view of the 4 effect slots
    (known vs unknown), with overall progress.
-3. **Discovery plan** — compute the smallest set of brews that maximizes newly
-   discovered effects from carried ingredients.
+3. **Discovery plan** — compute a brew plan that discovers **every effect
+   discoverable from carried ingredients**, using **as few brews as possible**
+   (maximum discovery is the hard objective; brew count is minimized subject
+   to it).
 4. **Auto-read the save file** — inventory counts and already-discovered effects
    come from the player's actual SE save; no manual bookkeeping required.
 
@@ -110,7 +112,8 @@ def potion_effects(ingredient_ids, ingredients) -> list[EffectResult]
     # Effects produced by mixing 2–3 given ingredients (shared-effect matching).
 
 def discovery_plan(ingredients, inventory, known_effects) -> list[PlannedBrew]
-    # Minimal sequence of brews maximizing newly discovered effects.
+    # Brew plan discovering every effect reachable from the held inventory,
+    # in as few brews as possible (coverage first, then brew count).
     # Each PlannedBrew lists the ingredients used and effects newly revealed.
 ```
 
@@ -129,7 +132,7 @@ brews can consume an ingredient.
     manual overrides merged in.
   - `POST /api/override` — manually set possession/known flags (persisted to a
     local JSON state file).
-  - `GET /api/combos?effect=…`, `POST /api/potion`, `GET /api/discovery-plan` —
+  - `GET /api/combos?effect=<effect_id>`, `POST /api/potion`, `GET /api/discovery-plan` —
     thin delegates to the combinatorics module.
 - If a combinatorics function raises `NotImplementedError`, the API returns a
   friendly "not implemented yet" payload and the rest of the UI keeps working.
