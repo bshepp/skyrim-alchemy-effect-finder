@@ -1,0 +1,362 @@
+[
+  {
+    "id": "cure-disease",
+    "name": "Cure Disease",
+    "description": "Cures all diseases.",
+    "harmful": false
+  },
+  {
+    "id": "cure-poison",
+    "name": "Cure Poison",
+    "description": "Stops poison's continuing effects.",
+    "harmful": false
+  },
+  {
+    "id": "damage-health",
+    "name": "Damage Health",
+    "description": "Causes <mag> points of poison damage.",
+    "harmful": true
+  },
+  {
+    "id": "damage-magicka",
+    "name": "Damage Magicka",
+    "description": "Drains the target's Magicka by <mag> points.",
+    "harmful": true
+  },
+  {
+    "id": "damage-magicka-regen",
+    "name": "Damage Magicka Regen",
+    "description": "Decrease the target's Magicka regeneration by <mag>% for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "damage-stamina",
+    "name": "Damage Stamina",
+    "description": "Drain the target's Stamina by <mag> points.",
+    "harmful": true
+  },
+  {
+    "id": "damage-stamina-regen",
+    "name": "Damage Stamina Regen",
+    "description": "Decrease the target's Stamina regeneration by <mag>% for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "fear",
+    "name": "Fear",
+    "description": "Creatures and people up to level <mag> flee from combat for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "fortify-alteration",
+    "name": "Fortify Alteration",
+    "description": "Alteration spells last <mag>% longer for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-barter",
+    "name": "Fortify Barter",
+    "description": "You haggle for <mag>% better prices for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-block",
+    "name": "Fortify Block",
+    "description": "Blocking absorbs <mag>% more damage for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-carry-weight",
+    "name": "Fortify Carry Weight",
+    "description": "Carrying capacity increases by <mag> for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-conjuration",
+    "name": "Fortify Conjuration",
+    "description": "Conjuration spells last <mag>% longer for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-destruction",
+    "name": "Fortify Destruction",
+    "description": "Destruction spells are <mag>% stronger for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-enchanting",
+    "name": "Fortify Enchanting",
+    "description": "For <dur> seconds, items are enchanted <mag>% stronger.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-health",
+    "name": "Fortify Health",
+    "description": "Health is increased by <mag> points for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-heavy-armor",
+    "name": "Fortify Heavy Armor",
+    "description": "Increase Heavy Armor skill by <mag> points for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-illusion",
+    "name": "Fortify Illusion",
+    "description": "Illusion spells are <mag>% stronger for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-light-armor",
+    "name": "Fortify Light Armor",
+    "description": "Increases Light Armor skill by <mag> points for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-lockpicking",
+    "name": "Fortify Lockpicking",
+    "description": "Lockpicking is <mag>% easier for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-magicka",
+    "name": "Fortify Magicka",
+    "description": "Magicka is increased by <mag> points for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-marksman",
+    "name": "Fortify Marksman",
+    "description": "Bows do <mag>% more damage for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-one-handed",
+    "name": "Fortify One-handed",
+    "description": "One-handed weapons do <mag>% more damage for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-persuasion",
+    "name": "Fortify Persuasion",
+    "description": "Speechcraft is increased by <mag> points for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-pickpocket",
+    "name": "Fortify Pickpocket",
+    "description": "Pickpocketing is <mag>% easier for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-restoration",
+    "name": "Fortify Restoration",
+    "description": "Restoration spells are <mag>% stronger for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-smithing",
+    "name": "Fortify Smithing",
+    "description": "For <dur> seconds, weapon and armor improving is <mag>% better.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-sneak",
+    "name": "Fortify Sneak",
+    "description": "You are <mag>% harder to detect for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-stamina",
+    "name": "Fortify Stamina",
+    "description": "Stamina is increased by <mag> points for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "fortify-two-handed",
+    "name": "Fortify Two-handed",
+    "description": "Two-handed weapons do <mag>% more damage for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "frenzy",
+    "name": "Frenzy",
+    "description": "Creatures and people up to level <mag> will attack anything nearby for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "invisibility",
+    "name": "Invisibility",
+    "description": "Invisibility for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "light",
+    "name": "Light",
+    "description": "Emits a small light that lasts for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "lingering-damage-health",
+    "name": "Lingering Damage Health",
+    "description": "Causes <mag> points of poison damage for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "lingering-damage-magicka",
+    "name": "Lingering Damage Magicka",
+    "description": "Drains the target's Magicka by <mag> points per second for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "lingering-damage-stamina",
+    "name": "Lingering Damage Stamina",
+    "description": "Drain the target's Stamina by <mag> points per second for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "night-eye",
+    "name": "Night Eye",
+    "description": "Improved night vision for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "paralysis",
+    "name": "Paralysis",
+    "description": "Target is paralyzed for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "ravage-health",
+    "name": "Ravage Health",
+    "description": "Causes <mag> points of concentrated poison damage.",
+    "harmful": true
+  },
+  {
+    "id": "ravage-magicka",
+    "name": "Ravage Magicka",
+    "description": "Concentrated poison damages maximum magicka by <mag> points.",
+    "harmful": true
+  },
+  {
+    "id": "ravage-stamina",
+    "name": "Ravage Stamina",
+    "description": "Concentrated poison damages maximum stamina by <mag> points.",
+    "harmful": true
+  },
+  {
+    "id": "regenerate-health",
+    "name": "Regenerate Health",
+    "description": "Health regenerates <mag>% faster for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "regenerate-magicka",
+    "name": "Regenerate Magicka",
+    "description": "Magicka regenerates <mag>% faster for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "regenerate-stamina",
+    "name": "Regenerate Stamina",
+    "description": "Stamina regenerates <mag>% faster for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "resist-fire",
+    "name": "Resist Fire",
+    "description": "Resist <mag>% of fire damage for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "resist-frost",
+    "name": "Resist Frost",
+    "description": "Resist <mag>% of frost damage for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "resist-magic",
+    "name": "Resist Magic",
+    "description": "Resist <mag>% of magic for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "resist-poison",
+    "name": "Resist Poison",
+    "description": "Resist <mag>% of poison for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "resist-shock",
+    "name": "Resist Shock",
+    "description": "Resist <mag>% of shock damage for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "restore-health",
+    "name": "Restore Health",
+    "description": "Restore <mag> points of Health.",
+    "harmful": false
+  },
+  {
+    "id": "restore-magicka",
+    "name": "Restore Magicka",
+    "description": "Restore <mag> points of Magicka.",
+    "harmful": false
+  },
+  {
+    "id": "restore-stamina",
+    "name": "Restore Stamina",
+    "description": "Restore <mag> Stamina.",
+    "harmful": false
+  },
+  {
+    "id": "slow",
+    "name": "Slow",
+    "description": "Target moves at 50% speed for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "spell-absorption",
+    "name": "Spell Absorption",
+    "description": "Absorb <mag>% of the magicka from hostile spells for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "waterbreathing",
+    "name": "Waterbreathing",
+    "description": "Can breathe underwater for <dur> seconds.",
+    "harmful": false
+  },
+  {
+    "id": "weakness-to-fire",
+    "name": "Weakness to Fire",
+    "description": "Target is <mag>% weaker to fire damage for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "weakness-to-frost",
+    "name": "Weakness to Frost",
+    "description": "Target is <mag>% weaker to frost damage for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "weakness-to-magic",
+    "name": "Weakness to Magic",
+    "description": "Target is <mag>% weaker to magic for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "weakness-to-poison",
+    "name": "Weakness to Poison",
+    "description": "Target is <mag>% weaker to poison for <dur> seconds.",
+    "harmful": true
+  },
+  {
+    "id": "weakness-to-shock",
+    "name": "Weakness to Shock",
+    "description": "Target is <mag>% weaker to shock damage for <dur> seconds.",
+    "harmful": true
+  }
+]
