@@ -2076,6 +2076,18 @@
     ]
   },
   {
+    "id": "flame-stalk-solitude",
+    "name": "Flame Stalk",
+    "plugin": "ccBGSSSE025-AdvDSGS.esm",
+    "form_id": 613923,
+    "effects": [
+      "restore-health",
+      "resist-frost",
+      "weakness-to-fire",
+      "invisibility"
+    ]
+  },
+  {
     "id": "green-butterfly-wing",
     "name": "Green Butterfly Wing",
     "plugin": "ccBGSSSE025-AdvDSGS.esm",
