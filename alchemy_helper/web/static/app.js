@@ -191,6 +191,7 @@ function renderTracker() {
 }
 
 function startCountEdit(td) {
+  if (td.querySelector('input')) return; // already mid-edit; don't clobber it
   const ingId = td.dataset.ing;
   const current = STATE.inventory[ingId] || 0;
   td.innerHTML = `<input type="number" min="0" class="count-input" value="${current}">`;
