@@ -1,1 +1,83 @@
-<h1>Alchemy Helper</h1>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skyrim Alchemy Helper</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app">
+
+  <header>
+    <h1>Skyrim Alchemy Helper</h1>
+
+    <div class="save-picker">
+      <select id="save-select"><option value="">-- select a save --</option></select>
+      <button id="load-btn">Load</button>
+      <button id="reload-btn" title="Re-load the current save from disk">Reload</button>
+    </div>
+
+    <div class="status-bar">
+      <span id="mode-badge" class="badge badge-manual">MANUAL MODE</span>
+      <span id="error-msg" class="error-msg" hidden></span>
+      <span id="progress" class="progress">0 of 0 effect-slots discovered</span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="finder" type="button">Effect Finder</button>
+    <button class="tab-btn" data-tab="tracker" type="button">Discovery Tracker</button>
+    <button class="tab-btn" data-tab="plan" type="button">Discovery Plan</button>
+  </nav>
+
+  <main>
+
+    <section id="tab-finder" class="tab-panel active">
+      <div class="toolbar">
+        <select id="effect-select"><option value="">-- choose an effect --</option></select>
+        <label class="checkbox-label">
+          <input type="checkbox" id="only-inventory-check" checked>
+          only ingredients I have
+        </label>
+        <button id="find-combos-btn" type="button">Find combos</button>
+      </div>
+      <div id="finder-results" class="results"></div>
+    </section>
+
+    <section id="tab-tracker" class="tab-panel">
+      <div class="toolbar">
+        <label class="checkbox-label">
+          <input type="checkbox" id="show-uncarried-check">
+          show ingredients I don't have
+        </label>
+      </div>
+      <div class="table-wrap">
+        <table id="tracker-table">
+          <thead>
+            <tr>
+              <th>Ingredient</th>
+              <th>Count</th>
+              <th>Effect 1</th>
+              <th>Effect 2</th>
+              <th>Effect 3</th>
+              <th>Effect 4</th>
+            </tr>
+          </thead>
+          <tbody id="tracker-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-plan" class="tab-panel">
+      <div class="toolbar">
+        <button id="compute-plan-btn" type="button">Compute plan</button>
+      </div>
+      <div id="plan-results" class="results"></div>
+    </section>
+
+  </main>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
