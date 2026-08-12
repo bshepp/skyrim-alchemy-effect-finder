@@ -17,9 +17,11 @@ from alchemy_helper.saveparser.api import PlayerState, UnknownForm, parse_save
 from alchemy_helper.saveparser.body import PluginList
 from alchemy_helper.saveparser.changeforms import ChangeForm
 from alchemy_helper.saveparser.extract import (
-    CHANGE_INGREDIENT_USE, build_ingredient_lookup, decode_form_id,
-    parse_known_effect_slots, resolve_ref_id)
+    CHANGE_INGREDIENT_USE, _skip_extra_data_entry, build_ingredient_lookup,
+    decode_form_id, extract_forms, parse_known_effect_slots,
+    parse_player_inventory, resolve_ref_id)
 from alchemy_helper.saveparser.header import SaveFormatError
+from alchemy_helper.saveparser.reader import Reader
 
 FIXTURE = Path(__file__).parent.parent / "fixtures" / "player.ess"
 
@@ -198,6 +200,56 @@ def test_ingredient_forms_without_the_use_flag_are_ignored():
     assert parse_known_effect_slots(wrong_size) is None
 
 
+def test_modded_ingredient_is_collected_as_unknown_not_fatal(dataset):
+    # The degrade-instead-of-crash guarantee, exercised for real: an
+    # ingredient-use change form for a form no dataset entry covers
+    # (here a fake SomeMod.esp ingredient) must be reported, not raise
+    # and not silently vanish. The fixture cannot test this -- it is a
+    # vanilla+Creations save where nothing is left over.
+    plugins = PluginList(
+        form_version=78,
+        plugins=("Skyrim.esm", "SomeMod.esp"),
+        light_plugins=(),
+    )
+    # A literal (type 1) refID only holds 22 bits, so it can never carry
+    # a plugin index -- which is exactly why forms outside Skyrim.esm go
+    # through the form-id array as type 0. This is how a modded
+    # ingredient really appears in a save.
+    form_id_array = (0x01001234,)            # top byte 0x01 -> SomeMod.esp
+    modded = ChangeForm(
+        ref_type=0, ref_value=1,             # 1-based index into the array
+        flags=CHANGE_INGREDIENT_USE, type=16, version=78,
+        data=struct.pack("<I", 0b0101),
+    )
+    known = ChangeForm(
+        ref_type=1, ref_value=0x04B0BA,      # top byte 0x00 -> Skyrim.esm wheat
+        flags=CHANGE_INGREDIENT_USE, type=16, version=78,
+        data=struct.pack("<I", 0b0011),
+    )
+    extracted = extract_forms(
+        [modded, known, synthetic_player_change_form(items=[])],
+        plugins, form_id_array, dataset=dataset)
+
+    assert extracted.unknown_forms == (("SomeMod.esp", 0x1234),)
+    # ...and the run continues: the recognised ingredient beside it is
+    # still extracted normally.
+    assert extracted.known_effects == {"wheat": frozenset({0, 1})}
+
+
+def test_unknown_form_reaches_the_public_surface_as_unknown_form(dataset):
+    plugins = PluginList(
+        form_version=78, plugins=("Skyrim.esm", "SomeMod.esp"), light_plugins=())
+    modded = ChangeForm(
+        ref_type=0, ref_value=1, flags=CHANGE_INGREDIENT_USE,
+        type=16, version=78, data=struct.pack("<I", 0b0001))
+    extracted = extract_forms(
+        [modded, synthetic_player_change_form(items=[])],
+        plugins, form_id_array=(0x01001234,), dataset=dataset)
+    forms = tuple(UnknownForm(plugin=p, form_id=f)
+                  for p, f in extracted.unknown_forms)
+    assert forms == (UnknownForm(plugin="SomeMod.esp", form_id=0x1234),)
+
+
 def test_both_flame_stalk_records_survive_the_lookup(dataset):
     lookup = build_ingredient_lookup(dataset)
     flame_stalks = {
@@ -207,3 +259,141 @@ def test_both_flame_stalk_records_survive_the_lookup(dataset):
     # Two distinct records keyed by (plugin, local id): neither shadows
     # the other the way a bare form-id key would.
     assert flame_stalks == {"flame-stalk", "flame-stalk-solitude"}
+
+
+# --- the ACHR walk and the extra-data table, on synthetic bytes -----------
+#
+# These are the most inferred parts of the parser (the type->size table,
+# the wrapper recursion, and the refusal to guess). The fixture exercises
+# them only incidentally, and only along the paths this one save happens
+# to take, so the safety behaviour is pinned directly here.
+
+CHANGE_REFR_INVENTORY = 1 << 5   # see extract.py's flag table
+
+
+def vsval(value: int) -> bytes:
+    """Encode a vsval the way the save format does (1-byte form only,
+    which covers every count these tests use)."""
+    assert value < 64
+    return bytes([value << 2])
+
+
+def ref_id(ref_type: int, ref_value: int) -> bytes:
+    packed = (ref_type << 22) | ref_value
+    return bytes([(packed >> 16) & 0xFF, (packed >> 8) & 0xFF, packed & 0xFF])
+
+
+def inventory_item(ref_type: int, ref_value: int, count: int,
+                   extra: bytes = b"") -> bytes:
+    """refID + signed i32 count + extra-data list."""
+    extra_list = vsval(1) + extra if extra else vsval(0)
+    return ref_id(ref_type, ref_value) + struct.pack("<i", count) + extra_list
+
+
+def synthetic_player_change_form(items: list[bytes], flags: int | None = None,
+                                 body: bytes | None = None) -> ChangeForm:
+    """A minimal player ACHR: INVENTORY only, so the walk reads 8 bytes
+    of unknowns and then the item array (no initial data, no havok, no
+    extra data, no animations).
+    """
+    if body is None:
+        body = b"\x00" * 8 + vsval(len(items)) + b"".join(items)
+    return ChangeForm(
+        ref_type=1, ref_value=0x14,
+        flags=CHANGE_REFR_INVENTORY if flags is None else flags,
+        type=1, version=78, data=body,
+    )
+
+
+def test_inventory_entries_decode_as_ref_id_signed_count_and_extras():
+    form = synthetic_player_change_form(items=[
+        inventory_item(1, 0x04B0BA, 22),
+        # An entry carrying extras: wrapper type 20 holding five nested
+        # entries -- UniqueId(6), ReferenceHandle(3), HotKey(1),
+        # Charge(4), Worn(0) -- exactly the shape the fixture's
+        # hotkeyed enchanted item uses.
+        inventory_item(1, 0x0341A0, 1, extra=bytes([20])
+                       + bytes([159]) + b"\x01\x02\x03\x04\x05\x06"
+                       + bytes([28]) + b"\x00\x00\x00"
+                       + bytes([73]) + b"\x07"
+                       + bytes([40]) + b"\x00\x00\x80\x3f"
+                       + bytes([22])),
+        inventory_item(1, 0x034D22, 30),
+        inventory_item(1, 0x000000F, -4),   # deltas can be negative
+    ])
+    assert parse_player_inventory(form, form_id_array=()) == [
+        (0x04B0BA, 22), (0x0341A0, 1), (0x034D22, 30), (0x00000F, -4)]
+
+
+def test_wrapper_extra_type_consumes_exactly_its_nested_entries():
+    # Type 20 wraps five entries; the walk must land on the sentinel
+    # immediately after them and not one byte to either side.
+    nested = (bytes([159]) + b"\x01\x02\x03\x04\x05\x06"   # UniqueId, 6
+              + bytes([28]) + b"\x00\x00\x00"              # ReferenceHandle, 3
+              + bytes([73]) + b"\x07"                      # HotKey, 1
+              + bytes([40]) + b"\x00\x00\x80\x3f"          # Charge, 4
+              + bytes([22]))                               # Worn, 0
+    data = bytes([20]) + nested + b"SENTINEL"
+    reader = Reader(data)
+    _skip_extra_data_entry(reader)
+    assert reader.pos == 1 + len(nested)
+    assert data[reader.pos:] == b"SENTINEL"
+
+
+def test_nested_wrapper_types_recurse():
+    # 4/8/12 wrap 1/2/3 entries; a wrapper inside a wrapper still lands
+    # exactly, which is what keeps the item walk aligned.
+    inner = bytes([4]) + bytes([28]) + b"\x00\x00\x00"     # wrapper-of-1
+    data = bytes([8]) + inner + bytes([36]) + b"\x02\x00" + b"END"
+    reader = Reader(data)
+    _skip_extra_data_entry(reader)
+    assert data[reader.pos:] == b"END"
+
+
+def test_unmodelled_extra_type_raises_naming_the_type():
+    # Type 45 (LeveledCreature) is a structure this parser deliberately
+    # does not model. It must say so and stop, never skip a guessed
+    # number of bytes and carry on misaligned.
+    reader = Reader(bytes([45]) + b"\x00" * 32)
+    with pytest.raises(SaveFormatError) as excinfo:
+        _skip_extra_data_entry(reader)
+    message = str(excinfo.value)
+    assert "45" in message
+    assert "extra-data" in message.lower()
+
+
+def test_garbage_inventory_raises_instead_of_guessing():
+    # INVENTORY flag set but the bytes are nonsense: the walk must
+    # refuse rather than return a plausible-looking inventory.
+    form = synthetic_player_change_form(
+        items=[], body=b"\x00" * 8 + vsval(20) + b"\xff" * 200)
+    with pytest.raises(SaveFormatError) as excinfo:
+        parse_player_inventory(form, form_id_array=())
+    message = str(excinfo.value)
+    assert "inventory item 0 of 20" in message
+
+
+def test_truncated_inventory_raises_instead_of_returning_a_short_list():
+    # Declares more items than there are bytes for.
+    form = synthetic_player_change_form(
+        items=[], body=b"\x00" * 8 + vsval(9) + inventory_item(1, 0x04B0BA, 22))
+    with pytest.raises(SaveFormatError) as excinfo:
+        parse_player_inventory(form, form_id_array=())
+    assert "inventory item 1 of 9" in str(excinfo.value)
+
+
+def test_malformed_player_change_form_fails_the_whole_parse(dataset):
+    # And the failure propagates out of extract_forms rather than
+    # yielding a PlayerState with a fabricated inventory.
+    plugins = PluginList(form_version=78, plugins=("Skyrim.esm",), light_plugins=())
+    broken = synthetic_player_change_form(
+        items=[], body=b"\x00" * 8 + vsval(20) + b"\xff" * 200)
+    with pytest.raises(SaveFormatError):
+        extract_forms([broken], plugins, form_id_array=(), dataset=dataset)
+
+
+def test_missing_player_change_form_is_reported(dataset):
+    plugins = PluginList(form_version=78, plugins=("Skyrim.esm",), light_plugins=())
+    with pytest.raises(SaveFormatError) as excinfo:
+        extract_forms([], plugins, form_id_array=(), dataset=dataset)
+    assert "0x14" in str(excinfo.value)
