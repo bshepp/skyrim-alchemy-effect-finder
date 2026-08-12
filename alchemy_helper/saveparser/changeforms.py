@@ -29,28 +29,35 @@ Offset rebasing -- the empirical finding:
     `compressedStart`, the file offset where the compressed body payload
     begins (i.e. this codebase's `header.body_offset`). In other words,
     the game engine writes these offsets as if the decompressed body
-    started at that file position, not at 0.
+    started at that file position, not at 0. So:
 
-    `parse_file_location_table` only receives (body, after_plugins), not
-    the header, so `header.body_offset` isn't available here to replay
-    that exact subtraction. Instead the equivalent constant is derived
-    self-consistently: global_data_table_1 is the section that begins
-    immediately after this table (no gap), so:
+        rebased_offset = raw_offset - header.body_offset
 
-        table_end        = after_plugins + 100
-        rebase_constant   = raw_global_data_table_1_offset - table_end
-        rebased_offset    = raw_offset - rebase_constant
+    `parse_file_location_table` takes `body_offset` explicitly (the
+    caller -- Task 8's parse_save -- has the parsed SaveHeader in hand)
+    and uses it as the authoritative rebase constant. As a belt-and-
+    suspenders cross-check, the same constant is independently derived
+    from a structural fact about the layout -- global_data_table_1 is
+    the section that begins immediately after this table, with no gap:
 
-    This was cross-validated against the fixture two ways:
-      - rebase_constant computed this way equals header.body_offset
-        exactly (245872 for the fixture).
-      - Using the rebased change_forms_offset, iterating exactly
-        change_form_count (46855 for the fixture) change-form records
-        consumes them with zero Reader overrun, and the reader ends up
-        at EXACTLY the (identically rebased) global_data_table_3_offset
-        -- a 0-byte difference. That is the structural proof this
-        rebasing is correct, per the task's empirical-honesty rule.
-    (Verified with a throwaway script, never committed.)
+        table_end                = after_plugins + 100
+        derived_rebase_constant  = raw_global_data_table_1_offset - table_end
+
+    If the caller-supplied `body_offset` and this derived value disagree,
+    that means either the zero-gap assumption doesn't hold for this save
+    or `body_offset` is wrong, so a SaveFormatError is raised naming both
+    values rather than silently trusting one over the other.
+
+    This was validated against the fixture (throwaway scripts, not
+    committed): `body_offset` (245872) matches the zero-gap-derived value
+    exactly, and -- the real structural proof -- iterating exactly
+    `change_form_count` (46855) change-form records from the rebased
+    change_forms_offset consumes them with zero Reader overrun and lands
+    the reader at EXACTLY the rebased global_data_table_3_offset (a
+    0-byte difference). That exact landing position is asserted by
+    `test_change_forms_end_exactly_at_global_data_table_3_offset` in
+    tests/saveparser/test_changeforms.py, via `ChangeFormIterator.
+    final_position`.
 """
 import zlib
 from dataclasses import dataclass
@@ -76,15 +83,22 @@ class FileLocationTable:
     change_form_count: int
 
 
-def parse_file_location_table(body: bytes, after_plugins: int) -> FileLocationTable:
+def parse_file_location_table(
+        body: bytes, after_plugins: int, body_offset: int) -> FileLocationTable:
     """Parse the file location table and rebase its offset fields into
-    `body`-relative coordinates (see module docstring for why rebasing
-    is necessary and how the rebase constant is derived).
+    `body`-relative coordinates.
+
+    `body_offset` is `SaveHeader.body_offset` from the same save (the
+    file offset of the uncompressedLen field, i.e. 8 bytes before where
+    the compressed payload begins) -- see module docstring for why that
+    value is the correct rebase constant.
 
     Raises:
-        SaveFormatError: a rebased offset falls outside the bounds of
-            `body`, naming the raw value, the derived rebase constant,
-            and the resulting out-of-range offset.
+        SaveFormatError: `body_offset` disagrees with the constant
+            independently derived from the table's own zero-gap layout
+            assumption (names both values), or a rebased offset falls
+            outside the bounds of `body` (names the raw value, the
+            rebase constant, and the resulting out-of-range offset).
     """
     r = Reader(body, pos=after_plugins)
     raw_form_id_array_count_offset = r.u32()
@@ -101,7 +115,17 @@ def parse_file_location_table(body: bytes, after_plugins: int) -> FileLocationTa
         r.u32()
     table_end = r.pos
 
-    rebase_constant = raw_global_data_table_1_offset - table_end
+    derived_rebase_constant = raw_global_data_table_1_offset - table_end
+    if derived_rebase_constant != body_offset:
+        raise SaveFormatError(
+            f"File location table rebase constant mismatch: caller-"
+            f"supplied body_offset={body_offset}, but the constant "
+            f"derived from global_data_table_1 starting immediately "
+            f"after this table is {derived_rebase_constant} "
+            f"(raw_global_data_table_1_offset={raw_global_data_table_1_offset}, "
+            f"table_end={table_end})"
+        )
+    rebase_constant = body_offset
 
     def rebase(field_name: str, raw_offset: int) -> int:
         offset = raw_offset - rebase_constant
@@ -144,19 +168,38 @@ class ChangeForm:
     data: bytes      # zlib-inflated when length2 != 0
 
 
-def iter_change_forms(body: bytes, table: FileLocationTable) -> Iterator[ChangeForm]:
-    """Yield exactly `table.change_form_count` ChangeForm records, in
-    file order, starting at `table.change_forms_offset`.
+class ChangeFormIterator:
+    """Iterator over the change-form records in a save body.
 
-    Raises:
-        SaveFormatError: a type byte's length-width selector is the
-            reserved value 3, or a compressed record's inflated size
-            doesn't match its declared length2.
-        SaveFormatError (from Reader): any record's declared length1
-            would run past the end of `body`.
+    Exposes `final_position` (the underlying Reader's position) so
+    callers -- and tests -- can verify the iterator consumed exactly
+    the change-form section and landed precisely at the start of the
+    next section (global_data_table_3), which is the structural proof
+    that the file-location-table offset rebasing is correct. Only
+    meaningful once iteration is exhausted.
     """
-    r = Reader(body, pos=table.change_forms_offset)
-    for i in range(table.change_form_count):
+
+    def __init__(self, body: bytes, table: FileLocationTable):
+        self._reader = Reader(body, pos=table.change_forms_offset)
+        self._table = table
+        self._index = 0
+
+    def __iter__(self) -> "ChangeFormIterator":
+        return self
+
+    def __next__(self) -> ChangeForm:
+        if self._index >= self._table.change_form_count:
+            raise StopIteration
+        form = self._parse_one(self._index)
+        self._index += 1
+        return form
+
+    @property
+    def final_position(self) -> int:
+        return self._reader.pos
+
+    def _parse_one(self, i: int) -> ChangeForm:
+        r = self._reader
         ref_bytes = r.read(3)
         ref_id = (ref_bytes[0] << 16) | (ref_bytes[1] << 8) | ref_bytes[2]
         ref_type = ref_id >> 22
@@ -191,7 +234,7 @@ def iter_change_forms(body: bytes, table: FileLocationTable) -> Iterator[ChangeF
         else:
             data = raw_data
 
-        yield ChangeForm(
+        return ChangeForm(
             ref_type=ref_type,
             ref_value=ref_value,
             flags=flags,
@@ -199,6 +242,25 @@ def iter_change_forms(body: bytes, table: FileLocationTable) -> Iterator[ChangeF
             version=version,
             data=data,
         )
+
+
+def iter_change_forms(body: bytes, table: FileLocationTable) -> Iterator[ChangeForm]:
+    """Return an iterator over exactly `table.change_form_count`
+    ChangeForm records, in file order, starting at
+    `table.change_forms_offset`.
+
+    The returned `ChangeFormIterator` additionally exposes
+    `final_position` (the reader's position once exhausted) -- see its
+    docstring and the module docstring for why that matters.
+
+    Raises:
+        SaveFormatError: a type byte's length-width selector is the
+            reserved value 3, or a compressed record's inflated size
+            doesn't match its declared length2.
+        SaveFormatError (from Reader): any record's declared length1
+            would run past the end of `body`.
+    """
+    return ChangeFormIterator(body, table)
 
 
 def parse_form_id_array(body: bytes, table: FileLocationTable) -> tuple[int, ...]:

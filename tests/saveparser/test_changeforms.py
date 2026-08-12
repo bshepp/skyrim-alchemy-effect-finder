@@ -9,9 +9,10 @@ FIXTURE = Path(__file__).parent.parent / "fixtures" / "player.ess"
 
 def load():
     data = FIXTURE.read_bytes()
-    body = read_body(data, parse_header(data))
+    header = parse_header(data)
+    body = read_body(data, header)
     _, after = parse_plugins(body)
-    return body, parse_file_location_table(body, after)
+    return body, parse_file_location_table(body, after, header.body_offset)
 
 
 def test_iterates_every_change_form_without_overrun():
@@ -19,6 +20,22 @@ def test_iterates_every_change_form_without_overrun():
     forms = list(iter_change_forms(body, table))
     assert len(forms) == table.change_form_count
     assert table.change_form_count > 1000   # real saves have many thousands
+
+
+def test_change_forms_end_exactly_at_global_data_table_3_offset():
+    # The structural proof that the file-location-table offset rebasing
+    # is correct: consuming exactly change_form_count records from
+    # change_forms_offset must leave the reader at precisely the start
+    # of the next section (global_data_table_3), not just under the
+    # buffer length. A regression that produced exactly change_form_
+    # count non-overrunning records from the wrong starting position
+    # would still pass test_iterates_every_change_form_without_overrun,
+    # but would fail this landing-position check.
+    body, table = load()
+    it = iter_change_forms(body, table)
+    forms = list(it)
+    assert len(forms) == table.change_form_count
+    assert it.final_position == table.global_data_table_3_offset
 
 
 def test_form_id_array_nonempty():
