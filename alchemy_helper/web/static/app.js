@@ -28,10 +28,20 @@ async function loadStaticData() {
   for (const s of saves) {
     saveSelect.append(new Option(`${s.name} (${s.modified_iso})`, s.path));
   }
+  // Saves are newest-first; preselect the newest so Load is one click,
+  // without auto-loading it.
+  if (saves.length > 0) {
+    saveSelect.value = saves[0].path;
+  }
 }
 
 async function refreshState() {
   STATE = await fetch('/api/state').then((r) => r.json());
+  // Seed currentSavePath from the server so Reload survives a page
+  // refresh (the server remembers player.save_path; JS state doesn't).
+  if (!currentSavePath && STATE.save_path) {
+    currentSavePath = STATE.save_path;
+  }
   renderHeader();
   renderTracker();
 }
@@ -59,6 +69,27 @@ function renderHeader() {
   let known = 0;
   for (const slots of Object.values(STATE.known_effects)) known += slots.length;
   $('progress').textContent = `${known} of ${total} effect-slots discovered`;
+
+  renderUnknownFormsBanner();
+}
+
+function renderUnknownFormsBanner() {
+  const banner = $('unknown-forms-banner');
+  const forms = STATE.unknown_forms || [];
+  if (forms.length === 0) {
+    banner.hidden = true;
+    banner.innerHTML = '';
+    return;
+  }
+  const items = forms
+    .map((f) => {
+      const hexId = f.form_id.toString(16).toUpperCase().padStart(6, '0');
+      return `<li>${f.plugin} (0x${hexId})</li>`;
+    })
+    .join('');
+  banner.hidden = false;
+  banner.innerHTML = `⚠ ${forms.length} unknown ingredient(s) in your save — the dataset may not match your game`
+    + `<ul class="unknown-forms-list">${items}</ul>`;
 }
 
 async function loadSavePath(path) {
@@ -90,8 +121,11 @@ function switchTab(name) {
   }
 }
 
-function renderBanner(container, message) {
-  container.innerHTML = `<div class="banner-amber">${message}</div>`;
+const COMBINATORICS_ERROR_MSG =
+  'your combinatorics implementation raised an error — check the server console';
+
+function renderBanner(container, message, variant = 'amber') {
+  container.innerHTML = `<div class="banner-${variant}">${message}</div>`;
 }
 
 async function findCombos() {
@@ -102,10 +136,15 @@ async function findCombos() {
     return;
   }
   const onlyInventory = $('only-inventory-check').checked;
-  const data = await fetch(
+  const r = await fetch(
     `/api/combos?effect=${encodeURIComponent(effectId)}&only_inventory=${onlyInventory}`
-  ).then((r) => r.json());
+  );
+  const data = await r.json().catch(() => null);
 
+  if (!r.ok || !data || (!data.not_implemented && !Array.isArray(data.combos))) {
+    renderBanner(results, COMBINATORICS_ERROR_MSG, 'red');
+    return;
+  }
   if (data.not_implemented) {
     renderBanner(results, data.message);
     return;
@@ -126,7 +165,13 @@ async function findCombos() {
 
 async function computePlan() {
   const results = $('plan-results');
-  const data = await fetch('/api/discovery-plan').then((r) => r.json());
+  const r = await fetch('/api/discovery-plan');
+  const data = await r.json().catch(() => null);
+
+  if (!r.ok || !data || (!data.not_implemented && !Array.isArray(data.plan))) {
+    renderBanner(results, COMBINATORICS_ERROR_MSG, 'red');
+    return;
+  }
   if (data.not_implemented) {
     renderBanner(results, data.message);
     return;
