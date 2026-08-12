@@ -186,8 +186,36 @@ checkbox) and **Discovery Plan**'s **Compute plan** button returns a real
 brew list, both computed by the functions you just wrote.
 
 The default `pytest` run (no `-m` flag, what CI/you should use day to day
-for everything else) always deselects these 9 — see **Final verification**
-below for why that's intentional and not something hiding a failure.
+for everything else) always deselects these 9 by design — `pyproject.toml`
+sets `addopts = "-m 'not combinatorics'"` specifically so a plain `pytest`
+never reports your in-progress work as failing. Use `pytest -m
+combinatorics -v` (this section) whenever you want to see where that work
+actually stands. See **Final verification** below for the exact commands
+and expected output for both runs together.
+
+## Final verification
+
+Three checks confirm the app is in the state this README describes — a
+freshly cloned checkout, with nothing in `combinatorics/core.py`
+implemented yet, should reproduce all three exactly:
+
+```bash
+pytest -v
+```
+→ **69 passed, 9 deselected**. Everything except the combinatorics module
+is implemented and green.
+
+```bash
+pytest -m combinatorics -v
+```
+→ **9 failed, 69 deselected**, every failure a bare `NotImplementedError`
+(see **Your TDD loop** above) — expected red, not a broken build.
+
+```bash
+python -m alchemy_helper --no-browser
+```
+→ boots without error and serves the app at `http://127.0.0.1:8712/`
+(`Ctrl+C` to stop). Add `--port <N>` to check a different port.
 
 ## Manual mode & overrides
 
@@ -255,7 +283,7 @@ back to extend it:
 
 This project is [MIT licensed](LICENSE).
 
-No code is copied from any prior-art project. Two projects were read
+No code is copied from any prior-art project. The following were read
 purely as *file-format* references while writing the save parser (file
 format facts aren't copyrightable; their source was not):
 
