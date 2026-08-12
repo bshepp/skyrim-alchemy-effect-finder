@@ -9,6 +9,13 @@ let showUncarried = false;
 
 const $ = (id) => document.getElementById(id);
 
+// HTML-escape untrusted (save-derived) strings before they reach innerHTML.
+// Dataset-derived text (ingredient/effect names) is committed, trusted JSON
+// and is intentionally left alone.
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+}[c]));
+
 async function loadStaticData() {
   const [effects, ingredients, saves] = await Promise.all([
     fetch('/api/effects').then((r) => r.json()),
@@ -84,7 +91,7 @@ function renderUnknownFormsBanner() {
   const items = forms
     .map((f) => {
       const hexId = f.form_id.toString(16).toUpperCase().padStart(6, '0');
-      return `<li>${f.plugin} (0x${hexId})</li>`;
+      return `<li>${esc(f.plugin)} (0x${hexId})</li>`;
     })
     .join('');
   banner.hidden = false;
