@@ -26,10 +26,12 @@ both the parser and this decoding at once.
 
 These are the pinned assertions for Task 8's `parse_save` inventory test.
 
-## Known (discovered) effects
+## Known (discovered) effects (reported by the user, 2026-08-11)
 
-Not recorded up front. Protocol for Task 8: after the extractor first produces
-`known_effects` for Bee, Garlic, and Wheat, present those slot patterns to the
-user for confirmation against the in-game alchemy view, then pin the confirmed
-values in the tests. Until confirmed, the known-effects assertions are
-provisional (parser-derived).
+- **Wheat**: "restore health, fortify health" revealed; other two hidden.
+- **Garlic**: "Resist Poison, Regenerate Health" revealed; other two hidden.
+- **Bee**: not reported. Protocol: pin the parser-derived value, then present
+  it to the user for confirmation against the in-game alchemy view.
+
+Task 8 must map these effect NAMES to slot indexes via the shipped dataset's
+slot order (do not assume slot positions independently of the dataset).
