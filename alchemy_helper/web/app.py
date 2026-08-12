@@ -8,7 +8,7 @@ from dataclasses import asdict, is_dataclass
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -133,9 +133,35 @@ def create_app(data_dir: Path | None = None,
 
     @app.post("/api/override")
     def post_override(req: OverrideRequest):
-        state.overrides.set_have(req.ingredient_id, req.have)
-        known = set(req.known_slots) if req.known_slots is not None else None
-        state.overrides.set_known(req.ingredient_id, known)
+        if req.ingredient_id not in dataset.ingredients:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Unknown ingredient id: {req.ingredient_id!r}")
+
+        fields_set = req.model_fields_set
+
+        if "have" in fields_set and req.have is not None and req.have < 0:
+            raise HTTPException(
+                status_code=422,
+                detail=f"have must be >= 0, got {req.have}")
+
+        if "known_slots" in fields_set and req.known_slots is not None:
+            bad_slots = [s for s in req.known_slots if not (0 <= s <= 3)]
+            if bad_slots:
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"known_slots must be within 0..3, got {bad_slots}")
+
+        # Only touch fields the client actually sent -- omitted fields must
+        # leave the sibling override untouched; a field sent as explicit
+        # null is a deliberate clear (Overrides treats None as "clear").
+        if "have" in fields_set:
+            state.overrides.set_have(req.ingredient_id, req.have)
+
+        if "known_slots" in fields_set:
+            known = set(req.known_slots) if req.known_slots is not None else None
+            state.overrides.set_known(req.ingredient_id, known)
+
         state.overrides.save()
         return state_payload()
 
