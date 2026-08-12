@@ -32,14 +32,40 @@ class Overrides:
             self._load()
 
     def _load(self) -> None:
-        """Load overrides from JSON file."""
+        """Load overrides from JSON file, degrading to empty on any corruption."""
         try:
             data = json.loads(self.path.read_text(encoding="utf-8"))
-            # Restore known sets from sorted lists
-            self.have = data.get("have", {})
-            self.known = {k: set(v) for k, v in data.get("known", {}).items()}
-        except (json.JSONDecodeError, IOError):
-            # If file is corrupt or unreadable, start fresh
+
+            # Validate top-level is a dict
+            if not isinstance(data, dict):
+                self.have = {}
+                self.known = {}
+                return
+
+            # Load have: must be dict with int values
+            have_data = data.get("have", {})
+            if isinstance(have_data, dict):
+                self.have = {
+                    k: v for k, v in have_data.items()
+                    if isinstance(k, str) and isinstance(v, int)
+                }
+            else:
+                self.have = {}
+
+            # Load known: must be dict with list[int] values
+            known_data = data.get("known", {})
+            if isinstance(known_data, dict):
+                self.known = {}
+                for k, v in known_data.items():
+                    if isinstance(k, str) and isinstance(v, list):
+                        # Validate all elements are ints
+                        if all(isinstance(slot, int) for slot in v):
+                            self.known[k] = set(v)
+            else:
+                self.known = {}
+
+        except (json.JSONDecodeError, UnicodeDecodeError, OSError):
+            # If file is corrupt, unreadable, or wrong encoding, start fresh
             self.have = {}
             self.known = {}
 
@@ -65,7 +91,7 @@ class Overrides:
         if slots is None:
             self.known.pop(ingredient_id, None)
         else:
-            self.known[ingredient_id] = slots
+            self.known[ingredient_id] = set(slots)
 
     def save(self) -> None:
         """Write overrides to JSON file, creating parent directories."""
