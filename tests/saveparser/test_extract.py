@@ -80,8 +80,8 @@ def test_known_effects_match_what_the_user_sees_in_the_alchemy_menu(state, datas
 
 
 def test_bee_has_no_discovered_effects(state):
-    # NOT user-confirmed. FACTS.md protocol: pin the parser-derived value
-    # and present it for confirmation against the in-game alchemy view.
+    # User-confirmed 2026-08-13 against the in-game alchemy view: nothing
+    # discovered for Bee (see FACTS.md).
     # The save contains no ingredient-use change form for Bee at all,
     # which is how the game records "nothing discovered yet".
     assert state.known_effects.get("bee", frozenset()) == frozenset()

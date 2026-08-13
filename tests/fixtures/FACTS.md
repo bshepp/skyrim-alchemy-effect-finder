@@ -30,8 +30,9 @@ These are the pinned assertions for Task 8's `parse_save` inventory test.
 
 - **Wheat**: "restore health, fortify health" revealed; other two hidden.
 - **Garlic**: "Resist Poison, Regenerate Health" revealed; other two hidden.
-- **Bee**: not reported. Protocol: pin the parser-derived value, then present
-  it to the user for confirmation against the in-game alchemy view.
+- **Bee**: nothing discovered — all four effects hidden. Parser-derived first
+  (the save has no ingredient-use change form for Bee), then confirmed by the
+  user against the in-game alchemy view on 2026-08-13.
 
 Task 8 must map these effect NAMES to slot indexes via the shipped dataset's
 slot order (do not assume slot positions independently of the dataset).
