@@ -5,7 +5,7 @@ from alchemy_helper.combinatorics.core import (
     combos_for_effect, potion_effects, discovery_plan)
 from alchemy_helper.combinatorics.types import Combo, EffectResult, PlannedBrew
 
-pytestmark = pytest.mark.combinatorics   # excluded from default runs
+pytestmark = pytest.mark.combinatorics   # select just these: pytest -m combinatorics
 
 def ing(id_, *effects):
     return Ingredient(id=id_, name=id_.upper(), plugin="Test.esp",

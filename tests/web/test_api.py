@@ -35,25 +35,49 @@ def test_override_roundtrip(tmp_path):
     assert r["inventory"]["wheat"] == 5
     assert r["known_effects"]["wheat"] == [0, 1]
 
-def test_combinatorics_not_implemented_is_friendly(tmp_path):
+def test_combos_endpoint_returns_real_combos(tmp_path):
     c = client(tmp_path)
     r = c.get("/api/combos", params={"effect": "fortify-health"})
-    assert r.status_code == 200 and r.json()["not_implemented"] is True
+    assert r.status_code == 200
+    combos = r.json()["combos"]
+    assert combos
+    assert all("fortify-health" in combo["effect_ids"] for combo in combos)
 
-def test_discovery_plan_not_implemented_is_friendly(tmp_path):
+def test_potion_endpoint_returns_real_effects(tmp_path):
     c = client(tmp_path)
+    r = c.post("/api/potion", json={"ingredient_ids": ["wheat", "giants-toe"]})
+    assert r.status_code == 200
+    assert {e["effect_id"] for e in r.json()["effects"]} == {
+        "fortify-health", "damage-stamina-regen"}
+
+def test_discovery_plan_endpoint_returns_real_plan(tmp_path):
+    c = client(tmp_path)
+    c.post("/api/override", json={"ingredient_id": "wheat", "have": 5})
+    c.post("/api/override", json={"ingredient_id": "giants-toe", "have": 5})
     r = c.get("/api/discovery-plan")
-    assert r.status_code == 200 and r.json()["not_implemented"] is True
+    assert r.status_code == 200
+    plan = r.json()["plan"]
+    # wheat and giant's toe share two effects; one brew reveals both on both.
+    assert len(plan) == 1
+    assert plan[0]["ingredient_ids"] == ["giants-toe", "wheat"]
+    assert len(plan[0]["newly_discovered"]) == 4
 
-def test_potion_not_implemented_is_friendly(tmp_path):
+def test_potion_unknown_ingredient_is_422(tmp_path):
     c = client(tmp_path)
-    r = c.post("/api/potion", json={"ingredient_ids": ["wheat", "salt"]})
-    assert r.status_code == 200 and r.json()["not_implemented"] is True
+    r = c.post("/api/potion", json={"ingredient_ids": ["wheat", "not-real"]})
+    assert r.status_code == 422
+
+def test_potion_wrong_ingredient_count_is_422(tmp_path):
+    c = client(tmp_path)
+    for ids in (["wheat"], ["wheat", "garlic", "bee", "giants-toe"],
+                ["wheat", "wheat"]):
+        assert c.post("/api/potion",
+                      json={"ingredient_ids": ids}).status_code == 422
 
 def test_combos_serializes_expected_json_shape(tmp_path, monkeypatch):
     """Pins the _jsonable seam the frontend destructures: combo.ingredient_ids
     and combo.effect_ids must survive as plain lists in insertion order,
-    before the owner's real combinatorics implementation ever runs."""
+    independent of the real combinatorics implementation."""
     def fake_combos_for_effect(effect_id, ingredients, inventory=None):
         return [Combo(ingredient_ids=("wheat", "salt"),
                       effect_ids=("fortify-health",))]

@@ -129,7 +129,7 @@ function switchTab(name) {
 }
 
 const COMBINATORICS_ERROR_MSG =
-  'your combinatorics implementation raised an error — check the server console';
+  'the combinatorics backend returned an error — check the server console';
 
 function renderBanner(container, message, variant = 'amber') {
   container.innerHTML = `<div class="banner-${variant}">${message}</div>`;
@@ -148,12 +148,8 @@ async function findCombos() {
   );
   const data = await r.json().catch(() => null);
 
-  if (!r.ok || !data || (!data.not_implemented && !Array.isArray(data.combos))) {
+  if (!r.ok || !data || !Array.isArray(data.combos)) {
     renderBanner(results, COMBINATORICS_ERROR_MSG, 'red');
-    return;
-  }
-  if (data.not_implemented) {
-    renderBanner(results, data.message);
     return;
   }
   if (data.combos.length === 0) {
@@ -175,12 +171,8 @@ async function computePlan() {
   const r = await fetch('/api/discovery-plan');
   const data = await r.json().catch(() => null);
 
-  if (!r.ok || !data || (!data.not_implemented && !Array.isArray(data.plan))) {
+  if (!r.ok || !data || !Array.isArray(data.plan)) {
     renderBanner(results, COMBINATORICS_ERROR_MSG, 'red');
-    return;
-  }
-  if (data.not_implemented) {
-    renderBanner(results, data.message);
     return;
   }
   if (data.plan.length === 0) {

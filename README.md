@@ -2,17 +2,16 @@
 
 A local web app for Skyrim Special Edition alchemy: it reads your save file,
 tracks which of the four effects on each ingredient you've discovered in
-game, and (once you finish the combinatorics module — see below) finds
-ingredient combos for a target effect and plans brews that discover
-everything reachable from your inventory in as few brews as possible.
+game, finds ingredient combos for a target effect, and plans brews that
+discover everything reachable from your inventory in as few brews as
+possible.
 
 Runs entirely on your machine (`127.0.0.1`, no network access) as a small
 FastAPI backend serving a static HTML/JS/CSS frontend. No accounts, no
 telemetry, nothing leaves your computer.
 
 <!-- screenshot: three-tab UI (Effect Finder / Discovery Tracker / Discovery
-     Plan) with a loaded save, goes here once the combinatorics tabs have
-     real output to show off -->
+     Plan) with a loaded save, goes here -->
 
 ## What it does
 
@@ -22,8 +21,7 @@ Three tabs:
   combination that produces it. Toggle between "only ingredients I have"
   and every ingredient in the dataset.
 - **Discovery Tracker** — every ingredient with its 4 effect slots, which
-  are known vs. unknown, and an overall discovery progress count. Works
-  today, independent of the combinatorics module.
+  are known vs. unknown, and an overall discovery progress count.
 - **Discovery Plan** — a brew plan that discovers every effect reachable
   from your carried ingredients, in as few brews as possible.
 
@@ -67,29 +65,35 @@ Only the current Steam release of Skyrim SE is supported (save format
 version 12). See **Troubleshooting** below for what happens on anything
 else.
 
-## Writing the combinatorics (that's you!)
+## The combinatorics module
 
-The combo-finding and brew-planning logic in
-`alchemy_helper/combinatorics/core.py` is yours to implement. Everything
-else — dataset, save parser, web API, frontend, tests — is done. Right now
-all three functions in that file are stubs that `raise NotImplementedError`,
-and the test suite that pins their contracts is already committed at
-`tests/combinatorics/test_user_module.py`.
+The combo-finding and brew-planning logic lives in
+`alchemy_helper/combinatorics/core.py`, pinned by the 9 tests in
+`tests/combinatorics/test_user_module.py` (select just those with
+`pytest -m combinatorics -v`).
 
-Until you implement them, the app still works: the **Discovery Tracker** tab
-and save loading/reloading are fully functional, since neither depends on
-this module. The **Effect Finder** and **Discovery Plan** tabs show a
-friendly amber banner ("This lives in alchemy_helper/combinatorics/core.py —
-yours to write! Run: pytest -m combinatorics") instead of crashing, because
-the API catches `NotImplementedError` and returns that message instead of a
-500.
+Everything derives from Skyrim's brewing rule: a potion mixes 2 or 3
+distinct ingredients and produces every effect that at least two of them
+share; a mix sharing nothing fails (the game refuses the brew). Brewing a
+successful potion reveals, on every participating ingredient, each produced
+effect that ingredient has.
+
+- `potion_effects` applies that rule directly to one mix.
+- `combos_for_effect` enumerates every 2- or 3-ingredient combination
+  producing a target effect: every pair of ingredients having the effect,
+  plus each such pair extended by any third ingredient — the third doesn't
+  need the effect itself, since the pair still shares it inside the trio.
+- `discovery_plan` finds brews until nothing discoverable is left. The
+  fewest brews covering every reachable (ingredient, effect-slot) pair is
+  set cover (NP-hard), so it's greedy: each round brews the mix revealing
+  the most still-unknown slots (ties: fewer ingredients, then
+  lexicographic), consuming 1 of each used ingredient from stock.
 
 ### The contract
 
-Three functions, imported by the web layer with these exact signatures.
-Their docstrings (copied verbatim from `core.py`) are the spec — the test
-suite in `tests/combinatorics/test_user_module.py` is written directly
-against them:
+Three functions, imported by the web layer with these exact signatures. The
+contract lines of their docstrings are the spec — the test suite is written
+directly against them:
 
 ```python
 def combos_for_effect(effect_id: str, ingredients: Sequence[Ingredient],
@@ -134,39 +138,15 @@ class PlannedBrew:
 `combinatorics/` is deliberately isolated: it imports nothing from
 `saveparser/` or `web/`, only `alchemy_helper.data.models.Ingredient` and its
 own `types` module. It takes plain data in and returns plain data out — pure
-logic, no I/O — so you can write and test it with nothing but `pytest`
-running.
+logic, no I/O — so it can be tested with nothing but `pytest` running.
 
 Note that `potion_effects` is exercised by the test suite and reachable via
 `POST /api/potion`, but the current frontend doesn't call that endpoint from
-either tab — it's there for you to use if/when you wire up a "what does this
-specific mix do" view.
+either tab — it's there for a future "what does this specific mix do" view.
 
-### Your TDD loop
+### Its tests
 
-```bash
-pytest -m combinatorics -v
-```
-
-Right now (stubs in place) this is **red**: 9 failed, 69 deselected, every
-failure a bare `NotImplementedError` raised from the `raise
-NotImplementedError` line in the relevant stub — not an assertion mismatch,
-because nothing has been implemented yet. That's the expected starting
-state, not a bug.
-
-Implement one function at a time (they're independent — start wherever you
-like, `potion_effects` is the smallest), rerun the same command, and watch
-failures drop as each function starts returning real data instead of
-raising. **Green** is:
-
-```
-9 passed, 69 deselected
-```
-
-with no output from the assertions themselves — a clean `pytest -m
-combinatorics -v` run naming all 9 tests as `PASSED`.
-
-The 9 tests cover, in `tests/combinatorics/test_user_module.py`:
+The 9 tests in `tests/combinatorics/test_user_module.py` cover:
 
 - `potion_effects`: a shared-effect pair, a no-shared-effect pair (must
   return `[]`), a trio producing three distinct shared effects, and a
@@ -179,37 +159,16 @@ The 9 tests cover, in `tests/combinatorics/test_user_module.py`:
   scenario constrained by low inventory counts, and the empty-plan case when
   every discoverable effect is already known.
 
-Once `pytest -m combinatorics -v` is green, start the app
-(`python -m alchemy_helper`) and the amber banners are gone: **Effect
-Finder** returns real combo lists (respecting the "only ingredients I have"
-checkbox) and **Discovery Plan**'s **Compute plan** button returns a real
-brew list, both computed by the functions you just wrote.
-
-The default `pytest` run (no `-m` flag, what CI/you should use day to day
-for everything else) always deselects these 9 by design — `pyproject.toml`
-sets `addopts = "-m 'not combinatorics'"` specifically so a plain `pytest`
-never reports your in-progress work as failing. Use `pytest -m
-combinatorics -v` (this section) whenever you want to see where that work
-actually stands. See **Final verification** below for the exact commands
-and expected output for both runs together.
-
 ## Final verification
 
-Three checks confirm the app is in the state this README describes — a
-freshly cloned checkout, with nothing in `combinatorics/core.py`
-implemented yet, should reproduce all three exactly:
+Two checks confirm a freshly cloned checkout is in the state this README
+describes:
 
 ```bash
 pytest -v
 ```
-→ **69 passed, 9 deselected**. Everything except the combinatorics module
-is implemented and green.
-
-```bash
-pytest -m combinatorics -v
-```
-→ **9 failed, 69 deselected**, every failure a bare `NotImplementedError`
-(see **Your TDD loop** above) — expected red, not a broken build.
+→ **86 passed** — dataset, save parser, app state, web API, and
+combinatorics, all green.
 
 ```bash
 python -m alchemy_helper --no-browser

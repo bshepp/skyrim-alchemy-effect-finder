@@ -22,15 +22,6 @@ from alchemy_helper.web.saves import default_saves_dir, list_saves
 
 STATIC_DIR = Path(__file__).parent / "static"
 
-NOT_IMPL = {
-    "not_implemented": True,
-    "message": (
-        "This lives in alchemy_helper/combinatorics/core.py — yours to "
-        "write! Run: pytest -m combinatorics"
-    ),
-}
-
-
 class LoadSaveRequest(BaseModel):
     path: str
 
@@ -169,31 +160,28 @@ def create_app(data_dir: Path | None = None,
     @app.get("/api/combos")
     def get_combos(effect: str, only_inventory: bool = False):
         inventory = state.effective_inventory() if only_inventory else None
-        try:
-            combos = combos_for_effect(
-                effect, list(dataset.ingredients.values()), inventory)
-        except NotImplementedError:
-            return NOT_IMPL
+        combos = combos_for_effect(
+            effect, list(dataset.ingredients.values()), inventory)
         return {"combos": [_jsonable(combo) for combo in combos]}
 
     @app.post("/api/potion")
     def post_potion(req: PotionRequest):
-        try:
-            effects = potion_effects(req.ingredient_ids, list(dataset.ingredients.values()))
-        except NotImplementedError:
-            return NOT_IMPL
+        ids = req.ingredient_ids
+        if not 2 <= len(ids) <= 3 or len(set(ids)) != len(ids):
+            raise HTTPException(422, "a potion mixes 2 or 3 distinct ingredients")
+        unknown = sorted(set(ids) - set(dataset.ingredients))
+        if unknown:
+            raise HTTPException(422, f"unknown ingredient ids: {unknown}")
+        effects = potion_effects(ids, list(dataset.ingredients.values()))
         return {"effects": [_jsonable(effect) for effect in effects]}
 
     @app.get("/api/discovery-plan")
     def get_discovery_plan():
-        try:
-            plan = discovery_plan(
-                list(dataset.ingredients.values()),
-                state.effective_inventory(),
-                state.effective_known(),
-            )
-        except NotImplementedError:
-            return NOT_IMPL
+        plan = discovery_plan(
+            list(dataset.ingredients.values()),
+            state.effective_inventory(),
+            state.effective_known(),
+        )
         return {"plan": [_jsonable(brew) for brew in plan]}
 
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")

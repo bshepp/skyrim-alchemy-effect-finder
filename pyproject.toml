@@ -17,7 +17,6 @@ build-backend = "setuptools.build_meta"
 include = ["alchemy_helper*"]
 
 [tool.pytest.ini_options]
-addopts = "-m 'not combinatorics'"
 markers = [
-  "combinatorics: tests for the user-implemented module (run with: pytest -m combinatorics)",
+  "combinatorics: tests for the combinatorics module (select with: pytest -m combinatorics)",
 ]
