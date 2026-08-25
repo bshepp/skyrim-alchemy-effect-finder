@@ -2,7 +2,7 @@ import pytest
 from alchemy_helper.data.models import Ingredient
 from alchemy_helper.data.loader import load_dataset
 from alchemy_helper.combinatorics.core import (
-    combos_for_effect, potion_effects, discovery_plan)
+    combos_for_effect, potion_effects, discovery_plan, best_potions)
 from alchemy_helper.combinatorics.types import Combo, EffectResult, PlannedBrew
 
 pytestmark = pytest.mark.combinatorics   # select just these: pytest -m combinatorics
@@ -63,3 +63,24 @@ def test_inventory_limits_plan():
 def test_nothing_left_to_discover_is_empty_plan():
     known = {"a": {0, 1}, "b": {0, 1}, "c": {0, 1}}
     assert discovery_plan(TRIO, {"a": 5, "b": 5, "c": 5}, known) == []
+
+# --- best_potions ---
+def test_best_potions_ranks_by_effect_count():
+    pots = best_potions(TRIO, {"a": 1, "b": 1, "c": 1})
+    assert pots[0].ingredient_ids == ("a", "b", "c")     # 3 merged effects
+    assert pots[0].effect_ids == ("e1", "e2", "e5")
+    # then the three 1-effect pairs; failed mixes never appear
+    assert {p.ingredient_ids for p in pots[1:]} == {("a","b"), ("a","c"), ("b","c")}
+
+def test_best_potions_only_uses_carried_ingredients():
+    pots = best_potions(TRIO, {"a": 1, "b": 1})
+    assert {p.ingredient_ids for p in pots} == {("a", "b")}
+
+def test_best_potions_excludes_failed_mixes():
+    d = ing("d", "x1", "x2", "x3", "x4")
+    assert best_potions(TRIO + [d], {"a": 1, "d": 1}) == []
+
+def test_best_potions_respects_limit():
+    pots = best_potions(TRIO, {"a": 1, "b": 1, "c": 1}, limit=2)
+    assert len(pots) == 2
+    assert pots[0].ingredient_ids == ("a", "b", "c")

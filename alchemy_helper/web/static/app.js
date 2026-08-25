@@ -191,6 +191,32 @@ async function computePlan() {
     .join('');
 }
 
+async function findBestPotions() {
+  const results = $('potions-results');
+  results.innerHTML = '<p class="hint">computing…</p>';
+  const r = await fetch('/api/best-potions');
+  const data = await r.json().catch(() => null);
+
+  if (!r.ok || !data || !Array.isArray(data.potions)) {
+    renderBanner(results, COMBINATORICS_ERROR_MSG, 'red');
+    return;
+  }
+  if (data.potions.length === 0) {
+    results.innerHTML =
+      '<p class="hint">No craftable potions — no two carried ingredients share an effect.</p>';
+    return;
+  }
+  results.innerHTML = data.potions
+    .map((potion) => {
+      const names = potion.ingredient_ids.map((id) => ingredientName(id)).join(' + ');
+      const effects = potion.effect_ids.map((id) => effectName(id)).join(', ');
+      const n = potion.effect_ids.length;
+      return `<div class="card"><div class="card-title">${names} — ${n} effect${n === 1 ? '' : 's'}</div>
+        <div class="card-sub">effects: ${effects}</div></div>`;
+    })
+    .join('');
+}
+
 function ingredientName(id) {
   const ing = INGREDIENTS.find((i) => i.id === id);
   return ing ? ing.name : id;
@@ -276,6 +302,7 @@ function wireEvents() {
 
   $('find-combos-btn').addEventListener('click', findCombos);
   $('compute-plan-btn').addEventListener('click', computePlan);
+  $('find-potions-btn').addEventListener('click', findBestPotions);
 
   $('show-uncarried-check').addEventListener('change', (e) => {
     showUncarried = e.target.checked;

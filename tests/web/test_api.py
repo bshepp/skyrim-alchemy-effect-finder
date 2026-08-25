@@ -62,6 +62,26 @@ def test_discovery_plan_endpoint_returns_real_plan(tmp_path):
     assert plan[0]["ingredient_ids"] == ["giants-toe", "wheat"]
     assert len(plan[0]["newly_discovered"]) == 4
 
+def test_best_potions_endpoint_ranks_by_effect_count(tmp_path):
+    c = client(tmp_path)
+    for iid in ("wheat", "giants-toe", "blue-mountain-flower"):
+        c.post("/api/override", json={"ingredient_id": iid, "have": 5})
+    r = c.get("/api/best-potions")
+    assert r.status_code == 200
+    potions = r.json()["potions"]
+    assert len(potions) == 4          # the trio + all three pairs share effects
+    assert potions[0]["ingredient_ids"] == [
+        "blue-mountain-flower", "giants-toe", "wheat"]
+    assert potions[0]["effect_ids"] == [
+        "damage-stamina-regen", "fortify-health", "restore-health"]
+    counts = [len(p["effect_ids"]) for p in potions]
+    assert counts == sorted(counts, reverse=True)
+
+def test_best_potions_bad_limit_is_422(tmp_path):
+    c = client(tmp_path)
+    assert c.get("/api/best-potions", params={"limit": 0}).status_code == 422
+    assert c.get("/api/best-potions", params={"limit": 9999}).status_code == 422
+
 def test_potion_unknown_ingredient_is_422(tmp_path):
     c = client(tmp_path)
     r = c.post("/api/potion", json={"ingredient_ids": ["wheat", "not-real"]})

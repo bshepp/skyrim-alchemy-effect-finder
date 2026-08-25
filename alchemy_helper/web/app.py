@@ -12,7 +12,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from alchemy_helper.combinatorics.core import (combos_for_effect,
+from alchemy_helper.combinatorics.core import (best_potions,
+                                                combos_for_effect,
                                                 discovery_plan,
                                                 potion_effects)
 from alchemy_helper.data.loader import load_dataset
@@ -174,6 +175,15 @@ def create_app(data_dir: Path | None = None,
             raise HTTPException(422, f"unknown ingredient ids: {unknown}")
         effects = potion_effects(ids, list(dataset.ingredients.values()))
         return {"effects": [_jsonable(effect) for effect in effects]}
+
+    @app.get("/api/best-potions")
+    def get_best_potions(limit: int = 50):
+        if not 1 <= limit <= 500:
+            raise HTTPException(422, "limit must be between 1 and 500")
+        potions = best_potions(
+            list(dataset.ingredients.values()), state.effective_inventory(),
+            limit)
+        return {"potions": [_jsonable(potion) for potion in potions]}
 
     @app.get("/api/discovery-plan")
     def get_discovery_plan():

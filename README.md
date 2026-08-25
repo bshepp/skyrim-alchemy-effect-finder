@@ -10,12 +10,12 @@ Runs entirely on your machine (`127.0.0.1`, no network access) as a small
 FastAPI backend serving a static HTML/JS/CSS frontend. No accounts, no
 telemetry, nothing leaves your computer.
 
-<!-- screenshot: three-tab UI (Effect Finder / Discovery Tracker / Discovery
-     Plan) with a loaded save, goes here -->
+<!-- screenshot: four-tab UI (Effect Finder / Discovery Tracker / Discovery
+     Plan / Best Potions) with a loaded save, goes here -->
 
 ## What it does
 
-Three tabs:
+Four tabs:
 
 - **Effect Finder** — pick an effect, see every 2- or 3-ingredient
   combination that produces it. Toggle between "only ingredients I have"
@@ -24,6 +24,9 @@ Three tabs:
   are known vs. unknown, and an overall discovery progress count.
 - **Discovery Plan** — a brew plan that discovers every effect reachable
   from your carried ingredients, in as few brews as possible.
+- **Best Potions** — every potion craftable from what you carry, ranked by
+  how many effects it merges. Effect count is the Phase-1 proxy for potion
+  value and alchemy XP (real magnitude/gold math is a Phase 2+ idea).
 
 The dataset covers vanilla Skyrim SE plus Dawnguard, Hearthfire, Dragonborn,
 and the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare
@@ -68,7 +71,7 @@ else.
 ## The combinatorics module
 
 The combo-finding and brew-planning logic lives in
-`alchemy_helper/combinatorics/core.py`, pinned by the 9 tests in
+`alchemy_helper/combinatorics/core.py`, pinned by the 13 tests in
 `tests/combinatorics/test_user_module.py` (select just those with
 `pytest -m combinatorics -v`).
 
@@ -88,6 +91,9 @@ effect that ingredient has.
   set cover (NP-hard), so it's greedy: each round brews the mix revealing
   the most still-unknown slots (ties: fewer ingredients, then
   lexicographic), consuming 1 of each used ingredient from stock.
+- `best_potions` enumerates every craftable mix from inventory and ranks
+  by effect count (most first; ties: fewer ingredients, then
+  lexicographic), returning at most `limit`.
 
 ### The contract
 
@@ -146,7 +152,7 @@ either tab — it's there for a future "what does this specific mix do" view.
 
 ### Its tests
 
-The 9 tests in `tests/combinatorics/test_user_module.py` cover:
+The 13 tests in `tests/combinatorics/test_user_module.py` cover:
 
 - `potion_effects`: a shared-effect pair, a no-shared-effect pair (must
   return `[]`), a trio producing three distinct shared effects, and a
@@ -158,6 +164,8 @@ The 9 tests in `tests/combinatorics/test_user_module.py` cover:
   beats three pairwise brews (coverage-first, brews-as-tiebreaker), the same
   scenario constrained by low inventory counts, and the empty-plan case when
   every discoverable effect is already known.
+- `best_potions`: ranking by merged-effect count, inventory filtering,
+  exclusion of failed mixes, and the `limit` cap.
 
 ## Final verification
 
@@ -167,7 +175,7 @@ describes:
 ```bash
 pytest -v
 ```
-→ **86 passed** — dataset, save parser, app state, web API, and
+→ **92 passed** — dataset, save parser, app state, web API, and
 combinatorics, all green.
 
 ```bash

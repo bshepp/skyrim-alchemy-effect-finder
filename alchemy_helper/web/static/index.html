@@ -31,6 +31,7 @@
     <button class="tab-btn active" data-tab="finder" type="button">Effect Finder</button>
     <button class="tab-btn" data-tab="tracker" type="button">Discovery Tracker</button>
     <button class="tab-btn" data-tab="plan" type="button">Discovery Plan</button>
+    <button class="tab-btn" data-tab="potions" type="button">Best Potions</button>
   </nav>
 
   <main>
@@ -76,6 +77,16 @@
         <button id="compute-plan-btn" type="button">Compute plan</button>
       </div>
       <div id="plan-results" class="results"></div>
+    </section>
+
+    <section id="tab-potions" class="tab-panel">
+      <div class="toolbar">
+        <button id="find-potions-btn" type="button">Find potions</button>
+        <span class="hint">craftable from what you carry, most merged effects
+          first — more effects means a more valuable potion and more alchemy
+          XP</span>
+      </div>
+      <div id="potions-results" class="results"></div>
     </section>
 
   </main>

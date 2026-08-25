@@ -53,6 +53,27 @@ def potion_effects(ingredient_ids: Sequence[str],
     return _produced([by_id[iid] for iid in ingredient_ids])
 
 
+def best_potions(ingredients: Sequence[Ingredient],
+                 inventory: Mapping[str, int],
+                 limit: int = 50) -> list[Combo]:
+    """Craftable 2-3 ingredient mixes from inventory (count >= 1), ranked by
+    how many effects each produces — the Phase-1 proxy for potion worth and
+    alchemy XP (real magnitude/gold math is a Phase 2+ idea). Ties: fewer
+    ingredients, then lexicographic. Failed mixes are excluded; at most
+    `limit` are returned."""
+    pool = {i.id: i for i in ingredients if inventory.get(i.id, 0) >= 1}
+    ranked = []
+    for size in (2, 3):
+        for ids in combinations(sorted(pool), size):
+            effect_ids = tuple(r.effect_id
+                               for r in _produced([pool[i] for i in ids]))
+            if effect_ids:
+                ranked.append(Combo(ingredient_ids=ids, effect_ids=effect_ids))
+    ranked.sort(key=lambda c: (-len(c.effect_ids), len(c.ingredient_ids),
+                               c.ingredient_ids))
+    return ranked[:limit]
+
+
 def discovery_plan(ingredients: Sequence[Ingredient],
                    inventory: Mapping[str, int],
                    known_effects: Mapping[str, AbstractSet[int]]) -> list[PlannedBrew]:
