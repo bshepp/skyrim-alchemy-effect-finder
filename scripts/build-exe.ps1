@@ -1,4 +1,4 @@
-# Builds dist\SkyrimAlchemyEffectFinder.exe — a standalone, no-Python-needed
+# Builds dist\SkyrimAlchemyEffectFinder.exe – a standalone, no-Python-needed
 # build of the app for end users (Nexus Mods / GitHub Releases).
 #
 # Builds from a throwaway venv holding only the runtime deps, so the exe

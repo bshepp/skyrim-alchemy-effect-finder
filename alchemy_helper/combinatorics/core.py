@@ -58,7 +58,7 @@ def best_potions(ingredients: Sequence[Ingredient],
                  inventory: Mapping[str, int],
                  limit: int = 50) -> list[Combo]:
     """Craftable 2-3 ingredient mixes from inventory (count >= 1), ranked by
-    how many effects each produces — the Phase-1 proxy for potion worth and
+    how many effects each produces – the Phase-1 proxy for potion worth and
     alchemy XP (real magnitude/gold math is a Phase 2+ idea). Ties: fewer
     ingredients, then lexicographic. Failed mixes are excluded; at most
     `limit` are returned."""
@@ -92,7 +92,7 @@ def discovery_plan(ingredients: Sequence[Ingredient],
     Lazy evaluation: a mix's reveal count only ever DECREASES as knowledge
     grows and stock shrinks, so scores cached in a heap are upper bounds.
     Pop the best, re-score it; unchanged means it is still the exact global
-    best (keys are unique — they end in the ids tuple), so one full scan up
+    best (keys are unique – they end in the ids tuple), so one full scan up
     front replaces a full re-scan per brew.
     """
     by_id = {i.id: i for i in ingredients}

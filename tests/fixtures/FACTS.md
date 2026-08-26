@@ -10,7 +10,7 @@ Creations: Fishing, Survival Mode, Saints & Seducers, Rare Curios).
 - Size: 5,315,996 bytes; game timestamp in filename: 2026-08-10 22:14:38
 - Character (decoded from filename hex `4D616C647269632056616E65`): **Maldric Vane**
 - Level (from filename field before `_1.ess`): **24**
-- Location at save: a player home (`0EEJSSE001House` — Creation content cell id)
+- Location at save: a player home (`0EEJSSE001House` – Creation content cell id)
 
 The character name and level above are decoded from the game's own filename
 encoding; the header parser (Task 5) must reproduce them, which cross-checks
@@ -30,7 +30,7 @@ These are the pinned assertions for Task 8's `parse_save` inventory test.
 
 - **Wheat**: "restore health, fortify health" revealed; other two hidden.
 - **Garlic**: "Resist Poison, Regenerate Health" revealed; other two hidden.
-- **Bee**: nothing discovered — all four effects hidden. Parser-derived first
+- **Bee**: nothing discovered – all four effects hidden. Parser-derived first
   (the save has no ingredient-use change form for Bee), then confirmed by the
   user against the in-game alchemy view on 2026-08-13.
 

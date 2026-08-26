@@ -95,7 +95,7 @@ function renderUnknownFormsBanner() {
     })
     .join('');
   banner.hidden = false;
-  banner.innerHTML = `⚠ ${forms.length} unknown ingredient(s) in your save — the dataset may not match your game`
+  banner.innerHTML = `⚠ ${forms.length} unknown ingredient(s) in your save – the dataset may not match your game`
     + `<ul class="unknown-forms-list">${items}</ul>`;
 }
 
@@ -129,7 +129,7 @@ function switchTab(name) {
 }
 
 const COMBINATORICS_ERROR_MSG =
-  'the combinatorics backend returned an error — check the server console';
+  'the combinatorics backend returned an error – check the server console';
 
 function renderBanner(container, message, variant = 'amber') {
   container.innerHTML = `<div class="banner-${variant}">${message}</div>`;
@@ -171,7 +171,7 @@ function carryingNothing() {
 }
 
 const EMPTY_INVENTORY_MSG =
-  "You're not carrying any ingredients — load a save, or set counts in the Discovery Tracker.";
+  "You're not carrying any ingredients – load a save, or set counts in the Discovery Tracker.";
 
 async function computePlan() {
   const results = $('plan-results');
@@ -219,7 +219,7 @@ async function findBestPotions() {
   }
   if (data.potions.length === 0) {
     results.innerHTML =
-      '<p class="hint">No craftable potions — no two carried ingredients share an effect.</p>';
+      '<p class="hint">No craftable potions – no two carried ingredients share an effect.</p>';
     return;
   }
   results.innerHTML = data.potions
@@ -227,7 +227,7 @@ async function findBestPotions() {
       const names = potion.ingredient_ids.map((id) => ingredientName(id)).join(' + ');
       const effects = potion.effect_ids.map((id) => effectName(id)).join(', ');
       const n = potion.effect_ids.length;
-      return `<div class="card"><div class="card-title">${names} — ${n} effect${n === 1 ? '' : 's'}</div>
+      return `<div class="card"><div class="card-title">${names} – ${n} effect${n === 1 ? '' : 's'}</div>
         <div class="card-sub">effects: ${effects}</div></div>`;
     })
     .join('');

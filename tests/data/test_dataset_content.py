@@ -1,7 +1,7 @@
 from alchemy_helper.data.loader import load_dataset
 
 # Survival Mode (ccQDRSSE001-SurvivalMode.esl) was verified against
-# https://en.uesp.net/wiki/Skyrim:Survival_Mode — its "Content" section lists
+# https://en.uesp.net/wiki/Skyrim:Survival_Mode – its "Content" section lists
 # only 12 new Hot Soup recipes (which reuse the vanilla Fire Salts ingredient);
 # it adds zero new alchemy ingredients, so it contributes nothing to the dataset.
 
@@ -10,7 +10,7 @@ from alchemy_helper.data.loader import load_dataset
 # separate game records with identical effects: FExxx82A (form_id 2090,
 # ccBGSSSE037-Curios.esl, "Added by Rare Curios, Saints & Seducers") and
 # xx095E23 (form_id 613923, ccBGSSSE025-AdvDSGS.esm, "Added by Saints &
-# Seducers" — harvested from Flame Stalk plants in Solitude Sewers). The app
+# Seducers" – harvested from Flame Stalk plants in Solitude Sewers). The app
 # resolves save-file formIDs against this dataset and Skyrim tracks discovered
 # alchemy effects per record, so a player who only ever harvests the Solitude
 # Sewers variant needs the second record represented, not just the Curios one.

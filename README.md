@@ -1,4 +1,4 @@
-# Alembic — Skyrim Alchemy Effect Finder
+# Alembic - Skyrim Alchemy Effect Finder
 
 A local web app for Skyrim Special Edition alchemy: it reads your save file,
 tracks which of the four effects on each ingredient you've discovered in
@@ -11,8 +11,8 @@ FastAPI backend serving a static HTML/JS/CSS frontend. No accounts, no
 telemetry, nothing leaves your computer.
 
 **Saves are opened read-only, always.** The entire codebase touches save
-files at exactly one point — a single `read_bytes()` in
-`alchemy_helper/saveparser/api.py` — and parsing operates on that in-memory
+files at exactly one point – a single `read_bytes()` in
+`alchemy_helper/saveparser/api.py` – and parsing operates on that in-memory
 copy. The app's only file-write is its own `overrides.json` in
 `~/.skyrim_alchemy_helper/`. It cannot modify or corrupt a save.
 
@@ -23,26 +23,26 @@ copy. The app's only file-write is its own `overrides.json` in
 
 Four tabs:
 
-- **Effect Finder** — pick an effect, see every 2- or 3-ingredient
+- **Effect Finder** – pick an effect, see every 2- or 3-ingredient
   combination that produces it. Toggle between "only ingredients I have"
   and every ingredient in the dataset.
-- **Discovery Tracker** — every ingredient with its 4 effect slots, which
+- **Discovery Tracker** – every ingredient with its 4 effect slots, which
   are known vs. unknown, and an overall discovery progress count.
-- **Discovery Plan** — a brew plan that discovers every effect reachable
+- **Discovery Plan** – a brew plan that discovers every effect reachable
   from your carried ingredients, in as few brews as possible.
-- **Best Potions** — every potion craftable from what you carry, ranked by
+- **Best Potions** – every potion craftable from what you carry, ranked by
   how many effects it merges. Effect count is the Phase-1 proxy for potion
   value and alchemy XP (real magnitude/gold math is a Phase 2+ idea).
 
 The dataset covers vanilla Skyrim SE plus Dawnguard, Hearthfire, Dragonborn,
 and the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare
-Curios) — 179 ingredients, 60 effects, built from UESP documentation.
+Curios) – 179 ingredients, 60 effects, built from UESP documentation.
 
 ## Setup
 
 **Easiest:** download `SkyrimAlchemyEffectFinder.exe` from the
 [latest release](https://github.com/bshepp/skyrim-alchemy-effect-finder/releases)
-and run it — no Python needed. Your browser opens the app automatically.
+and run it – no Python needed. Your browser opens the app automatically.
 
 **From source:**
 
@@ -56,8 +56,8 @@ default browser after a second.
 
 Flags:
 
-- `--port <N>` — serve on a different port (default `8712`).
-- `--no-browser` — start the server without opening a browser tab (useful
+- `--port <N>` – serve on a different port (default `8712`).
+- `--no-browser` – start the server without opening a browser tab (useful
   for scripting, or if you'd rather open the tab yourself).
 
 ## Pointing the app at a save
@@ -96,7 +96,7 @@ effect that ingredient has.
 - `potion_effects` applies that rule directly to one mix.
 - `combos_for_effect` enumerates every 2- or 3-ingredient combination
   producing a target effect: every pair of ingredients having the effect,
-  plus each such pair extended by any third ingredient — the third doesn't
+  plus each such pair extended by any third ingredient – the third doesn't
   need the effect itself, since the pair still shares it inside the trio.
 - `discovery_plan` finds brews until nothing discoverable is left. The
   fewest brews covering every reachable (ingredient, effect-slot) pair is
@@ -110,7 +110,7 @@ effect that ingredient has.
 ### The contract
 
 Three functions, imported by the web layer with these exact signatures. The
-contract lines of their docstrings are the spec — the test suite is written
+contract lines of their docstrings are the spec – the test suite is written
 directly against them:
 
 ```python
@@ -155,12 +155,12 @@ class PlannedBrew:
 
 `combinatorics/` is deliberately isolated: it imports nothing from
 `saveparser/` or `web/`, only `alchemy_helper.data.models.Ingredient` and its
-own `types` module. It takes plain data in and returns plain data out — pure
-logic, no I/O — so it can be tested with nothing but `pytest` running.
+own `types` module. It takes plain data in and returns plain data out – pure
+logic, no I/O – so it can be tested with nothing but `pytest` running.
 
 Note that `potion_effects` is exercised by the test suite and reachable via
 `POST /api/potion`, but the current frontend doesn't call that endpoint from
-either tab — it's there for a future "what does this specific mix do" view.
+either tab – it's there for a future "what does this specific mix do" view.
 
 ### Its tests
 
@@ -187,7 +187,7 @@ describes:
 ```bash
 pytest -v
 ```
-→ **92 passed** — dataset, save parser, app state, web API, and
+→ **92 passed** – dataset, save parser, app state, web API, and
 combinatorics, all green.
 
 ```bash
@@ -206,8 +206,8 @@ it (or `Ctrl+C`) stops the app.
 
 ## Manual mode & overrides
 
-If no save is loaded — no saves folder was found, or no save has been
-picked yet, or the loaded save failed to parse (see Troubleshooting) — the
+If no save is loaded – no saves folder was found, or no save has been
+picked yet, or the loaded save failed to parse (see Troubleshooting) – the
 app runs in **manual mode** (shown as a **MANUAL MODE** badge in the
 header). Every feature still works; you just hand-tick inventory counts and
 known effects yourself instead of them coming from a save.
@@ -220,7 +220,7 @@ they persist across restarts to:
 ~/.skyrim_alchemy_helper/overrides.json
 ```
 
-(i.e. `Path.home() / ".skyrim_alchemy_helper" / "overrides.json"` — on
+(i.e. `Path.home() / ".skyrim_alchemy_helper" / "overrides.json"` – on
 Windows that's `C:\Users\<you>\.skyrim_alchemy_helper\overrides.json`). It's
 plain JSON (`{"have": {...}, "known": {...}}`); delete it or hand-edit it
 if you ever want to reset. A corrupted or unreadable file is treated as
@@ -228,22 +228,22 @@ empty rather than crashing the app.
 
 ## Troubleshooting
 
-**"Unsupported save format version"** — the app only understands SE save
+**"Unsupported save format version"** – the app only understands SE save
 format version 12, which is what the current Steam release of Skyrim SE
 writes. If you're on a different game version (Legendary Edition, VR, GOG,
 an older SE patch) or the format has changed since this was written, loading
 the save shows the parse error verbatim (it names the step that failed and,
 where known, the save version and form version observed) and the app falls
-back to manual mode instead of crashing — everything is still usable, just
+back to manual mode instead of crashing – everything is still usable, just
 by hand.
 
-**Save picker is empty** — the app couldn't find a saves folder. It checks
+**Save picker is empty** – the app couldn't find a saves folder. It checks
 `Documents\My Games\Skyrim Special Edition\Saves` and then
 `OneDrive\Documents\My Games\Skyrim Special Edition\Saves`, both under your
 user home directory. If your saves live somewhere else, manual mode is your
 path forward for now (Phase 1 has no "browse for a folder" picker).
 
-**"Unknown ingredients" appear after loading a save** — a change form in
+**"Unknown ingredients" appear after loading a save** – a change form in
 your save referenced an ingredient FormID that isn't in the shipped dataset.
 This is expected if you're running mods that add ingredients (the dataset is
 vanilla + DLC + free Creations only); it's collected and shown rather than
@@ -257,7 +257,7 @@ back to extend it:
 
 - Support for other game versions (Legendary Edition, VR, GOG, older SE
   patches).
-- Mod-added ingredients and effects — would need plugin (`.esp`/`.esm`) and
+- Mod-added ingredients and effects – would need plugin (`.esp`/`.esm`) and
   BSA parsing beyond what the save parser does today.
 - Potion value / leveling optimization (magnitude and gold math), not just
   which effects a mix produces.
@@ -265,6 +265,18 @@ back to extend it:
   (brews only, for now).
 - Awareness of the Experimenter perk (reveals a second effect on
   ingesting/brewing).
+
+## How it was built
+
+This project was built in collaboration with Claude (Anthropic's AI
+assistant) running in Claude Code, under human direction – stated here
+plainly because it should be. The human side (bshepp) set the requirements,
+supplied and verified all in-game ground truth (inventory counts and
+discovered effects checked against the actual alchemy menu), approved the
+design, and tested the app against real saves; the AI wrote most of the
+code, test-first, with every save-parser claim pinned by tests against a
+real save before it was trusted. Commits carry `Co-Authored-By` trailers
+marking the AI's hand. The icon art is AI-drawn.
 
 ## License and references
 
@@ -275,13 +287,13 @@ purely as *file-format* references while writing the save parser (file
 format facts aren't copyrightable; their source was not):
 
 - [UESP's "Tes5Mod:Save File Format" documentation](https://en.uesp.net/wiki/Tes5Mod:Save_File_Format)
-  — the primary reference for the `.ess` header/body layout (as cited in the
+  – the primary reference for the `.ess` header/body layout (as cited in the
   module docstrings throughout `alchemy_helper/saveparser/`).
 - [FallrimTools / ReSaver](https://github.com/mdfairch/FallrimTools)
-  (Apache-2.0) — a Java save-file editor, read as a secondary format
+  (Apache-2.0) – a Java save-file editor, read as a secondary format
   reference.
 - [cguebert/SkyrimAlchemyHelper](https://github.com/cguebert/SkyrimAlchemyHelper)
-  (GPL-2.0) — the abandoned C++/Qt tool this project replaces. Its
+  (GPL-2.0) – the abandoned C++/Qt tool this project replaces. Its
   `libs/saveParser` was read as a format reference only; **no code from it
   was copied into this project**, which is why this project is free to be
   MIT-licensed rather than bound by GPL-2.0.
