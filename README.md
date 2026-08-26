@@ -10,6 +10,12 @@ Runs entirely on your machine (`127.0.0.1`, no network access) as a small
 FastAPI backend serving a static HTML/JS/CSS frontend. No accounts, no
 telemetry, nothing leaves your computer.
 
+**Saves are opened read-only, always.** The entire codebase touches save
+files at exactly one point — a single `read_bytes()` in
+`alchemy_helper/saveparser/api.py` — and parsing operates on that in-memory
+copy. The app's only file-write is its own `overrides.json` in
+`~/.skyrim_alchemy_helper/`. It cannot modify or corrupt a save.
+
 <!-- screenshot: four-tab UI (Effect Finder / Discovery Tracker / Discovery
      Plan / Best Potions) with a loaded save, goes here -->
 
