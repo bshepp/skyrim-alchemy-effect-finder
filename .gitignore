@@ -8,3 +8,4 @@ reference/
 build/
 dist/
 *.spec
+tests/fixtures/local/
