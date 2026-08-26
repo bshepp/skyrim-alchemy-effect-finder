@@ -7,7 +7,7 @@ the exe is rebuilt.
 
 ## Name
 
-Skyrim Alchemy Effect Finder
+Alembic - Skyrim Alchemy Effect Finder
 
 ## Summary (short form)
 

@@ -73,7 +73,7 @@ def create_app(data_dir: Path | None = None,
     overrides = Overrides(overrides_path)
     state = AppState(dataset=dataset, player=None, overrides=overrides, last_error=None)
 
-    app = FastAPI(title="Skyrim Alchemy Effect Finder")
+    app = FastAPI(title="Alembic - Skyrim Alchemy Effect Finder")
 
     def state_payload() -> dict:
         known_effects = {

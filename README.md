@@ -1,4 +1,4 @@
-# Skyrim Alchemy Effect Finder
+# Alembic — Skyrim Alchemy Effect Finder
 
 A local web app for Skyrim Special Edition alchemy: it reads your save file,
 tracks which of the four effects on each ingredient you've discovered in

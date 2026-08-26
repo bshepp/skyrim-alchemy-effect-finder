@@ -39,6 +39,12 @@ header h1 {
   margin: 0 0 0.75rem;
 }
 
+.h1-sub {
+  font-size: 0.7em;
+  font-weight: normal;
+  opacity: 0.65;
+}
+
 .save-picker {
   display: flex;
   align-items: center;
