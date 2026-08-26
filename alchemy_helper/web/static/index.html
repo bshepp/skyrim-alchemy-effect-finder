@@ -3,7 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
 <title>Alembic - Skyrim Alchemy Effect Finder</title>
+<script>
+  // Apply the stored theme before first paint to avoid a flash.
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || (!t && matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.dataset.theme = 'light';
+    }
+  } catch (e) { /* no storage: stay dark */ }
+</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="stylesheet" href="/style.css">
@@ -15,42 +25,47 @@
     <h1>Alembic <span class="h1-sub">· Skyrim Alchemy Effect Finder</span></h1>
 
     <div class="save-picker">
-      <select id="save-select"><option value="">-- select a save --</option></select>
+      <select id="save-select" aria-label="Choose a save file"><option value="">-- select a save --</option></select>
       <button id="load-btn">Load</button>
       <button id="reload-btn" title="Re-load the current save from disk">Reload</button>
     </div>
 
     <div class="status-bar">
       <span id="mode-badge" class="badge badge-manual">MANUAL MODE</span>
-      <span id="error-msg" class="error-msg" hidden></span>
+      <span id="error-msg" class="error-msg" role="status" hidden></span>
       <span id="progress" class="progress">0 of 0 effect-slots discovered</span>
+      <button id="theme-toggle" type="button">Switch to light mode</button>
     </div>
 
-    <div id="unknown-forms-banner" class="banner-amber" hidden></div>
+    <div id="unknown-forms-banner" class="banner-amber" role="status" hidden></div>
   </header>
 
-  <nav class="tabs">
-    <button class="tab-btn active" data-tab="finder" type="button">Effect Finder</button>
-    <button class="tab-btn" data-tab="tracker" type="button">Discovery Tracker</button>
-    <button class="tab-btn" data-tab="plan" type="button">Discovery Plan</button>
-    <button class="tab-btn" data-tab="potions" type="button">Best Potions</button>
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button class="tab-btn active" data-tab="finder" id="tab-btn-finder" type="button"
+            role="tab" aria-selected="true" aria-controls="tab-finder">Effect Finder</button>
+    <button class="tab-btn" data-tab="tracker" id="tab-btn-tracker" type="button"
+            role="tab" aria-selected="false" aria-controls="tab-tracker">Discovery Tracker</button>
+    <button class="tab-btn" data-tab="plan" id="tab-btn-plan" type="button"
+            role="tab" aria-selected="false" aria-controls="tab-plan">Discovery Plan</button>
+    <button class="tab-btn" data-tab="potions" id="tab-btn-potions" type="button"
+            role="tab" aria-selected="false" aria-controls="tab-potions">Best Potions</button>
   </nav>
 
   <main>
 
-    <section id="tab-finder" class="tab-panel active">
+    <section id="tab-finder" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-finder">
       <div class="toolbar">
-        <select id="effect-select"><option value="">-- choose an effect --</option></select>
+        <select id="effect-select" aria-label="Choose an effect"><option value="">-- choose an effect --</option></select>
         <label class="checkbox-label">
           <input type="checkbox" id="only-inventory-check" checked>
           only ingredients I have
         </label>
         <button id="find-combos-btn" type="button">Find combos</button>
       </div>
-      <div id="finder-results" class="results"></div>
+      <div id="finder-results" class="results" aria-live="polite"></div>
     </section>
 
-    <section id="tab-tracker" class="tab-panel">
+    <section id="tab-tracker" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-tracker">
       <div class="toolbar">
         <label class="checkbox-label">
           <input type="checkbox" id="show-uncarried-check">
@@ -61,12 +76,12 @@
         <table id="tracker-table">
           <thead>
             <tr>
-              <th>Ingredient</th>
-              <th>Count</th>
-              <th>Effect 1</th>
-              <th>Effect 2</th>
-              <th>Effect 3</th>
-              <th>Effect 4</th>
+              <th scope="col">Ingredient</th>
+              <th scope="col">Count</th>
+              <th scope="col">Effect 1</th>
+              <th scope="col">Effect 2</th>
+              <th scope="col">Effect 3</th>
+              <th scope="col">Effect 4</th>
             </tr>
           </thead>
           <tbody id="tracker-body"></tbody>
@@ -74,21 +89,21 @@
       </div>
     </section>
 
-    <section id="tab-plan" class="tab-panel">
+    <section id="tab-plan" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-plan">
       <div class="toolbar">
         <button id="compute-plan-btn" type="button">Compute plan</button>
       </div>
-      <div id="plan-results" class="results"></div>
+      <div id="plan-results" class="results" aria-live="polite"></div>
     </section>
 
-    <section id="tab-potions" class="tab-panel">
+    <section id="tab-potions" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-potions">
       <div class="toolbar">
         <button id="find-potions-btn" type="button">Find potions</button>
         <span class="hint">craftable from what you carry, most merged effects
           first – more effects means a more valuable potion and more alchemy
           XP</span>
       </div>
-      <div id="potions-results" class="results"></div>
+      <div id="potions-results" class="results" aria-live="polite"></div>
     </section>
 
   </main>

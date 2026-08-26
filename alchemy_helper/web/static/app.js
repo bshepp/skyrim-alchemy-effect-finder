@@ -123,10 +123,29 @@ async function postOverride(ingredientId, fields) {
 
 function switchTab(name) {
   for (const btn of document.querySelectorAll('.tab-btn')) {
-    btn.classList.toggle('active', btn.dataset.tab === name);
+    const active = btn.dataset.tab === name;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-selected', String(active));
   }
   for (const panel of document.querySelectorAll('.tab-panel')) {
     panel.classList.toggle('active', panel.id === `tab-${name}`);
+  }
+}
+
+function currentTheme() {
+  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+}
+
+function applyTheme(theme, persist = true) {
+  if (theme === 'light') {
+    document.documentElement.dataset.theme = 'light';
+  } else {
+    delete document.documentElement.dataset.theme;
+  }
+  $('theme-toggle').textContent =
+    theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+  if (persist) {
+    try { localStorage.setItem('theme', theme); } catch (e) { /* fine */ }
   }
 }
 
@@ -277,12 +296,17 @@ function renderTracker() {
           const isKnown = knownSlots.includes(slot);
           const cls = isKnown ? 'known' : 'unknown';
           const label = isKnown ? effectName(effectId) : '???';
-          return `<td class="effect-cell ${cls}" data-ing="${ing.id}" data-slot="${slot}">${label}</td>`;
+          const aria = isKnown
+            ? `${ing.name} effect ${slot + 1}: ${effectName(effectId)}, discovered. Press to mark undiscovered.`
+            : `${ing.name} effect ${slot + 1}: not discovered. Press to mark discovered.`;
+          return `<td class="effect-cell ${cls}" data-ing="${ing.id}" data-slot="${slot}"
+            role="button" tabindex="0" aria-label="${aria}">${label}</td>`;
         })
         .join('');
       return `<tr>
         <td>${ing.name}</td>
-        <td class="count-cell" data-ing="${ing.id}">${count}</td>
+        <td class="count-cell" data-ing="${ing.id}" role="button" tabindex="0"
+          aria-label="${ing.name}: ${count} carried. Press to edit the count.">${count}</td>
         ${cells}
       </tr>`;
     })
@@ -293,7 +317,8 @@ function startCountEdit(td) {
   if (td.querySelector('input')) return; // already mid-edit; don't clobber it
   const ingId = td.dataset.ing;
   const current = STATE.inventory[ingId] || 0;
-  td.innerHTML = `<input type="number" min="0" class="count-input" value="${current}">`;
+  td.innerHTML = `<input type="number" min="0" class="count-input"
+    aria-label="Carried count for ${ingredientName(ingId)}" value="${current}">`;
   const input = td.querySelector('input');
   input.focus();
   input.select();
@@ -326,6 +351,23 @@ function wireEvents() {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
+  // Arrow-key navigation across the tablist (Left/Right/Home/End).
+  document.querySelector('.tabs').addEventListener('keydown', (e) => {
+    const tabs = [...document.querySelectorAll('.tab-btn')];
+    const i = tabs.indexOf(document.activeElement);
+    if (i === -1) return;
+    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    const target = tabs[(next + tabs.length) % tabs.length];
+    target.focus();
+    switchTab(target.dataset.tab);
+  });
+
+  $('theme-toggle').addEventListener('click', () => {
+    applyTheme(currentTheme() === 'light' ? 'dark' : 'light');
+  });
+
   $('load-btn').addEventListener('click', () => loadSavePath($('save-select').value));
   $('reload-btn').addEventListener('click', () => loadSavePath(currentSavePath));
 
@@ -338,16 +380,24 @@ function wireEvents() {
     renderTracker();
   });
 
-  $('tracker-body').addEventListener('click', (e) => {
+  const activateTrackerCell = (e) => {
     if (e.target.tagName === 'INPUT') return; // already editing this cell
     const countCell = e.target.closest('.count-cell');
     if (countCell) { startCountEdit(countCell); return; }
     const effectCell = e.target.closest('.effect-cell');
     if (effectCell) toggleEffectSlot(effectCell);
+  };
+  $('tracker-body').addEventListener('click', activateTrackerCell);
+  $('tracker-body').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    if (e.target.tagName === 'INPUT') return; // Enter in the input commits via blur
+    e.preventDefault();
+    activateTrackerCell(e);
   });
 }
 
 async function init() {
+  applyTheme(currentTheme(), false);  // sync toggle label; OS choice stays unpinned
   wireEvents();
   await loadStaticData();
   await refreshState();
