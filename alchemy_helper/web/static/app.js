@@ -1,4 +1,4 @@
-// Skyrim Alchemy Helper -- plain fetch + template literals, no framework.
+// Skyrim Alchemy Effect Finder -- plain fetch + template literals, no framework.
 
 let EFFECTS = [];
 let EFFECTS_BY_ID = {};
