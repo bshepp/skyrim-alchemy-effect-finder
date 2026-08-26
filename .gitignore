@@ -5,3 +5,6 @@ reference/
 .venv/
 .claude/
 .superpowers/
+build/
+dist/
+*.spec
