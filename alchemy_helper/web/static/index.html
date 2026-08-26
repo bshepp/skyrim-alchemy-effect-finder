@@ -22,7 +22,10 @@
 <div id="app">
 
   <header>
-    <h1>Alembic <span class="h1-sub">· Skyrim Alchemy Effect Finder</span></h1>
+    <div class="title-row">
+      <h1>Alembic <span class="h1-sub">· Skyrim Alchemy Effect Finder</span></h1>
+      <button id="theme-toggle" type="button">Switch to light mode</button>
+    </div>
 
     <div class="save-picker">
       <select id="save-select" aria-label="Choose a save file"><option value="">-- select a save --</option></select>
@@ -34,7 +37,6 @@
       <span id="mode-badge" class="badge badge-manual">MANUAL MODE</span>
       <span id="error-msg" class="error-msg" role="status" hidden></span>
       <span id="progress" class="progress">0 of 0 effect-slots discovered</span>
-      <button id="theme-toggle" type="button">Switch to light mode</button>
     </div>
 
     <div id="unknown-forms-banner" class="banner-amber" role="status" hidden></div>

@@ -198,4 +198,13 @@ def create_app(data_dir: Path | None = None,
 
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
 
+    @app.middleware("http")
+    async def no_stale_caching(request, call_next):
+        # A browser holding yesterday's app.js against today's index.html
+        # leaves the UI half-updated. no-cache means revalidate every time;
+        # StaticFiles' ETag/Last-Modified make that a cheap 304 on localhost.
+        response = await call_next(request)
+        response.headers["Cache-Control"] = "no-cache"
+        return response
+
     return app

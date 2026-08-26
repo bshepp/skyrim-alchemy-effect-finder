@@ -127,6 +127,14 @@ def test_discovery_plan_serializes_expected_json_shape(tmp_path, monkeypatch):
                   "newly_discovered": [["wheat", 0], ["salt", 2]]}]
     }
 
+def test_responses_forbid_stale_caching(tmp_path):
+    # Browsers caching old app.js/style.css across app updates leave the UI
+    # half-updated (a button with no listener). no-cache forces revalidation;
+    # StaticFiles' ETags keep that cheap.
+    c = client(tmp_path)
+    for path in ("/", "/app.js", "/api/state"):
+        assert c.get(path).headers.get("cache-control") == "no-cache", path
+
 def test_state_reports_app_version(tmp_path):
     import alchemy_helper
     c = client(tmp_path)
