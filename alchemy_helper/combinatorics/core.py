@@ -6,6 +6,7 @@ two of them share. A mix sharing nothing fails (the game refuses the brew).
 Brewing a successful potion reveals, on every participating ingredient, each
 produced effect that ingredient has.
 """
+import heapq
 from collections.abc import Sequence, Mapping
 from itertools import combinations
 from typing import AbstractSet
@@ -87,6 +88,12 @@ def discovery_plan(ingredients: Sequence[Ingredient],
     anything. Optimal brew count is set cover (NP-hard); greedy's larger
     reveals-per-brew is exactly what makes it also stop before wasting the
     stock a rarer reveal still needs.
+
+    Lazy evaluation: a mix's reveal count only ever DECREASES as knowledge
+    grows and stock shrinks, so scores cached in a heap are upper bounds.
+    Pop the best, re-score it; unchanged means it is still the exact global
+    best (keys are unique — they end in the ids tuple), so one full scan up
+    front replaces a full re-scan per brew.
     """
     by_id = {i.id: i for i in ingredients}
     stock = {iid: n for iid, n in inventory.items() if iid in by_id and n >= 1}
@@ -98,22 +105,31 @@ def discovery_plan(ingredients: Sequence[Ingredient],
                 for iid in r.ingredient_ids
                 if by_id[iid].effects.index(r.effect_id) not in known[iid]]
 
+    avail = sorted(stock)
+    heap = []
+    for size in (2, 3):
+        for ids in combinations(avail, size):
+            newly = reveals(ids)
+            if newly:
+                heap.append(((-len(newly), len(ids), ids), ids))
+    heapq.heapify(heap)
+
     plan = []
-    while True:
-        avail = sorted(iid for iid, n in stock.items() if n >= 1)
-        best = None
-        for size in (2, 3):
-            for ids in combinations(avail, size):
-                newly = reveals(ids)
-                if newly and (best is None
-                              or (-len(newly), len(ids), ids) < best[0]):
-                    best = ((-len(newly), len(ids), ids), ids, newly)
-        if best is None:
-            return plan
-        _, ids, newly = best
+    while heap:
+        cached_key, ids = heapq.heappop(heap)
+        if any(stock[iid] < 1 for iid in ids):
+            continue                      # stock never refills: gone for good
+        newly = reveals(ids)
+        if not newly:
+            continue                      # reveal counts never grow back
+        fresh_key = (-len(newly), len(ids), ids)
+        if fresh_key != cached_key:
+            heapq.heappush(heap, (fresh_key, ids))
+            continue
         plan.append(PlannedBrew(ingredient_ids=ids,
                                 newly_discovered=tuple(sorted(newly))))
         for iid, slot in newly:
             known[iid].add(slot)
         for iid in ids:
             stock[iid] -= 1
+    return plan

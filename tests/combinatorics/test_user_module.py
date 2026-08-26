@@ -1,8 +1,11 @@
+import random
+from itertools import combinations
+
 import pytest
 from alchemy_helper.data.models import Ingredient
 from alchemy_helper.data.loader import load_dataset
 from alchemy_helper.combinatorics.core import (
-    combos_for_effect, potion_effects, discovery_plan, best_potions)
+    combos_for_effect, potion_effects, discovery_plan, best_potions, _produced)
 from alchemy_helper.combinatorics.types import Combo, EffectResult, PlannedBrew
 
 pytestmark = pytest.mark.combinatorics   # select just these: pytest -m combinatorics
@@ -63,6 +66,54 @@ def test_inventory_limits_plan():
 def test_nothing_left_to_discover_is_empty_plan():
     known = {"a": {0, 1}, "b": {0, 1}, "c": {0, 1}}
     assert discovery_plan(TRIO, {"a": 5, "b": 5, "c": 5}, known) == []
+
+def _naive_plan(ingredients, inventory, known_effects):
+    """Reference implementation: full re-scan of every mix each round.
+    discovery_plan must always produce exactly this output, however it
+    gets there internally."""
+    by_id = {i.id: i for i in ingredients}
+    stock = {iid: n for iid, n in inventory.items() if iid in by_id and n >= 1}
+    known = {iid: set(known_effects.get(iid, ())) for iid in stock}
+
+    def reveals(ids):
+        return [(iid, by_id[iid].effects.index(r.effect_id))
+                for r in _produced([by_id[i] for i in ids])
+                for iid in r.ingredient_ids
+                if by_id[iid].effects.index(r.effect_id) not in known[iid]]
+
+    plan = []
+    while True:
+        avail = sorted(iid for iid, n in stock.items() if n >= 1)
+        best = None
+        for size in (2, 3):
+            for ids in combinations(avail, size):
+                newly = reveals(ids)
+                if newly and (best is None
+                              or (-len(newly), len(ids), ids) < best[0]):
+                    best = ((-len(newly), len(ids), ids), ids, newly)
+        if best is None:
+            return plan
+        _, ids, newly = best
+        plan.append(PlannedBrew(ingredient_ids=ids,
+                                newly_discovered=tuple(sorted(newly))))
+        for iid, slot in newly:
+            known[iid].add(slot)
+        for iid in ids:
+            stock[iid] -= 1
+
+
+def test_discovery_plan_matches_naive_reference_on_generated_scenarios():
+    rng = random.Random(42)
+    effect_pool = [f"e{i}" for i in range(12)]
+    for _ in range(5):
+        ings = [ing(f"i{k}", *rng.sample(effect_pool, 4)) for k in range(15)]
+        inventory = {i.id: rng.randint(1, 3)
+                     for i in ings if rng.random() < 0.8}
+        known = {i.id: set(rng.sample(range(4), rng.randint(0, 2)))
+                 for i in ings}
+        assert (discovery_plan(ings, inventory, known)
+                == _naive_plan(ings, inventory, known))
+
 
 # --- best_potions ---
 def test_best_potions_ranks_by_effect_count():

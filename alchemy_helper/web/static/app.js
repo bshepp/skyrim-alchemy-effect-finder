@@ -166,8 +166,20 @@ async function findCombos() {
     .join('');
 }
 
+function carryingNothing() {
+  return !Object.values(STATE?.inventory || {}).some((n) => n > 0);
+}
+
+const EMPTY_INVENTORY_MSG =
+  "You're not carrying any ingredients — load a save, or set counts in the Discovery Tracker.";
+
 async function computePlan() {
   const results = $('plan-results');
+  if (carryingNothing()) {
+    results.innerHTML = `<p class="hint">${EMPTY_INVENTORY_MSG}</p>`;
+    return;
+  }
+  results.innerHTML = '<p class="hint">computing…</p>';
   const r = await fetch('/api/discovery-plan');
   const data = await r.json().catch(() => null);
 
@@ -193,6 +205,10 @@ async function computePlan() {
 
 async function findBestPotions() {
   const results = $('potions-results');
+  if (carryingNothing()) {
+    results.innerHTML = `<p class="hint">${EMPTY_INVENTORY_MSG}</p>`;
+    return;
+  }
   results.innerHTML = '<p class="hint">computing…</p>';
   const r = await fetch('/api/best-potions');
   const data = await r.json().catch(() => null);
