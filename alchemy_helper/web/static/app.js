@@ -77,6 +77,8 @@ function renderHeader() {
   for (const slots of Object.values(STATE.known_effects)) known += slots.length;
   $('progress').textContent = `${known} of ${total} effect-slots discovered`;
 
+  if (STATE.version) $('app-version').textContent = `v${STATE.version}`;
+
   renderUnknownFormsBanner();
 }
 
@@ -131,8 +133,19 @@ function switchTab(name) {
 const COMBINATORICS_ERROR_MSG =
   'the combinatorics backend returned an error – check the server console';
 
+// New-issue URL with the app version prefilled into the title. Deliberately
+// nothing else: paths and character names are the user's to volunteer.
+function bugReportUrl() {
+  const version = STATE?.version ? `v${STATE.version}` : 'unknown version';
+  return 'https://github.com/bshepp/skyrim-alchemy-effect-finder/issues/new'
+    + `?template=bug_report.yml&title=${encodeURIComponent(`[${version}] `)}`;
+}
+
 function renderBanner(container, message, variant = 'amber') {
-  container.innerHTML = `<div class="banner-${variant}">${message}</div>`;
+  const report = variant === 'red'
+    ? ` <a href="${bugReportUrl()}" target="_blank" rel="noopener">Report this bug</a>`
+    : '';
+  container.innerHTML = `<div class="banner-${variant}">${message}${report}</div>`;
 }
 
 async function findCombos() {

@@ -127,6 +127,12 @@ def test_discovery_plan_serializes_expected_json_shape(tmp_path, monkeypatch):
                   "newly_discovered": [["wheat", 0], ["salt", 2]]}]
     }
 
+def test_state_reports_app_version(tmp_path):
+    import alchemy_helper
+    c = client(tmp_path)
+    r = c.get("/api/state").json()
+    assert r["version"] == alchemy_helper.__version__
+
 def test_state_save_path_is_null_in_manual_mode(tmp_path):
     c = client(tmp_path)
     r = c.get("/api/state").json()

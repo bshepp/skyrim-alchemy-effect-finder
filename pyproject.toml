@@ -1,6 +1,6 @@
 [project]
 name = "alchemy-helper"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Skyrim SE alchemy effect finder and discovery planner (local web app)"
 requires-python = ">=3.12"
 license = { text = "MIT" }
@@ -15,6 +15,9 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["alchemy_helper*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "alchemy_helper.__version__" }
 
 [tool.pytest.ini_options]
 markers = [

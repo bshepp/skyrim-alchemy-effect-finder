@@ -12,6 +12,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from alchemy_helper import __version__
 from alchemy_helper.combinatorics.core import (best_potions,
                                                 combos_for_effect,
                                                 discovery_plan,
@@ -81,6 +82,7 @@ def create_app(data_dir: Path | None = None,
             for ingredient_id, slots in state.effective_known().items()
         }
         return {
+            "version": __version__,
             "mode": state.mode(),
             "character": state.player.character_name if state.player else None,
             "error": state.last_error,

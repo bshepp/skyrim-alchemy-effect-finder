@@ -1,0 +1,51 @@
+name: Bug report
+description: Something broke, parsed wrong, or looked wrong
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what did you get instead?
+    validations:
+      required: true
+  - type: textarea
+    id: error-text
+    attributes:
+      label: Error text, if any
+      description: >-
+        The exact text from the red banner or the warning next to the mode
+        badge, verbatim. Paste "none" if the app showed no error but behaved
+        wrong.
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Shown in the footer of the app (for example v0.1.0).
+      placeholder: v0.1.0
+    validations:
+      required: true
+  - type: input
+    id: game
+    attributes:
+      label: Game and platform
+      description: For example "Skyrim SE, Steam, current patch" or "Skyrim VR".
+      placeholder: Skyrim SE, Steam, current patch
+  - type: dropdown
+    id: manual-mode
+    attributes:
+      label: Did manual mode still work?
+      description: >-
+        When a save fails to load the app falls back to manual mode. Could you
+        still use the app by entering counts by hand?
+      options:
+        - "Yes"
+        - "No"
+        - Not applicable
+  - type: markdown
+    attributes:
+      value: >-
+        **The most useful bug report of all is a save that fails to parse.**
+        Zip the `.ess` file and drag it into this issue. Heads-up before you
+        do: a save contains your character name and play details, so only
+        attach one you are comfortable sharing.

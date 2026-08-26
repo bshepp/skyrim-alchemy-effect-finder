@@ -45,6 +45,16 @@ header h1 {
   opacity: 0.65;
 }
 
+footer {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+footer a {
+  color: inherit;
+}
+
 .save-picker {
   display: flex;
   align-items: center;
