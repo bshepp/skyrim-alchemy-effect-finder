@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Alembic: neck, bulb, green liquid. Mid-gray outline stays visible on
+       both light and dark tab bars. -->
+  <rect x="13" y="2.5" width="6" height="9" rx="1.5" fill="none" stroke="#7d8590" stroke-width="2"/>
+  <circle cx="16" cy="20" r="9" fill="none" stroke="#7d8590" stroke-width="2"/>
+  <path d="M 7.5 23 A 9 9 0 0 0 24.5 23 Z" fill="#3fb950"/>
+</svg>
