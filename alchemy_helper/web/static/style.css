@@ -343,3 +343,22 @@ tbody td {
 .effect-cell:hover {
   outline: 1px solid var(--accent);
 }
+
+/* Windows Contrast Themes: the system replaces every author color, which
+   erases meaning that color alone carried. Patch those spots with system
+   colors; everything else is deliberately left to the forced palette. */
+@media (forced-colors: active) {
+  .known {
+    background: SelectedItem;   /* discovered cells stay visibly highlighted */
+    color: SelectedItemText;
+  }
+  .badge {
+    border: 1px solid;          /* the pill keeps its chip outline */
+  }
+  .tab-btn.active {
+    border-bottom-color: SelectedItem;
+  }
+  #theme-toggle {
+    display: none;              /* both themes render as the system theme */
+  }
+}

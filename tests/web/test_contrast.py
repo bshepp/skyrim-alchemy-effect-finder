@@ -78,6 +78,19 @@ def test_all_declared_pairs_meet_wcag_aa(theme):
     assert not failures, "\n".join(failures)
 
 
+def test_forced_colors_block_preserves_color_borne_meaning():
+    """Windows Contrast Themes (forced-colors: active) strip author colors.
+    The stylesheet must keep the meaning color carried: discovered cells
+    stay highlighted via system colors, badges keep their chip outline, and
+    the theme toggle hides (both themes render as the system theme)."""
+    css = CSS.read_text(encoding="utf-8")
+    m = re.search(r"@media\s*\(forced-colors:\s*active\)\s*\{(.*?)\n\}", css, re.S)
+    assert m, "no forced-colors media block in style.css"
+    block = m.group(1)
+    for required in (".known", "SelectedItem", ".badge", "#theme-toggle"):
+        assert required in block, f"forced-colors block lacks {required}"
+
+
 def test_no_opacity_faded_text_in_stylesheet():
     """Opacity-faded text defeats the token contrast checks above (the
     effective color depends on what's behind it). Muted text must use a
