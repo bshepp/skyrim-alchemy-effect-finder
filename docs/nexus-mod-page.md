@@ -73,11 +73,11 @@ Built in collaboration with Claude (Anthropic's AI assistant) under human direct
 ## Credits field (BBCode)
 
 ```
-[b]The lineage[/b] – alchemy helpers are a Skyrim tradition, and Alembic exists because of the tools that came before it:
+[b]Inspiration[/b] – alchemy helpers are a Skyrim tradition. Alembic is an independent tool, written entirely from scratch (MIT, open source); it contains no code, assets, or data from any project below. They are credited as inspiration, nothing more:
 
 [list]
-[*][url=https://www.nexusmods.com/skyrim/mods/70171]Skyrim Alchemy Helper[/url] by cguebert – the direct predecessor and the inspiration: it read discovered effects straight from the save file years before anything else did. When the game outgrew it, this project picked up the torch. Successor in spirit; no code shared.
-[*]The wider family of attempts across fifteen years: [url=https://www.nexusmods.com/skyrim/mods/76]Alchemy Assistant[/url], [url=https://www.nexusmods.com/skyrim/mods/710]Alchemy Helper[/url], [url=https://www.nexusmods.com/skyrim/mods/59711]Alchemy Ingredient Helper[/url], [url=https://www.nexusmods.com/skyrimspecialedition/mods/11498]ReAlchemy[/url], and [url=https://www.nexusmods.com/skyrimspecialedition/mods/115779]Alchemy helper[/url]. Every one of them proved people want this.
+[*][url=https://www.nexusmods.com/skyrim/mods/70171]Skyrim Alchemy Helper[/url] by cguebert – the tool that inspired this one: it read discovered effects straight from the save file years before anything else did.
+[*]The wider family of ideas across fifteen years: [url=https://www.nexusmods.com/skyrim/mods/76]Alchemy Assistant[/url], [url=https://www.nexusmods.com/skyrim/mods/710]Alchemy Helper[/url], [url=https://www.nexusmods.com/skyrim/mods/59711]Alchemy Ingredient Helper[/url], [url=https://www.nexusmods.com/skyrimspecialedition/mods/11498]ReAlchemy[/url], and [url=https://www.nexusmods.com/skyrimspecialedition/mods/115779]Alchemy helper[/url]. Every one of them proved people want this.
 [/list]
 
 [b]References[/b]
