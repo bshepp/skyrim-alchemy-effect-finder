@@ -69,3 +69,23 @@ Successor in spirit to cguebert's SkyrimAlchemyHelper, which served this niche f
 
 Built in collaboration with Claude (Anthropic's AI assistant) under human direction, stated openly: the AI wrote most of the code and drew the icon; the human set the requirements, verified the save parsing against real saves and the in-game alchemy menu, and tested everything you see in the screenshots. The commit history carries co-author trailers.
 ```
+
+## Credits field (BBCode)
+
+```
+[b]The lineage[/b] – alchemy helpers are a Skyrim tradition, and Alembic exists because of the tools that came before it:
+
+[list]
+[*][url=https://www.nexusmods.com/skyrim/mods/70171]Skyrim Alchemy Helper[/url] by cguebert – the direct predecessor and the inspiration: it read discovered effects straight from the save file years before anything else did. When the game outgrew it, this project picked up the torch. Successor in spirit; no code shared.
+[*]The wider family of attempts across fifteen years: [url=https://www.nexusmods.com/skyrim/mods/76]Alchemy Assistant[/url], [url=https://www.nexusmods.com/skyrim/mods/710]Alchemy Helper[/url], [url=https://www.nexusmods.com/skyrim/mods/59711]Alchemy Ingredient Helper[/url], [url=https://www.nexusmods.com/skyrimspecialedition/mods/11498]ReAlchemy[/url], and [url=https://www.nexusmods.com/skyrimspecialedition/mods/115779]Alchemy helper[/url]. Every one of them proved people want this.
+[/list]
+
+[b]References[/b]
+
+[list]
+[*][url=https://en.uesp.net/wiki/Skyrim:Ingredients]UESP[/url] – the ingredient, effect, and save-format documentation this tool is built on. The quiet backbone of everything Elder Scrolls.
+[*][url=https://github.com/mdfairch/FallrimTools]FallrimTools / ReSaver[/url] (Apache-2.0) – read as a save-format reference while writing the parser. No code copied from it or from any project above; Alembic is written fresh and MIT-licensed.
+[/list]
+
+[b]AI[/b] – built in collaboration with Claude (Anthropic's AI assistant) under human direction: Claude wrote most of the code (test-first) and drew the flask icon; the human set the requirements, supplied and verified the in-game ground truth against real saves, and tested everything. Stated here because it should be.
+```
