@@ -70,7 +70,13 @@ Successor in spirit to cguebert's SkyrimAlchemyHelper, which served this niche f
 Built in collaboration with Claude (Anthropic's AI assistant) under human direction, stated openly: the AI wrote most of the code and drew the icon; the human set the requirements, verified the save parsing against real saves and the in-game alchemy menu, and tested everything you see in the screenshots. The commit history carries co-author trailers.
 ```
 
-## Credits field (BBCode)
+## Credits field
+
+The form turned out to be plain text (no BBCode/URLs); the version actually
+posted is the plain rendering of the below, names only - findable by anyone
+who cares to look them up.
+
+### As drafted (BBCode)
 
 ```
 [b]Inspiration[/b] – alchemy helpers are a Skyrim tradition. Alembic is an independent tool, written entirely from scratch (MIT, open source); it contains no code, assets, or data from any project below. They are credited as inspiration, nothing more:
