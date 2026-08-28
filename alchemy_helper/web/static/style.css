@@ -113,6 +113,11 @@ footer a {
   flex-wrap: wrap;
 }
 
+.save-picker select {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
 select, button, input[type="number"] {
   background: var(--bg-raised);
   color: var(--text);
@@ -129,14 +134,6 @@ button {
 
 button:hover {
   border-color: var(--accent);
-}
-
-.status-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
 }
 
 .badge {
@@ -227,6 +224,11 @@ button:hover {
 
 .hint {
   color: var(--text-dim);
+}
+
+.hint-right {
+  margin-left: auto;
+  text-align: right;
 }
 
 .banner-amber {
