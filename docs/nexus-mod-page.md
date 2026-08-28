@@ -65,7 +65,7 @@ Download [b]SkyrimAlchemyEffectFinder.exe[/b], run it, and it opens in your brow
 
 [size=3][b]Credits[/b][/size]
 
-Successor in spirit to cguebert's SkyrimAlchemyHelper, which served this niche for years before the game outgrew it. Ingredient data built from UESP's documentation. Bug reports are welcome in the comments, but [url=https://github.com/bshepp/skyrim-alchemy-effect-finder/issues]GitHub Issues[/url] get seen fastest – a save file that fails to parse is the most useful bug report of all.
+Inspired by cguebert's SkyrimAlchemyHelper, which served this niche for years before the game outgrew it – Alembic is an independent tool, written from scratch, sharing no code with it. Ingredient data built from UESP's documentation. Bug reports are welcome in the comments, but [url=https://github.com/bshepp/skyrim-alchemy-effect-finder/issues]GitHub Issues[/url] get seen fastest – a save file that fails to parse is the most useful bug report of all.
 
 Built in collaboration with Claude (Anthropic's AI assistant) under human direction, stated openly: the AI wrote most of the code and drew the icon; the human set the requirements, verified the save parsing against real saves and the in-game alchemy menu, and tested everything you see in the screenshots. The commit history carries co-author trailers.
 ```
