@@ -660,6 +660,18 @@
     ]
   },
   {
+    "id": "mort-flesh",
+    "name": "Mort Flesh",
+    "plugin": "ccbgssse003-zombies.esl",
+    "form_id": 2060,
+    "effects": [
+      "damage-health",
+      "damage-magicka",
+      "damage-magicka-regen",
+      "frenzy"
+    ]
+  },
+  {
     "id": "mudcrab-chitin",
     "name": "Mudcrab Chitin",
     "plugin": "Skyrim.esm",

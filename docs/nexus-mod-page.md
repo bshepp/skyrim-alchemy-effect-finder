@@ -35,7 +35,7 @@ Pick a save, click Load, and the app reads your ingredient inventory and – the
 
 [list]
 [*][b]Effect Finder[/b] – pick any effect (Paralysis, Fortify Enchanting, whatever you're farming) and see every 2- or 3-ingredient combination that produces it, filtered to what you're actually carrying if you want.
-[*][b]Discovery Tracker[/b] – all 179 ingredients (vanilla + DLC + the free Creations), showing exactly which effect slots you've discovered and which are still ???. Editable by hand if you want to plan ahead.
+[*][b]Discovery Tracker[/b] – all 180 ingredients (vanilla + DLC + the free Creations + Plague of the Dead's Mort Flesh), showing exactly which effect slots you've discovered and which are still ???. Editable by hand if you want to plan ahead.
 [*][b]Discovery Plan[/b] – the clever one: the [i]fewest brews[/i] that will discover [i]every effect[/i] reachable from the ingredients in your bag. Brew down the list at any alchemy table and watch the ??? disappear.
 [*][b]Best Potions[/b] – every potion you can craft right now, ranked by how many effects it merges. More merged effects = more gold and more alchemy XP. This is the "what do I brew to level up and get rich" button.
 [/list]
@@ -58,8 +58,8 @@ Download [b]SkyrimAlchemyEffectFinder.exe[/b], run it, and it opens in your brow
 [size=3][b]Requirements and limits[/b][/size]
 
 [list]
-[*]Skyrim Special Edition, current Steam release (save format 12). Covers vanilla + Dawnguard, Hearthfire, Dragonborn + the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare Curios).
-[*]Not supported yet: Legendary Edition, VR, GOG, and mod-added ingredients. If a save can't be read, the app tells you why and drops to manual mode – every feature still works, you just enter counts yourself.
+[*]Skyrim Special Edition, current Steam release (save format 12). Covers vanilla + Dawnguard, Hearthfire, Dragonborn + the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare Curios) + Plague of the Dead's Mort Flesh.
+[*]Not supported yet: Legendary Edition, VR, GOG, and ingredients added by mods or other paid Creations – those show up in an "unknown ingredients" notice instead of breaking anything. If a save can't be read at all, the app tells you why and drops to manual mode – every feature still works, you just enter counts yourself.
 [*]No plugin, no SKSE, no load order impact – it's a separate program, not a mod in your game.
 [/list]
 

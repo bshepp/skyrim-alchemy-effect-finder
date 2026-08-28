@@ -23,7 +23,12 @@ def test_shipped_dataset_is_valid():
     # + 9 Fishing + 6 Saints & Seducers (3 native + 3 Update.esm gated by S&S) + 0 Survival Mode
     # + 1 extra record for the Saints & Seducers-sourced Flame Stalk (xx095E23,
     # see comment above) which is a distinct game record from the Rare Curios one.
-    assert len(ds.ingredients) == 179
+    # + 1 Mort Flesh from Plague of the Dead (ccbgssse003-zombies.esl xx00080C,
+    # effects identical to Human Heart per "Skyrim:Mort Flesh") – a paid
+    # Creation, added 2026-08-27 because the author's own save carries it;
+    # plugin string and local form id taken verbatim from that save's
+    # unknown-forms report.
+    assert len(ds.ingredients) == 180
     # 60 effects: the 59 listed on "Skyrim:Alchemy Effects" + Fortify Persuasion
     # (exclusive to Glassfish, documented on "Skyrim:Fortify Persuasion" but
     # omitted from the main effect table since it can't be combined into a potion).

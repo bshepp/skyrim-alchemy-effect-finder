@@ -35,8 +35,9 @@ Four tabs:
   value and alchemy XP (real magnitude/gold math is a Phase 2+ idea).
 
 The dataset covers vanilla Skyrim SE plus Dawnguard, Hearthfire, Dragonborn,
-and the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare
-Curios) – 179 ingredients, 60 effects, built from UESP documentation.
+the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare
+Curios), and Plague of the Dead's Mort Flesh – 180 ingredients, 60 effects,
+built from UESP documentation.
 
 ## Setup
 

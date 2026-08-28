@@ -61,12 +61,16 @@ def test_inventory_only_contains_carried_ingredients(state, dataset):
     assert state.inventory, "expected a non-empty inventory"
     assert set(state.inventory) <= set(dataset.ingredients)
     assert all(count > 0 for count in state.inventory.values())
-    # Parser-derived structural pin: this save carries 90 distinct
-    # ingredients out of the 179 in the dataset. A brute-force refID
-    # scan of the same change form claims 94 -- the four extras
+    # Parser-derived structural pin: this save carries 91 distinct
+    # ingredients out of the 180 in the dataset. It was 90 of 179 until
+    # 2026-08-27, when Mort Flesh entered the dataset and one item Maldric
+    # had been carrying all along (1x, no effects discovered, so no
+    # ingredient-use record ever flagged it) became resolvable. A
+    # brute-force refID scan of the same change form claims 4 more --
     # (aster-bloom-core, void-essence, scalon-fin, scrib-jelly) are
     # byte coincidences that the structured walk correctly rejects.
-    assert len(state.inventory) == 90
+    assert len(state.inventory) == 91
+    assert state.inventory["mort-flesh"] == 1
 
 
 def test_known_effects_match_what_the_user_sees_in_the_alchemy_menu(state, dataset):
