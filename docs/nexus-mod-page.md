@@ -50,7 +50,7 @@ Download [b]SkyrimAlchemyEffectFinder.exe[/b], run it, and it opens in your brow
 [*][b]Read-only.[/b] It opens your save, reads it, and never writes a byte. It cannot corrupt a save – it doesn't have the code to write one. That's checkable, not marketing: the source contains exactly one call that touches a save file (a read), and the app's only file-write is its own settings file in its own folder.
 [*][b]Local-only.[/b] Serves only your own machine (127.0.0.1). No internet, no accounts, no telemetry – nothing leaves your PC.
 [*][b]Open source (MIT).[/b] Full source at [url=https://github.com/bshepp/skyrim-alchemy-effect-finder]github.com/bshepp/skyrim-alchemy-effect-finder[/url] – read it, build it yourself with one script, or grab the exe from the GitHub release.
-[*]SHA-256 of the exe: [code]56711f9500a9d3afa170e158c1f645f459b1b3d8b719e3a7c1805a1be523a0cd[/code]
+[*]SHA-256 of the exe: [code]921be7d898e36c44b3f285112d1b085a3a405d5223e2ed401a84c2599d9bf114[/code]
 [/list]
 
 [b]About antivirus warnings:[/b] the exe is built with PyInstaller, which some antivirus tools flag on general principle (single-file Python apps all look alike to them). If yours complains: the source is public, the build script is in the repo, and the checksum above lets you verify the download. Or run it from source with Python – the README shows how.
