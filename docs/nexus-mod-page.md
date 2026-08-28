@@ -9,6 +9,10 @@ If the upload form asks about AI-generated content, answer honestly: yes –
 AI-assisted code and AI-drawn icon art, human-directed and verified (also
 disclosed in the description's Credits and the repo README).
 
+Screenshots: upload in the numbered order in `docs/screenshots/` –
+Discovery Plan leads (it becomes the page thumbnail), then Best Potions,
+Discovery Tracker, Effect Finder, and the header strip.
+
 ## Name
 
 Alembic - Skyrim Alchemy Effect Finder
