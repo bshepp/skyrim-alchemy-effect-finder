@@ -21,8 +21,8 @@ body:
     id: version
     attributes:
       label: App version
-      description: Shown in the footer of the app (for example v0.1.0).
-      placeholder: v0.1.0
+      description: Shown in the footer of the app (for example v1.0.0).
+      placeholder: v1.0.0
     validations:
       required: true
   - type: input
