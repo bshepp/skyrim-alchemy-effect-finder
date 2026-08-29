@@ -41,9 +41,11 @@ built from UESP documentation.
 
 ## Setup
 
-**Easiest:** download `SkyrimAlchemyEffectFinder.exe` from the
-[latest release](https://github.com/bshepp/skyrim-alchemy-effect-finder/releases)
-and run it – no Python needed. Your browser opens the app automatically.
+**Easiest:** download `Alembic-<version>.zip` from the
+[latest release](https://github.com/bshepp/skyrim-alchemy-effect-finder/releases),
+unzip it anywhere, and run `SkyrimAlchemyEffectFinder.exe` inside the
+`Alembic` folder – no Python needed. Your browser opens the app
+automatically.
 
 **From source:**
 
@@ -197,13 +199,16 @@ python -m alchemy_helper --no-browser
 → boots without error and serves the app at `http://127.0.0.1:8712/`
 (`Ctrl+C` to stop). Add `--port <N>` to check a different port.
 
-## Building the standalone exe
+## Building the standalone app
 
 `powershell -File scripts\build-exe.ps1` (from the repo root) produces
-`dist\SkyrimAlchemyEffectFinder.exe` (~15 MB) via PyInstaller, building from
-a throwaway venv with only the runtime dependencies so the exe stays small.
-It is a console app: the window it opens shows the server log, and closing
-it (or `Ctrl+C`) stops the app.
+`dist\Alembic-<version>.zip` – a folder build (PyInstaller `--onedir`)
+containing `SkyrimAlchemyEffectFinder.exe` beside its libraries, built
+from a throwaway venv with only the runtime dependencies. A folder build
+is deliberate: single self-extracting exes are what antivirus heuristics
+flag, and the folder form of the same app scans clean. It is a console
+app: the window it opens shows the server log, and closing it (or
+`Ctrl+C`) stops the app.
 
 ## Manual mode & overrides
 

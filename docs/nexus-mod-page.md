@@ -42,7 +42,7 @@ Pick a save, click Load, and the app reads your ingredient inventory and – the
 
 [size=3][b]How to use it[/b][/size]
 
-Download [b]SkyrimAlchemyEffectFinder.exe[/b], run it, and it opens in your browser (it's a tiny local web app). Your newest save is pre-selected – click Load and go. When you've played more, hit Reload for fresh numbers.
+Download the zip, unzip it anywhere, and run [b]SkyrimAlchemyEffectFinder.exe[/b] inside the Alembic folder – it opens in your browser (it's a tiny local web app). Your newest save is pre-selected – click Load and go. When you've played more, hit Reload for fresh numbers.
 
 [size=3][b]Safe by construction[/b][/size]
 
@@ -50,10 +50,10 @@ Download [b]SkyrimAlchemyEffectFinder.exe[/b], run it, and it opens in your brow
 [*][b]Read-only.[/b] It opens your save, reads it, and never writes a byte. It cannot corrupt a save – it doesn't have the code to write one. That's checkable, not marketing: the source contains exactly one call that touches a save file (a read), and the app's only file-write is its own settings file in its own folder.
 [*][b]Local-only.[/b] Serves only your own machine (127.0.0.1). No internet, no accounts, no telemetry – nothing leaves your PC.
 [*][b]Open source (MIT).[/b] Full source at [url=https://github.com/bshepp/skyrim-alchemy-effect-finder]github.com/bshepp/skyrim-alchemy-effect-finder[/url] – read it, build it yourself with one script, or grab the exe from the GitHub release.
-[*]SHA-256 of the exe: [code]921be7d898e36c44b3f285112d1b085a3a405d5223e2ed401a84c2599d9bf114[/code]
+[*]SHA-256 of the download (Alembic-1.0.1.zip): [code]6255a1b52fee274dcefca7d418bdbb118ef0a3be94c49ca7b5a94f5e493b629a[/code]
 [/list]
 
-[b]About antivirus warnings:[/b] the exe is built with PyInstaller, which some antivirus tools flag on general principle (single-file Python apps all look alike to them). If yours complains: the source is public, the build script is in the repo, and the checksum above lets you verify the download. Or run it from source with Python – the README shows how.
+[b]About antivirus warnings:[/b] since 1.0.1 the app ships as a plain folder rather than a single self-extracting exe, specifically because self-extracting Python apps are what antivirus heuristics flag (Windows Defender scans the folder build clean). If your scanner still complains: the source is public, the build script is in the repo, and the checksum above lets you verify the download. Or run it from source with Python – the README shows how.
 
 [size=3][b]Requirements and limits[/b][/size]
 
