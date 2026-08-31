@@ -70,6 +70,13 @@ structure in three costumes; any lane-2 writeup should say so.
 - 2026-08-30 ~23:20: factory v1 launched (2,000 worlds, both pools);
   ceiling attack launched (4 workers, 6 h). Siege (campaign-log
   result 8) concurrently holding bound 66 on jaga.
+- 2026-08-31 ~05:30: factory v1 harvested in 114 s (2,015 worlds,
+  `data/small-worlds-v1.jsonl`; greedy suboptimal on 23%, never by
+  more than 2; censuses 1 to 1,713,660). Ceiling attack COMPLETE:
+  **6,278,290 destroy-repair perturbations of the 70-brew plan across
+  four independent walks found no 69** - the ceiling held. Combined
+  with CP-SAT's own LNS silence, the working hypothesis is that the
+  UESP optimum is exactly 70, pending the floor's proof.
 - Publishing note: the dataset is plausible nerd bait (exact set-cover
   instances with exact optima and censuses, from a game people love).
   If it ever goes to Hugging Face, that is a publish-registry decision
