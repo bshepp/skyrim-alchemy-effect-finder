@@ -1,0 +1,104 @@
+[
+ {
+  "instance": "uesp-base-dlc-112",
+  "k": 66,
+  "status": "UNKNOWN",
+  "seconds": 43200.2
+ },
+ {
+  "instance": "uesp-base-dlc-112",
+  "k": 68,
+  "status": "UNKNOWN",
+  "seconds": 43200.2
+ },
+ {
+  "instance": "uesp-base-dlc-112",
+  "k": 67,
+  "status": "UNKNOWN",
+  "seconds": 43200.3
+ },
+ {
+  "instance": "uesp-base-dlc-112",
+  "k": 69,
+  "status": "UNKNOWN",
+  "seconds": 43202.0
+ },
+ {
+  "instance": "full-game-180",
+  "k": 95,
+  "status": "UNKNOWN",
+  "seconds": 43200.5
+ },
+ {
+  "instance": "full-game-180",
+  "k": 97,
+  "status": "UNKNOWN",
+  "seconds": 43200.3
+ },
+ {
+  "instance": "full-game-180",
+  "k": 96,
+  "status": "UNKNOWN",
+  "seconds": 43200.5
+ },
+ {
+  "instance": "full-game-180",
+  "k": 98,
+  "status": "UNKNOWN",
+  "seconds": 43200.4
+ },
+ {
+  "instance": "full-game-180",
+  "k": 99,
+  "status": "UNKNOWN",
+  "seconds": 43200.4
+ },
+ {
+  "instance": "full-game-180",
+  "k": 100,
+  "status": "UNKNOWN",
+  "seconds": 43200.3
+ },
+ {
+  "instance": "full-game-180",
+  "k": 102,
+  "status": "UNKNOWN",
+  "seconds": 43200.3
+ },
+ {
+  "instance": "full-game-180",
+  "k": 106,
+  "status": "UNKNOWN",
+  "seconds": 43200.3
+ },
+ {
+  "instance": "full-game-180",
+  "k": 101,
+  "status": "UNKNOWN",
+  "seconds": 43200.4
+ },
+ {
+  "instance": "full-game-180",
+  "k": 103,
+  "status": "UNKNOWN",
+  "seconds": 43200.3
+ },
+ {
+  "instance": "full-game-180",
+  "k": 105,
+  "status": "UNKNOWN",
+  "seconds": 43200.4
+ },
+ {
+  "instance": "full-game-180",
+  "k": 107,
+  "status": "UNKNOWN",
+  "seconds": 43200.3
+ },
+ {
+  "instance": "full-game-180",
+  "k": 104,
+  "status": "UNKNOWN",
+  "seconds": 43200.8
+ }
+]
