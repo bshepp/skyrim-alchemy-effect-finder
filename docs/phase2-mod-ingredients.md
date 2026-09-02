@@ -1,7 +1,13 @@
 # Phase 2 research: what adds or alters alchemy ingredients
 
-Researched 2026-08-29. Two distinct mechanisms exist in the wild, and
-Alembic will need both:
+Researched 2026-08-29. *Status 2026-09-02:* the dataset-pack mechanism
+described in "What this means" is now implemented on the `mod-packs`
+branch (extend + overhaul modes, plugin-based activation, The Cause
+shipped as the first pack). Priority reordered by the mod page's first
+two comments - actual users asked for CACO and Beyond Skyrim by name,
+so: CACO, Bruma, then the rest.
+
+Two distinct mechanisms exist in the wild, and Alembic will need both:
 
 - **Adders** - new ingredient records (plugin + form id + 4 effects).
   Exactly what the Mort Flesh addition exercised.

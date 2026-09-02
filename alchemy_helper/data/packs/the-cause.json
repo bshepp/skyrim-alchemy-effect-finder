@@ -1,0 +1,31 @@
+{
+  "id": "the-cause",
+  "name": "The Cause (Creation)",
+  "_source": "UESP Skyrim:Bloodgrass / Skyrim:Harrada / Skyrim:Spiddal_Stick / Skyrim:The_Cause, read 2026-09-02. The Creation ships as a full .esm (not a light plugin), so form ids are the lower 24 bits of the xx-prefixed ids UESP lists (xx024C13 etc.).",
+  "plugins": ["ccbgssse067-daedinv.esm"],
+  "mode": "extend",
+  "effects": [],
+  "ingredients": [
+    {
+      "id": "bloodgrass",
+      "name": "Bloodgrass",
+      "plugin": "ccbgssse067-daedinv.esm",
+      "form_id": 150547,
+      "effects": ["invisibility", "resist-poison", "slow", "fortify-health"]
+    },
+    {
+      "id": "harrada",
+      "name": "Harrada",
+      "plugin": "ccbgssse067-daedinv.esm",
+      "form_id": 150545,
+      "effects": ["damage-health", "damage-magicka", "paralysis", "damage-magicka-regen"]
+    },
+    {
+      "id": "spiddal-stick",
+      "name": "Spiddal Stick",
+      "plugin": "ccbgssse067-daedinv.esm",
+      "form_id": 150549,
+      "effects": ["damage-health", "damage-magicka", "weakness-to-fire", "restore-stamina"]
+    }
+  ]
+}
