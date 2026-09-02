@@ -5,6 +5,7 @@ let EFFECTS_BY_ID = {};
 let INGREDIENTS = [];
 let STATE = null;
 let currentSavePath = null;
+let currentPackSig = '';
 let showUncarried = false;
 
 const $ = (id) => document.getElementById(id);
@@ -49,8 +50,32 @@ async function refreshState() {
   if (!currentSavePath && STATE.save_path) {
     currentSavePath = STATE.save_path;
   }
+  // A loaded save can change the active dataset packs, which changes the
+  // ingredient/effect lists everything renders from - refetch them first.
+  const packSig = (STATE.packs || []).map((p) => p.id).join(',');
+  if (packSig !== currentPackSig) {
+    currentPackSig = packSig;
+    await refetchDataset();
+  }
   renderHeader();
   renderTracker();
+}
+
+async function refetchDataset() {
+  const [effects, ingredients] = await Promise.all([
+    fetch('/api/effects').then((r) => r.json()),
+    fetch('/api/ingredients').then((r) => r.json()),
+  ]);
+  EFFECTS = [...effects].sort((a, b) => a.name.localeCompare(b.name));
+  EFFECTS_BY_ID = Object.fromEntries(effects.map((e) => [e.id, e]));
+  INGREDIENTS = [...ingredients].sort((a, b) => a.name.localeCompare(b.name));
+  const effectSelect = $('effect-select');
+  const selected = effectSelect.value;
+  effectSelect.innerHTML = '';
+  for (const e of EFFECTS) {
+    effectSelect.append(new Option(e.name, e.id));
+  }
+  if (EFFECTS_BY_ID[selected]) effectSelect.value = selected;
 }
 
 function renderHeader() {
@@ -70,6 +95,17 @@ function renderHeader() {
   } else {
     errorMsg.hidden = true;
     errorMsg.textContent = '';
+  }
+
+  const packsNote = $('packs-note');
+  const packs = STATE.packs || [];
+  if (packs.length > 0) {
+    packsNote.hidden = false;
+    packsNote.textContent = `Packs: ${packs.map((p) => p.name).join(', ')}`;
+    packsNote.title = 'Mod ingredient packs activated by this save\'s load order';
+  } else {
+    packsNote.hidden = true;
+    packsNote.textContent = '';
   }
 
   const total = INGREDIENTS.length * 4;

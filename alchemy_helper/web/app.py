@@ -17,7 +17,8 @@ from alchemy_helper.combinatorics.core import (best_potions,
                                                 combos_for_effect,
                                                 discovery_plan,
                                                 potion_effects)
-from alchemy_helper.data.loader import load_dataset
+from alchemy_helper.data.loader import (load_dataset, load_packs,
+                                        packs_for_plugins)
 from alchemy_helper.saveparser.api import SaveFormatError, parse_save
 from alchemy_helper.state import AppState, Overrides
 from alchemy_helper.web.saves import default_saves_dir, list_saves
@@ -71,6 +72,8 @@ def create_app(data_dir: Path | None = None,
         saves_dir = default_saves_dir()
 
     dataset = load_dataset(data_dir)
+    all_packs = load_packs(data_dir)
+    active_pack_ids: list[str] = []
     overrides = Overrides(overrides_path)
     state = AppState(dataset=dataset, player=None, overrides=overrides, last_error=None)
 
@@ -83,6 +86,8 @@ def create_app(data_dir: Path | None = None,
         }
         return {
             "version": __version__,
+            "packs": [{"id": pid, "name": all_packs[pid].name}
+                      for pid in active_pack_ids],
             "mode": state.mode(),
             "character": state.player.character_name if state.player else None,
             "error": state.last_error,
@@ -112,12 +117,30 @@ def create_app(data_dir: Path | None = None,
 
     @app.post("/api/load-save")
     def load_save(req: LoadSaveRequest):
+        nonlocal dataset, active_pack_ids
         try:
             player = parse_save(Path(req.path), dataset)
         except SaveFormatError as exc:
             state.player = None
             state.last_error = str(exc)
             return state_payload()
+        # The save's own load order decides which dataset packs apply. On a
+        # change, rebuild the dataset and re-parse so pack ingredients
+        # resolve instead of landing in the unknown-forms banner (and
+        # deactivated packs stop resolving).
+        wanted = [p.id for p in
+                  packs_for_plugins(all_packs.values(), player.plugins)]
+        if wanted != active_pack_ids:
+            new_dataset = load_dataset(data_dir, packs=wanted)
+            try:
+                player = parse_save(Path(req.path), new_dataset)
+            except SaveFormatError as exc:
+                state.player = None
+                state.last_error = str(exc)
+                return state_payload()
+            dataset = new_dataset
+            active_pack_ids = wanted
+            state.dataset = new_dataset
         state.player = player
         state.last_error = None
         return state_payload()

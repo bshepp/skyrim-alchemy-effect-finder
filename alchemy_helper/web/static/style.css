@@ -171,6 +171,12 @@ button:hover {
   margin-left: auto;
 }
 
+.packs-note {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
 .tabs {
   display: flex;
   gap: 0.25rem;

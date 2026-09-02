@@ -41,6 +41,8 @@ class PlayerState:
     inventory: dict[str, int]                 # ingredient id -> carried count
     known_effects: dict[str, frozenset[int]]  # ingredient id -> known slots 0-3
     unknown_forms: tuple[UnknownForm, ...]
+    plugins: tuple[str, ...] = ()             # full load order: regular then
+                                              # light plugins, save order
 
 
 def parse_save(path: Path, dataset: Dataset) -> PlayerState:
@@ -99,4 +101,5 @@ def parse_save(path: Path, dataset: Dataset) -> PlayerState:
             UnknownForm(plugin=plugin, form_id=form_id)
             for plugin, form_id in extracted.unknown_forms
         ),
+        plugins=tuple(plugins.plugins) + tuple(plugins.light_plugins),
     )
