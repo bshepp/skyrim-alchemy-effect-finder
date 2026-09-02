@@ -56,13 +56,20 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
    `data/alchemy-ladder-results.json`. Lesson: bare BoolOr + cardinality
    probing does not engage at this scale, and the instance's symmetry
    (result 9) is the suspected culprit.
-8. **The siege** (launched 2026-08-30 17:57, ongoing,
+8. **The siege** (2026-08-30 17:57 to 2026-09-01 17:57,
    `scripts/jaga_siege_uesp.py`): CP-SAT optimization mode on the
    unpruned UESP instance (448 rows x 39,612 trio-columns), warm-hinted
    with the 70-brew plan, corridor as hard constraints, fully
-   instrumented (search log + incumbent callback). Hint accepted as
-   incumbent 70 at search start; lower bound parked at 66 through the
-   first five hours.
+   instrumented. Final verdict at the full 48-hour cap: FEASIBLE,
+   objective 70, **bound 66.00 - zero movement in 172,803 seconds on
+   80 workers**; the dedicated lower-bound subsolvers recorded zero
+   improvements. Measured conclusion: CP-SAT cannot move this floor in
+   either of its modes; the corridor's remaining gap [67..69] belongs
+   to proof-logging engines (symbolic-ladder rung 2). Ceiling
+   evidence meanwhile is unanimous: the MIP's 70, two days of LNS, and
+   6.3 M iterated-local-search perturbations (`scripts/plan_search.py`)
+   all failed to find 69. Working hypothesis: the UESP optimum is
+   exactly 70, one UNSAT certificate at k=69 away from a theorem.
 9. **Model symmetry** (2026-08-30, from the siege's own presolve log):
    54 symmetry generators; 3,256 orbits on 7,640 variables, orbit sizes
    50, 12, then many 6s; an 800x2 orbitope detected and exploited.
