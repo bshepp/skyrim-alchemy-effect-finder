@@ -73,9 +73,18 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
 9. **Model symmetry** (2026-08-30, from the siege's own presolve log):
    54 symmetry generators; 3,256 orbits on 7,640 variables, orbit sizes
    50, 12, then many 6s; an 800x2 orbitope detected and exploited.
-   Since orbit sizes divide group order and 50 does not divide 48 (see
-   result 11), some model symmetry is *emergent*: not induced by any
-   relabeling of ingredients. Interpreting the generators is open.
+   *Resolved 2026-09-01* (`scripts/orbit_probe.py`): WL refinement on
+   the clean model (448 rows x 37,872 pruned columns) finds 3,149
+   interchangeable-column families covering 7,346 columns - within ~3%
+   of CP-SAT's counts - and every family decodes as a *product of
+   duplicate-ingredient classes* (sizes 2, 3, 4, 6, and one 12 =
+   wings x eggs x nirnroots). The covering problem's symmetry group is
+   exactly the clone-product group of result 11, order 48. The size-50
+   orbit and the surplus generators were artifacts of CP-SAT's internal
+   encoding graph (119K nodes of literal/constraint machinery), not of
+   the problem. Also measured: effect degrees in UESP-112 span 4..21
+   with NO degree-2 or degree-3 effects, so neither frequency tail
+   creates symmetry - exact duplication is the entire story.
 10. **Duplicate-ingredient census** (2026-08-30,
     `scripts/dup_census.py`): ingredients with identical effect sets.
     UESP-112 has four classes (nine ingredients): the wing triple;
