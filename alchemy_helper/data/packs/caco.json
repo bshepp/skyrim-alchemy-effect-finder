@@ -1,7 +1,7 @@
 {
   "id": "caco",
   "name": "Complete Alchemy and Cooking Overhaul",
-  "_source": "Extracted from complete alchemy & cooking overhaul.esp by scripts/extract_pack.py; DRAFT pending human verification.",
+  "_source": "Extracted from the mod plugin (CACO 3.0.1, 2026-07-18) by scripts/extract_pack.py: effect translation table built from vanilla game files against the shipped dataset, cross-validated with zero conflicts. Four display names for master-file spell effects set by hand (their strings live in localized string tables): Cure Poison, Fortify Persuasion, Waterwalking, Soul Husk. VERIFIED 2026-09-02 by live round-trip: a 240-plugin save granted all 361 pack-universe ingredients via console; 359 round-tripped through the parser under correct identities with zero unknown forms (151/151 CACO-own, 26/26 injected). The two absentees (charred-skeever-hide, human-flesh) are intercepted at pickup by CACO item-swap scripts, consistent with its food conversions - records and effects stand.",
   "plugins": [
     "complete alchemy & cooking overhaul.esp"
   ],
@@ -26,8 +26,8 @@
       "harmful": false
     },
     {
-      "id": "dlc-1-food-soul-husk-effect",
-      "name": "DLC 1 Food Soul Husk Effect",
+      "id": "soul-husk",
+      "name": "Soul Husk",
       "description": "",
       "harmful": false
     },
@@ -87,7 +87,7 @@
     },
     {
       "id": "water-walking",
-      "name": "Water Walking",
+      "name": "Waterwalking",
       "description": "",
       "harmful": false
     }
@@ -3099,7 +3099,7 @@
       "plugin": "Update.esm",
       "form_id": 13410610,
       "effects": [
-        "dlc-1-food-soul-husk-effect",
+        "soul-husk",
         "resist-paralysis",
         "paralysis",
         "etherealize"
