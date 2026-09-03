@@ -243,6 +243,8 @@ const EMPTY_INVENTORY_MSG =
 
 async function computePlan() {
   const results = $('plan-results');
+  const counter = $('plan-count');
+  counter.textContent = '';
   if (carryingNothing()) {
     results.innerHTML = `<p class="hint">${EMPTY_INVENTORY_MSG}</p>`;
     return;
@@ -255,16 +257,25 @@ async function computePlan() {
     renderBanner(results, COMBINATORICS_ERROR_MSG, 'red');
     return;
   }
-  if (data.plan.length === 0) {
+  const n = data.plan.length;
+  counter.textContent = `${n} brew${n === 1 ? '' : 's'}`;
+  if (n === 0) {
     results.innerHTML = '<p class="hint">Nothing left to discover.</p>';
     return;
   }
   results.innerHTML = data.plan
     .map((brew, i) => {
       const names = brew.ingredient_ids.map((id) => ingredientName(id)).join(' + ');
-      const discovered = brew.newly_discovered
-        .map(([id, slot]) => `${ingredientName(id)}: ${slotEffectName(id, slot)}`)
-        .join(', ');
+      // Group revealed slots by ingredient: "Bone Meal: A, B, C, D" reads
+      // better than the same name repeated once per slot.
+      const groups = new Map();
+      for (const [id, slot] of brew.newly_discovered) {
+        if (!groups.has(id)) groups.set(id, []);
+        groups.get(id).push(slotEffectName(id, slot));
+      }
+      const discovered = [...groups.entries()]
+        .map(([id, effs]) => `${ingredientName(id)}: ${effs.join(', ')}`)
+        .join('; ');
       return `<div class="card"><div class="card-title">Brew ${i + 1}: ${names}</div>
         <div class="card-sub">newly discovers: ${discovered || 'nothing new'}</div></div>`;
     })
