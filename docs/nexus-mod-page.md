@@ -26,6 +26,21 @@ never touches your save.
 
 ## Description (BBCode)
 
+A dated status block was added at the top of the live description on
+2026-09-02 (and ArcMcNabbs's CACO comment answered): download still in
+manual file review with the GitHub release as the working mirror;
+CACO + The Cause support built and live-verified on the public
+`mod-packs` branch; Bruma next; ships as v1.1 when review clears.
+Remove the block when v1.1 goes up.
+
+```
+[size=3][b]Status - 2 Sep 2026[/b][/size]
+
+The download here is still in Nexus's manual file-review queue (every executable upload gets held; a support request is in). Until it clears, the identical zip is on the [url=https://github.com/bshepp/skyrim-alchemy-effect-finder/releases]GitHub release[/url] - checksum below.
+
+Meanwhile development continues on the public [url=https://github.com/bshepp/skyrim-alchemy-effect-finder/tree/mod-packs]mod-packs branch[/url], and the headline is for the comment section: [b]Complete Alchemy and Cooking Overhaul support is built and verified[/b] - the app reads your save's load order and switches to the full CACO ingredient set automatically (358 ingredients, tested live against CACO 3.0.1 in a 240-plugin load order), along with The Cause's ingredients. Beyond Skyrim: Bruma is next in line. It all lands here as v1.1 once the file review clears.
+```
+
 ```
 [size=4][b]Your alchemy table already knows what you should brew. Now you can too.[/b][/size]
 
