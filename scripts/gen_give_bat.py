@@ -3,7 +3,7 @@ the dataset (plus the save's active packs) knows, with runtime form ids
 computed from the save's own load order - clean-room protocol step 2
 (docs/cleanroom-plan.md).
 
-Usage: python scripts/gen_give_bat.py <save.ess> <out.txt>
+Usage: python scripts/gen_give_bat.py <save.ess> <out.txt> [count]
 Then in-game: open console, `bat <out-basename-without-extension>`
 (the file goes next to SkyrimSE.exe).
 """
@@ -17,7 +17,7 @@ from alchemy_helper.saveparser.body import parse_plugins, read_body
 from alchemy_helper.saveparser.header import parse_header
 
 
-def main(save_path: Path, out_path: Path):
+def main(save_path: Path, out_path: Path, count: int = 1):
     data = save_path.read_bytes()
     body = read_body(data, parse_header(data))
     plugin_list, _ = parse_plugins(body)
@@ -46,7 +46,7 @@ def main(save_path: Path, out_path: Path):
             skipped.append((ing.id, f"plugin not in load order: "
                                     f"{ing.plugin}"))
             continue
-        lines.append(f"player.additem {fid:08X} 1")
+        lines.append(f"player.additem {fid:08X} {count}")
 
     out_path.write_text("\n".join(lines) + "\n", encoding="ascii")
     print(f"{len(lines)} additem lines -> {out_path}")
@@ -55,4 +55,5 @@ def main(save_path: Path, out_path: Path):
 
 
 if __name__ == "__main__":
-    main(Path(sys.argv[1]), Path(sys.argv[2]))
+    main(Path(sys.argv[1]), Path(sys.argv[2]),
+         int(sys.argv[3]) if len(sys.argv) > 3 else 1)
