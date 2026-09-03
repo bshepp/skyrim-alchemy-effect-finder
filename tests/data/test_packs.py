@@ -174,6 +174,33 @@ def test_real_the_cause_pack():
     assert [p.id for p in active] == ["the-cause"]
 
 
+def test_real_caco_pack():
+    """The extracted CACO 3.0.1 pack: overhaul mode at full scale."""
+    ds = load_dataset(packs=["caco"])
+    assert len(ds.ingredients) == 358
+    assert len(ds.effects) == 74
+    # CACO remaps wheat's third and fourth effects
+    assert ds.ingredients["wheat"].effects == (
+        "restore-health", "fortify-health", "damage-magicka-regen",
+        "damage-stamina-regen")
+    # records injected into vanilla masters keep the master's identity
+    assert ds.ingredients["argonian-scales"].plugin == "Update.esm"
+    packs = load_packs()
+    active = packs_for_plugins(
+        packs.values(),
+        ["Skyrim.esm", "complete alchemy & cooking overhaul.esp"])
+    assert [p.id for p in active] == ["caco"]
+
+
+def test_caco_and_the_cause_together():
+    ds = load_dataset(packs=["caco", "the-cause"])
+    assert len(ds.ingredients) == 361
+    assert ds.ingredients["bloodgrass"].effects[0] == "invisibility"
+    assert ds.ingredients["garlic"].effects == (
+        "resist-disease", "regenerate-stamina", "regenerate-health",
+        "regenerate-magicka")
+
+
 def test_packs_for_plugins_matches_case_insensitively(tmp_path):
     write_base(tmp_path)
     write_pack(tmp_path, "extend.json", EXTEND_PACK)

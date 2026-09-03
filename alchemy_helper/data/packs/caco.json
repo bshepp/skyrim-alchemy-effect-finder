@@ -1,0 +1,3568 @@
+{
+  "id": "caco",
+  "name": "Complete Alchemy and Cooking Overhaul",
+  "_source": "Extracted from complete alchemy & cooking overhaul.esp by scripts/extract_pack.py; DRAFT pending human verification.",
+  "plugins": [
+    "complete alchemy & cooking overhaul.esp"
+  ],
+  "mode": "overhaul",
+  "effects": [
+    {
+      "id": "blood",
+      "name": "Blood",
+      "description": "Restores <mag> points of Health in vampires.",
+      "harmful": false
+    },
+    {
+      "id": "cure-poison-caco",
+      "name": "Cure Poison",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "detect-life",
+      "name": "Detect Life",
+      "description": "Detect nearby living creatures for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "dlc-1-food-soul-husk-effect",
+      "name": "DLC 1 Food Soul Husk Effect",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "drain-intelligence",
+      "name": "Drain Intelligence",
+      "description": "Decreases the effectiveness of spells by <mag>% for <dur> seconds.",
+      "harmful": true
+    },
+    {
+      "id": "drain-strength",
+      "name": "Drain Strength",
+      "description": "Target deals <mag>% less physical damage for <dur> seconds.",
+      "harmful": true
+    },
+    {
+      "id": "etherealize",
+      "name": "Etherealize",
+      "description": "Turn Ethereal for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "fortify-persuasion-caco",
+      "name": "Fortify Persuasion",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "fortify-unarmed",
+      "name": "Fortify Unarmed",
+      "description": "Increases Unarmed damage by <mag> points for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "night-eye-caco",
+      "name": "Night Eye",
+      "description": "Improved night vision for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "resist-disease",
+      "name": "Resist Disease",
+      "description": "<mag>% resistant to disease for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "resist-paralysis",
+      "name": "Resist Paralysis",
+      "description": "Resist paralysis for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "speed",
+      "name": "Speed",
+      "description": "Increases movement speed by <mag>% for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "water-walking",
+      "name": "Water Walking",
+      "description": "",
+      "harmful": false
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "abecean-longfin",
+      "name": "Abecean Longfin",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076763,
+      "effects": [
+        "weakness-to-frost",
+        "fortify-light-armor",
+        "fortify-restoration",
+        "weakness-to-poison"
+      ]
+    },
+    {
+      "id": "akatosh-butterfly",
+      "name": "Akatosh Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405278,
+      "effects": [
+        "fortify-restoration",
+        "fortify-one-handed",
+        "weakness-to-frost",
+        "fortify-destruction"
+      ]
+    },
+    {
+      "id": "alkanet-flower",
+      "name": "Alkanet Flower",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3239293,
+      "effects": [
+        "resist-poison",
+        "restore-magicka",
+        "detect-life",
+        "damage-stamina"
+      ]
+    },
+    {
+      "id": "aloe-vera",
+      "name": "Aloe Vera",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551469,
+      "effects": [
+        "restore-health",
+        "restore-stamina",
+        "lingering-damage-stamina",
+        "etherealize"
+      ]
+    },
+    {
+      "id": "ancestor-moth-wing",
+      "name": "Ancestor Moth Wing",
+      "plugin": "Dawnguard.esm",
+      "form_id": 22970,
+      "effects": [
+        "damage-magicka-regen",
+        "detect-life",
+        "fortify-conjuration",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "argonian-scales",
+      "name": "Argonian Scales",
+      "plugin": "Update.esm",
+      "form_id": 13410613,
+      "effects": [
+        "resist-poison",
+        "resist-disease",
+        "fortify-light-armor",
+        "fortify-lockpicking"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "arrowroot",
+      "name": "Arrowroot",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060519,
+      "effects": [
+        "slow",
+        "fortify-marksman",
+        "fortify-unarmed",
+        "speed"
+      ]
+    },
+    {
+      "id": "ash-creep-cluster",
+      "name": "Ash Creep Cluster",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118132,
+      "effects": [
+        "resist-fire",
+        "damage-stamina",
+        "invisibility",
+        "fortify-destruction"
+      ]
+    },
+    {
+      "id": "ash-hopper-jelly",
+      "name": "Ash Hopper Jelly",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118129,
+      "effects": [
+        "restore-health",
+        "weakness-to-frost",
+        "fortify-illusion",
+        "fortify-light-armor"
+      ]
+    },
+    {
+      "id": "ashen-grass-pod",
+      "name": "Ashen Grass Pod",
+      "plugin": "Dragonborn.esm",
+      "form_id": 93734,
+      "effects": [
+        "resist-fire",
+        "fortify-sneak",
+        "fortify-lockpicking",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "atlas-moth",
+      "name": "Atlas Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363768,
+      "effects": [
+        "damage-stamina-regen",
+        "detect-life",
+        "weakness-to-magic",
+        "night-eye-caco"
+      ]
+    },
+    {
+      "id": "ayleid-moon-moth",
+      "name": "Ayleid Moon Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3322275,
+      "effects": [
+        "drain-intelligence",
+        "fortify-alteration",
+        "fortify-restoration",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "banded-pennant",
+      "name": "Banded Pennant",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684676,
+      "effects": [
+        "lingering-damage-stamina",
+        "regenerate-stamina",
+        "regenerate-magicka",
+        "water-walking"
+      ]
+    },
+    {
+      "id": "barley",
+      "name": "Barley",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 9941008,
+      "effects": [
+        "restore-magicka",
+        "fortify-magicka",
+        "fortify-heavy-armor",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "barley-extract",
+      "name": "Barley Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10397576,
+      "effects": [
+        "restore-magicka",
+        "fortify-magicka",
+        "fortify-heavy-armor",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "bear-bile",
+      "name": "Bear Bile",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301509,
+      "effects": [
+        "fortify-heavy-armor",
+        "fortify-persuasion-caco",
+        "fortify-light-armor",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "bear-claws",
+      "name": "Bear Claws",
+      "plugin": "Skyrim.esm",
+      "form_id": 441346,
+      "effects": [
+        "fortify-health",
+        "restore-stamina",
+        "fortify-one-handed",
+        "fortify-block"
+      ]
+    },
+    {
+      "id": "bear-fat",
+      "name": "Bear Fat",
+      "plugin": "Update.esm",
+      "form_id": 13410627,
+      "effects": [
+        "resist-poison",
+        "restore-stamina",
+        "restore-health",
+        "cure-disease"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "bee",
+      "name": "Bee",
+      "plugin": "Skyrim.esm",
+      "form_id": 692629,
+      "effects": [
+        "restore-stamina",
+        "regenerate-stamina",
+        "ravage-stamina",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "beehive-husk",
+      "name": "Beehive Husk",
+      "plugin": "Skyrim.esm",
+      "form_id": 692625,
+      "effects": [
+        "fortify-light-armor",
+        "cure-poison-caco",
+        "fortify-sneak",
+        "fortify-destruction"
+      ]
+    },
+    {
+      "id": "bergamot-seeds",
+      "name": "Bergamot Seeds",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 832182,
+      "effects": [
+        "resist-paralysis",
+        "lingering-damage-stamina",
+        "resist-disease",
+        "ravage-magicka"
+      ]
+    },
+    {
+      "id": "berits-ashes",
+      "name": "Berit's Ashes",
+      "plugin": "Skyrim.esm",
+      "form_id": 460215,
+      "effects": [
+        "damage-stamina",
+        "fortify-conjuration",
+        "resist-fire",
+        "night-eye-caco"
+      ]
+    },
+    {
+      "id": "bitterling",
+      "name": "Bitterling",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405276,
+      "effects": [
+        "waterbreathing",
+        "weakness-to-frost",
+        "cure-disease",
+        "restore-health"
+      ]
+    },
+    {
+      "id": "black-lichen",
+      "name": "Black Lichen",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551382,
+      "effects": [
+        "slow",
+        "cure-poison-caco",
+        "resist-frost",
+        "drain-strength"
+      ]
+    },
+    {
+      "id": "black-pearl",
+      "name": "Black Pearl",
+      "plugin": "Update.esm",
+      "form_id": 13370933,
+      "effects": [
+        "lingering-damage-magicka",
+        "resist-paralysis",
+        "cure-poison-caco",
+        "night-eye-caco"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "blackbrow-bleak",
+      "name": "Blackbrow Bleak",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301511,
+      "effects": [
+        "weakness-to-frost",
+        "cure-poison-caco",
+        "weakness-to-fire",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "bleeding-crown",
+      "name": "Bleeding Crown",
+      "plugin": "Skyrim.esm",
+      "form_id": 317984,
+      "effects": [
+        "weakness-to-fire",
+        "weakness-to-poison",
+        "fortify-light-armor",
+        "fortify-block"
+      ]
+    },
+    {
+      "id": "blind-betty",
+      "name": "Blind Betty",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301512,
+      "effects": [
+        "lingering-damage-stamina",
+        "damage-magicka-regen",
+        "fortify-unarmed",
+        "cure-poison-caco"
+      ]
+    },
+    {
+      "id": "blister-pod",
+      "name": "Blister Pod",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551383,
+      "effects": [
+        "restore-magicka",
+        "fortify-magicka",
+        "night-eye-caco",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "blisterwort",
+      "name": "Blisterwort",
+      "plugin": "Skyrim.esm",
+      "form_id": 317989,
+      "effects": [
+        "damage-stamina",
+        "frenzy",
+        "fortify-smithing",
+        "restore-health"
+      ]
+    },
+    {
+      "id": "bloatspore",
+      "name": "Bloatspore",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551423,
+      "effects": [
+        "drain-intelligence",
+        "fortify-alteration",
+        "detect-life",
+        "fortify-conjuration"
+      ]
+    },
+    {
+      "id": "blood-of-a-bosmer",
+      "name": "Blood of a Bosmer",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977519,
+      "effects": [
+        "blood",
+        "resist-disease",
+        "fortify-marksman",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "blood-of-a-breton",
+      "name": "Blood of a Breton",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977500,
+      "effects": [
+        "blood",
+        "resist-magic",
+        "fortify-restoration",
+        "fortify-conjuration"
+      ]
+    },
+    {
+      "id": "blood-of-a-dunmer",
+      "name": "Blood of a Dunmer",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977513,
+      "effects": [
+        "blood",
+        "resist-fire",
+        "fortify-destruction",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "blood-of-a-khajiit",
+      "name": "Blood of a Khajiit",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977524,
+      "effects": [
+        "blood",
+        "speed",
+        "fortify-sneak",
+        "night-eye-caco"
+      ]
+    },
+    {
+      "id": "blood-of-a-nord",
+      "name": "Blood of a Nord",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977499,
+      "effects": [
+        "blood",
+        "resist-frost",
+        "fortify-two-handed",
+        "fortify-stamina"
+      ]
+    },
+    {
+      "id": "blood-of-a-redguard",
+      "name": "Blood of a Redguard",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977503,
+      "effects": [
+        "blood",
+        "resist-poison",
+        "regenerate-stamina",
+        "fortify-one-handed"
+      ]
+    },
+    {
+      "id": "blood-of-an-altmer",
+      "name": "Blood of an Altmer",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977511,
+      "effects": [
+        "blood",
+        "regenerate-magicka",
+        "fortify-magicka",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "blood-of-an-argonian",
+      "name": "Blood of an Argonian",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977522,
+      "effects": [
+        "blood",
+        "resist-disease",
+        "waterbreathing",
+        "regenerate-health"
+      ]
+    },
+    {
+      "id": "blood-of-an-imperial",
+      "name": "Blood of an Imperial",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977510,
+      "effects": [
+        "blood",
+        "fortify-persuasion-caco",
+        "fortify-heavy-armor",
+        "fortify-block"
+      ]
+    },
+    {
+      "id": "blood-of-an-orc",
+      "name": "Blood of an Orc",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 977520,
+      "effects": [
+        "blood",
+        "fortify-heavy-armor",
+        "fortify-one-handed",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "blue-butterfly-wing",
+      "name": "Blue Butterfly Wing",
+      "plugin": "Skyrim.esm",
+      "form_id": 468958,
+      "effects": [
+        "fortify-conjuration",
+        "fortify-smithing",
+        "fortify-enchanting",
+        "damage-stamina"
+      ]
+    },
+    {
+      "id": "blue-clipper-butterfly",
+      "name": "Blue Clipper Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405280,
+      "effects": [
+        "fortify-alteration",
+        "lingering-damage-magicka",
+        "fortify-illusion",
+        "fortify-persuasion-caco"
+      ]
+    },
+    {
+      "id": "blue-dartwing",
+      "name": "Blue Dartwing",
+      "plugin": "Skyrim.esm",
+      "form_id": 937740,
+      "effects": [
+        "fortify-pickpocket",
+        "resist-shock",
+        "restore-health",
+        "fear"
+      ]
+    },
+    {
+      "id": "blue-mountain-flower",
+      "name": "Blue Mountain Flower",
+      "plugin": "Skyrim.esm",
+      "form_id": 491036,
+      "effects": [
+        "fortify-conjuration",
+        "fortify-magicka",
+        "damage-health",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "blue-mountain-flower-extract",
+      "name": "Blue Mountain Flower Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937130,
+      "effects": [
+        "fortify-conjuration",
+        "fortify-magicka",
+        "damage-health",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "blue-orfe",
+      "name": "Blue Orfe",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301519,
+      "effects": [
+        "restore-health",
+        "cure-disease",
+        "ravage-stamina",
+        "drain-intelligence"
+      ]
+    },
+    {
+      "id": "boar-tusk",
+      "name": "Boar Tusk",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118127,
+      "effects": [
+        "fortify-block",
+        "fortify-stamina",
+        "fortify-health",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "bone-hawk-claw",
+      "name": "Bone Hawk Claw",
+      "plugin": "Update.esm",
+      "form_id": 13410611,
+      "effects": [
+        "damage-stamina-regen",
+        "fortify-marksman",
+        "fortify-conjuration",
+        "drain-strength"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "bone-hawk-feathers",
+      "name": "Bone Hawk Feathers",
+      "plugin": "Update.esm",
+      "form_id": 13410612,
+      "effects": [
+        "weakness-to-poison",
+        "ravage-health",
+        "fortify-pickpocket",
+        "fortify-enchanting"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "bone-meal",
+      "name": "Bone Meal",
+      "plugin": "Skyrim.esm",
+      "form_id": 216285,
+      "effects": [
+        "damage-stamina",
+        "fortify-conjuration",
+        "resist-fire",
+        "night-eye-caco"
+      ]
+    },
+    {
+      "id": "briar-heart",
+      "name": "Briar Heart",
+      "plugin": "Skyrim.esm",
+      "form_id": 240993,
+      "effects": [
+        "fortify-health",
+        "fortify-destruction",
+        "fortify-magicka",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "burnt-spriggan-wood",
+      "name": "Burnt Spriggan Wood",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118126,
+      "effects": [
+        "damage-magicka-regen",
+        "weakness-to-fire",
+        "fortify-alteration",
+        "slow"
+      ]
+    },
+    {
+      "id": "butterfly-wing",
+      "name": "Butterfly Wing",
+      "plugin": "Skyrim.esm",
+      "form_id": 468960,
+      "effects": [
+        "lingering-damage-magicka",
+        "fortify-persuasion-caco",
+        "damage-magicka",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "canis-root",
+      "name": "Canis Root",
+      "plugin": "Skyrim.esm",
+      "form_id": 437195,
+      "effects": [
+        "damage-stamina",
+        "fortify-marksman",
+        "ravage-magicka",
+        "fortify-light-armor"
+      ]
+    },
+    {
+      "id": "canis-root-extract",
+      "name": "Canis Root Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937128,
+      "effects": [
+        "damage-stamina",
+        "fortify-marksman",
+        "ravage-magicka",
+        "fortify-light-armor"
+      ]
+    },
+    {
+      "id": "cavefish",
+      "name": "Cavefish",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301522,
+      "effects": [
+        "lingering-damage-magicka",
+        "detect-life",
+        "resist-disease",
+        "waterbreathing"
+      ]
+    },
+    {
+      "id": "ceanothus-moth",
+      "name": "Ceanothus Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301524,
+      "effects": [
+        "fortify-pickpocket",
+        "fortify-lockpicking",
+        "cure-poison-caco",
+        "lingering-damage-stamina"
+      ]
+    },
+    {
+      "id": "cecropia-moth",
+      "name": "Cecropia Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301526,
+      "effects": [
+        "ravage-health",
+        "damage-health",
+        "fear",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "charred-skeever-hide",
+      "name": "Charred Skeever Hide",
+      "plugin": "Skyrim.esm",
+      "form_id": 337557,
+      "effects": [
+        "resist-poison",
+        "restore-stamina",
+        "restore-health",
+        "cure-disease"
+      ]
+    },
+    {
+      "id": "chaurus-eggs",
+      "name": "Chaurus Eggs",
+      "plugin": "Skyrim.esm",
+      "form_id": 240982,
+      "effects": [
+        "weakness-to-poison",
+        "night-eye-caco",
+        "invisibility",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "chaurus-hunter-antennae",
+      "name": "Chaurus Hunter Antennae",
+      "plugin": "Dawnguard.esm",
+      "form_id": 99255,
+      "effects": [
+        "fortify-conjuration",
+        "damage-stamina",
+        "damage-magicka-regen",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "chicken-feathers",
+      "name": "Chicken Feathers",
+      "plugin": "Update.esm",
+      "form_id": 13370944,
+      "effects": [
+        "fortify-unarmed",
+        "fortify-pickpocket",
+        "cure-poison-caco",
+        "weakness-to-shock"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "chickens-egg",
+      "name": "Chicken's Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 146807,
+      "effects": [
+        "fortify-alteration",
+        "resist-paralysis",
+        "resist-poison",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "chokeberries",
+      "name": "Chokeberries",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1579045,
+      "effects": [
+        "weakness-to-poison",
+        "damage-health",
+        "ravage-magicka",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "clouded-funnel-cap",
+      "name": "Clouded Funnel Cap",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551385,
+      "effects": [
+        "damage-magicka",
+        "restore-magicka",
+        "damage-stamina",
+        "fortify-conjuration"
+      ]
+    },
+    {
+      "id": "columbine-root-extract",
+      "name": "Columbine Root Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937126,
+      "effects": [
+        "fortify-persuasion-caco",
+        "fortify-magicka",
+        "resist-frost",
+        "etherealize"
+      ]
+    },
+    {
+      "id": "columbine-root-pulp",
+      "name": "Columbine Root Pulp",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060544,
+      "effects": [
+        "fortify-persuasion-caco",
+        "fortify-magicka",
+        "resist-frost",
+        "etherealize"
+      ]
+    },
+    {
+      "id": "comet-moth",
+      "name": "Comet Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301532,
+      "effects": [
+        "damage-stamina-regen",
+        "fortify-alteration",
+        "fortify-block",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "common-blue-butterfly",
+      "name": "Common Blue Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301530,
+      "effects": [
+        "weakness-to-frost",
+        "cure-disease",
+        "regenerate-health",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "common-shiner",
+      "name": "Common Shiner",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301534,
+      "effects": [
+        "resist-disease",
+        "fortify-smithing",
+        "fortify-unarmed",
+        "waterbreathing"
+      ]
+    },
+    {
+      "id": "creep-cluster",
+      "name": "Creep Cluster",
+      "plugin": "Skyrim.esm",
+      "form_id": 729475,
+      "effects": [
+        "fortify-carry-weight",
+        "damage-stamina-regen",
+        "weakness-to-magic",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "creep-cluster-extract",
+      "name": "Creep Cluster Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937124,
+      "effects": [
+        "fortify-carry-weight",
+        "damage-stamina-regen",
+        "weakness-to-magic",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "crimson-marsh-glider",
+      "name": "Crimson Marsh Glider",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684677,
+      "effects": [
+        "resist-paralysis",
+        "cure-disease",
+        "water-walking",
+        "weakness-to-poison"
+      ]
+    },
+    {
+      "id": "crimson-nirnroot",
+      "name": "Crimson Nirnroot",
+      "plugin": "Skyrim.esm",
+      "form_id": 749594,
+      "effects": [
+        "damage-health",
+        "invisibility",
+        "resist-magic",
+        "drain-strength"
+      ]
+    },
+    {
+      "id": "crushed-amber",
+      "name": "Crushed Amber",
+      "plugin": "Update.esm",
+      "form_id": 13370932,
+      "effects": [
+        "restore-health",
+        "resist-fire",
+        "resist-disease",
+        "speed"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "crushed-ant-paste",
+      "name": "Crushed Ant Paste",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301536,
+      "effects": [
+        "fortify-unarmed",
+        "fortify-carry-weight",
+        "cure-poison-caco",
+        "fortify-lockpicking"
+      ]
+    },
+    {
+      "id": "crushed-onyx",
+      "name": "Crushed Onyx",
+      "plugin": "Update.esm",
+      "form_id": 13370934,
+      "effects": [
+        "fortify-block",
+        "fortify-smithing",
+        "weakness-to-shock",
+        "resist-shock"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "cyrodilic-spadetail",
+      "name": "Cyrodilic Spadetail",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076761,
+      "effects": [
+        "fortify-restoration",
+        "damage-stamina",
+        "fear",
+        "ravage-health"
+      ]
+    },
+    {
+      "id": "daedra-heart",
+      "name": "Daedra Heart",
+      "plugin": "Skyrim.esm",
+      "form_id": 240987,
+      "effects": [
+        "restore-health",
+        "fear",
+        "ravage-magicka",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "daedra-silk-cca137",
+      "name": "Daedra Silk",
+      "plugin": "Update.esm",
+      "form_id": 13410615,
+      "effects": [
+        "slow",
+        "night-eye-caco",
+        "damage-stamina",
+        "etherealize"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "daedra-venin-cb2b2",
+      "name": "Daedra Venin",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 832178,
+      "effects": [
+        "paralysis",
+        "ravage-health",
+        "drain-intelligence",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "daedroth-teeth-a7b4b",
+      "name": "Daedroth Teeth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 686923,
+      "effects": [
+        "fortify-stamina",
+        "frenzy",
+        "night-eye-caco",
+        "drain-strength"
+      ]
+    },
+    {
+      "id": "darkwater-minnow",
+      "name": "Darkwater Minnow",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405273,
+      "effects": [
+        "weakness-to-fire",
+        "fortify-block",
+        "waterbreathing",
+        "fortify-persuasion-caco"
+      ]
+    },
+    {
+      "id": "deathbell",
+      "name": "Deathbell",
+      "plugin": "Skyrim.esm",
+      "form_id": 333512,
+      "effects": [
+        "weakness-to-poison",
+        "ravage-stamina",
+        "slow",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "direnni-s-dartwing",
+      "name": "Direnni's Dartwing",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684672,
+      "effects": [
+        "fortify-conjuration",
+        "weakness-to-frost",
+        "speed",
+        "drain-strength"
+      ]
+    },
+    {
+      "id": "dragon-heartscales",
+      "name": "Dragon Heartscales",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 666178,
+      "effects": [
+        "fortify-alteration",
+        "drain-intelligence",
+        "resist-magic",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "dragon-s-tongue-extract",
+      "name": "Dragon's Tongue Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937122,
+      "effects": [
+        "fortify-persuasion-caco",
+        "resist-fire",
+        "fortify-two-handed",
+        "fortify-illusion"
+      ]
+    },
+    {
+      "id": "dragon-tooth",
+      "name": "Dragon Tooth",
+      "plugin": "Update.esm",
+      "form_id": 13370937,
+      "effects": [
+        "restore-magicka",
+        "fortify-two-handed",
+        "weakness-to-magic",
+        "resist-paralysis"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "dragons-tongue",
+      "name": "Dragon's Tongue",
+      "plugin": "Skyrim.esm",
+      "form_id": 559522,
+      "effects": [
+        "fortify-persuasion-caco",
+        "resist-fire",
+        "fortify-two-handed",
+        "fortify-illusion"
+      ]
+    },
+    {
+      "id": "dreugh-wax-cca138",
+      "name": "Dreugh Wax",
+      "plugin": "Update.esm",
+      "form_id": 13410616,
+      "effects": [
+        "waterbreathing",
+        "ravage-stamina",
+        "lingering-damage-health",
+        "resist-poison"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "druadach-dart",
+      "name": "Druadach Dart",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3343013,
+      "effects": [
+        "lingering-damage-stamina",
+        "speed",
+        "fortify-marksman",
+        "waterbreathing"
+      ]
+    },
+    {
+      "id": "dwarven-oil",
+      "name": "Dwarven Oil",
+      "plugin": "Skyrim.esm",
+      "form_id": 987584,
+      "effects": [
+        "fortify-sneak",
+        "weakness-to-magic",
+        "fortify-illusion",
+        "fortify-lockpicking"
+      ]
+    },
+    {
+      "id": "ebony-jewelwing",
+      "name": "Ebony Jewelwing",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684675,
+      "effects": [
+        "resist-paralysis",
+        "damage-magicka-regen",
+        "resist-shock",
+        "detect-life"
+      ]
+    },
+    {
+      "id": "ectoplasm",
+      "name": "Ectoplasm",
+      "plugin": "Skyrim.esm",
+      "form_id": 240995,
+      "effects": [
+        "etherealize",
+        "fortify-illusion",
+        "fortify-magicka",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "elven-heart",
+      "name": "Elven Heart",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551551,
+      "effects": [
+        "regenerate-magicka",
+        "fortify-conjuration",
+        "fortify-destruction",
+        "fortify-illusion"
+      ]
+    },
+    {
+      "id": "elves-ear",
+      "name": "Elves Ear",
+      "plugin": "Skyrim.esm",
+      "form_id": 216369,
+      "effects": [
+        "restore-magicka",
+        "restore-health",
+        "weakness-to-frost",
+        "resist-fire"
+      ]
+    },
+    {
+      "id": "elves-ear-extract",
+      "name": "Elves Ear Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937120,
+      "effects": [
+        "restore-magicka",
+        "restore-health",
+        "weakness-to-frost",
+        "resist-fire"
+      ]
+    },
+    {
+      "id": "emerald-darner",
+      "name": "Emerald Darner",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684691,
+      "effects": [
+        "water-walking",
+        "cure-disease",
+        "lingering-damage-magicka",
+        "speed"
+      ]
+    },
+    {
+      "id": "emerald-swallowtail",
+      "name": "Emerald Swallowtail",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363769,
+      "effects": [
+        "drain-intelligence",
+        "fortify-one-handed",
+        "resist-disease",
+        "fortify-alteration"
+      ]
+    },
+    {
+      "id": "emperor-dartwing",
+      "name": "Emperor Dartwing",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684689,
+      "effects": [
+        "fortify-restoration",
+        "fortify-illusion",
+        "fortify-unarmed",
+        "lingering-damage-magicka"
+      ]
+    },
+    {
+      "id": "emperor-moth",
+      "name": "Emperor Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3343016,
+      "effects": [
+        "fortify-magicka",
+        "cure-disease",
+        "weakness-to-fire",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "emperor-parasol-moss",
+      "name": "Emperor Parasol Moss",
+      "plugin": "Dragonborn.esm",
+      "form_id": 130933,
+      "effects": [
+        "regenerate-health",
+        "fortify-two-handed",
+        "damage-health",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "eye-of-sabre-cat",
+      "name": "Eye of Sabre Cat",
+      "plugin": "Skyrim.esm",
+      "form_id": 441351,
+      "effects": [
+        "night-eye-caco",
+        "restore-stamina",
+        "ravage-health",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "falkreath-minnow",
+      "name": "Falkreath Minnow",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3343018,
+      "effects": [
+        "fortify-light-armor",
+        "weakness-to-poison",
+        "fortify-lockpicking",
+        "resist-paralysis"
+      ]
+    },
+    {
+      "id": "falmer-blood",
+      "name": "Falmer Blood",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060515,
+      "effects": [
+        "fortify-sneak",
+        "resist-poison",
+        "restore-magicka",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "falmer-ear",
+      "name": "Falmer Ear",
+      "plugin": "Skyrim.esm",
+      "form_id": 240989,
+      "effects": [
+        "fortify-lockpicking",
+        "frenzy",
+        "resist-poison",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "felsaad-tern-feathers",
+      "name": "Felsaad Tern Feathers",
+      "plugin": "Dragonborn.esm",
+      "form_id": 249230,
+      "effects": [
+        "fortify-light-armor",
+        "restore-health",
+        "cure-disease",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "fennel-seed-extract",
+      "name": "Fennel Seed Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937118,
+      "effects": [
+        "fortify-magicka",
+        "fortify-stamina",
+        "fortify-two-handed",
+        "weakness-to-poison"
+      ]
+    },
+    {
+      "id": "fennel-seeds",
+      "name": "Fennel Seeds",
+      "plugin": "Update.esm",
+      "form_id": 13410583,
+      "effects": [
+        "fortify-magicka",
+        "fortify-stamina",
+        "fortify-two-handed",
+        "weakness-to-poison"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "fine-cut-ash-salts",
+      "name": "Fine-Cut Ash Salts",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937166,
+      "effects": [
+        "drain-strength",
+        "fortify-enchanting",
+        "ravage-stamina",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "fine-cut-fire-salts",
+      "name": "Fine-Cut Fire Salts",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937159,
+      "effects": [
+        "weakness-to-fire",
+        "resist-frost",
+        "regenerate-magicka",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "fine-cut-frost-salts",
+      "name": "Fine-Cut Frost Salts",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937160,
+      "effects": [
+        "weakness-to-frost",
+        "resist-fire",
+        "damage-health",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "fine-cut-void-salts",
+      "name": "Fine-Cut Void Salts",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937162,
+      "effects": [
+        "weakness-to-shock",
+        "resist-shock",
+        "ravage-magicka",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "finely-ground-bone-meal",
+      "name": "Finely Ground Bone Meal",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937164,
+      "effects": [
+        "damage-stamina",
+        "fortify-conjuration",
+        "resist-fire",
+        "night-eye-caco"
+      ]
+    },
+    {
+      "id": "fire-petals",
+      "name": "Fire Petals",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551473,
+      "effects": [
+        "lingering-damage-health",
+        "resist-fire",
+        "resist-paralysis",
+        "ravage-health"
+      ]
+    },
+    {
+      "id": "fire-salts",
+      "name": "Fire Salts",
+      "plugin": "Skyrim.esm",
+      "form_id": 240990,
+      "effects": [
+        "weakness-to-fire",
+        "resist-frost",
+        "regenerate-magicka",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "flame-skimmer",
+      "name": "Flame Skimmer",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684679,
+      "effects": [
+        "weakness-to-frost",
+        "speed",
+        "cure-poison-caco",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "flax-seed-extract",
+      "name": "Flax Seed Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937116,
+      "effects": [
+        "fortify-carry-weight",
+        "fortify-block",
+        "lingering-damage-health",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "flax-seeds",
+      "name": "Flax Seeds",
+      "plugin": "Update.esm",
+      "form_id": 13410584,
+      "effects": [
+        "fortify-carry-weight",
+        "fortify-block",
+        "lingering-damage-health",
+        "restore-magicka"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "fly-amanita",
+      "name": "Fly Amanita",
+      "plugin": "Skyrim.esm",
+      "form_id": 317952,
+      "effects": [
+        "regenerate-stamina",
+        "resist-fire",
+        "fortify-two-handed",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "fox-fat",
+      "name": "Fox Fat",
+      "plugin": "Update.esm",
+      "form_id": 13410628,
+      "effects": [
+        "fortify-lockpicking",
+        "fortify-persuasion-caco",
+        "fortify-pickpocket",
+        "lingering-damage-stamina"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "foxglove-nectar",
+      "name": "Foxglove Nectar",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853011,
+      "effects": [
+        "resist-poison",
+        "resist-disease",
+        "resist-paralysis",
+        "night-eye-caco"
+      ]
+    },
+    {
+      "id": "frogspawn",
+      "name": "Frogspawn",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1441951,
+      "effects": [
+        "waterbreathing",
+        "cure-disease",
+        "weakness-to-frost",
+        "fortify-pickpocket"
+      ]
+    },
+    {
+      "id": "frost-mirriam",
+      "name": "Frost Mirriam",
+      "plugin": "Skyrim.esm",
+      "form_id": 216370,
+      "effects": [
+        "resist-frost",
+        "fortify-stamina",
+        "fortify-magicka",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "frost-mirriam-extract",
+      "name": "Frost Mirriam Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937114,
+      "effects": [
+        "resist-frost",
+        "fortify-stamina",
+        "fortify-magicka",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "frost-salts",
+      "name": "Frost Salts",
+      "plugin": "Skyrim.esm",
+      "form_id": 240991,
+      "effects": [
+        "weakness-to-frost",
+        "resist-fire",
+        "damage-health",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "frost-skimmer",
+      "name": "Frost Skimmer",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684678,
+      "effects": [
+        "weakness-to-fire",
+        "resist-frost",
+        "restore-stamina",
+        "water-walking"
+      ]
+    },
+    {
+      "id": "garlic",
+      "name": "Garlic",
+      "plugin": "Skyrim.esm",
+      "form_id": 216354,
+      "effects": [
+        "resist-disease",
+        "regenerate-stamina",
+        "regenerate-health",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "garlic-extract",
+      "name": "Garlic Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5937113,
+      "effects": [
+        "resist-disease",
+        "regenerate-stamina",
+        "regenerate-health",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "ghostfish",
+      "name": "Ghostfish",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363759,
+      "effects": [
+        "resist-poison",
+        "speed",
+        "etherealize",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "giant-lichen",
+      "name": "Giant Lichen",
+      "plugin": "Skyrim.esm",
+      "form_id": 518337,
+      "effects": [
+        "weakness-to-poison",
+        "weakness-to-shock",
+        "ravage-health",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "giant-s-blood",
+      "name": "Giant's Blood",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060513,
+      "effects": [
+        "fortify-unarmed",
+        "fortify-smithing",
+        "weakness-to-shock",
+        "resist-disease"
+      ]
+    },
+    {
+      "id": "giants-toe",
+      "name": "Giant's Toe",
+      "plugin": "Skyrim.esm",
+      "form_id": 240996,
+      "effects": [
+        "damage-stamina-regen",
+        "fortify-carry-weight",
+        "fortify-health",
+        "drain-strength"
+      ]
+    },
+    {
+      "id": "ginseng",
+      "name": "Ginseng",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853013,
+      "effects": [
+        "fortify-magicka",
+        "cure-poison-caco",
+        "slow",
+        "lingering-damage-magicka"
+      ]
+    },
+    {
+      "id": "gleamblossom",
+      "name": "Gleamblossom",
+      "plugin": "Dawnguard.esm",
+      "form_id": 45207,
+      "effects": [
+        "etherealize",
+        "paralysis",
+        "regenerate-health",
+        "fear"
+      ]
+    },
+    {
+      "id": "glow-dust",
+      "name": "Glow Dust",
+      "plugin": "Skyrim.esm",
+      "form_id": 241011,
+      "effects": [
+        "resist-shock",
+        "fortify-destruction",
+        "damage-magicka-regen",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "glowing-mushroom",
+      "name": "Glowing Mushroom",
+      "plugin": "Skyrim.esm",
+      "form_id": 519681,
+      "effects": [
+        "etherealize",
+        "resist-shock",
+        "fortify-destruction",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "glowing-mushroom-extract",
+      "name": "Glowing Mushroom Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916376,
+      "effects": [
+        "etherealize",
+        "resist-shock",
+        "fortify-destruction",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "goat-eye",
+      "name": "Goat Eye",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 2076969,
+      "effects": [
+        "damage-stamina",
+        "fortify-illusion",
+        "damage-magicka-regen",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "golden-ringed-darner",
+      "name": "Golden-Ringed Darner",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684690,
+      "effects": [
+        "fortify-lockpicking",
+        "fortify-light-armor",
+        "damage-stamina-regen",
+        "fortify-block"
+      ]
+    },
+    {
+      "id": "golden-rudd",
+      "name": "Golden Rudd",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363760,
+      "effects": [
+        "fortify-unarmed",
+        "fortify-restoration",
+        "resist-disease",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "golden-skimmer",
+      "name": "Golden Skimmer",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684694,
+      "effects": [
+        "weakness-to-shock",
+        "water-walking",
+        "frenzy",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "grass-pod",
+      "name": "Grass Pod",
+      "plugin": "Skyrim.esm",
+      "form_id": 540260,
+      "effects": [
+        "drain-intelligence",
+        "cure-poison-caco",
+        "fortify-alteration",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "gravedust",
+      "name": "Gravedust",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853049,
+      "effects": [
+        "fortify-smithing",
+        "drain-intelligence",
+        "lingering-damage-magicka",
+        "cure-disease"
+      ]
+    },
+    {
+      "id": "gravetar",
+      "name": "Gravetar",
+      "plugin": "Update.esm",
+      "form_id": 13410617,
+      "effects": [
+        "fear",
+        "resist-frost",
+        "ravage-health",
+        "fortify-two-handed"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "green-tench",
+      "name": "Green Tench",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301518,
+      "effects": [
+        "weakness-to-poison",
+        "fortify-two-handed",
+        "resist-shock",
+        "ravage-health"
+      ]
+    },
+    {
+      "id": "gudgeon",
+      "name": "Gudgeon",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3301517,
+      "effects": [
+        "resist-disease",
+        "regenerate-health",
+        "lingering-damage-health",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "hagraven-claw",
+      "name": "Hagraven Claw",
+      "plugin": "Skyrim.esm",
+      "form_id": 439945,
+      "effects": [
+        "fortify-enchanting",
+        "fortify-persuasion-caco",
+        "drain-strength",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "hagraven-feathers",
+      "name": "Hagraven Feathers",
+      "plugin": "Skyrim.esm",
+      "form_id": 240998,
+      "effects": [
+        "weakness-to-shock",
+        "damage-magicka",
+        "fortify-conjuration",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "hanging-moss",
+      "name": "Hanging Moss",
+      "plugin": "Skyrim.esm",
+      "form_id": 360337,
+      "effects": [
+        "damage-magicka-regen",
+        "fortify-stamina",
+        "fortify-one-handed",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "hanging-moss-extract",
+      "name": "Hanging Moss Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916372,
+      "effects": [
+        "damage-magicka-regen",
+        "fortify-stamina",
+        "fortify-one-handed",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "hawk-beak",
+      "name": "Hawk Beak",
+      "plugin": "Skyrim.esm",
+      "form_id": 949948,
+      "effects": [
+        "fortify-carry-weight",
+        "resist-shock",
+        "fortify-marksman",
+        "regenerate-stamina"
+      ]
+    },
+    {
+      "id": "hawk-feathers",
+      "name": "Hawk Feathers",
+      "plugin": "Skyrim.esm",
+      "form_id": 949968,
+      "effects": [
+        "speed",
+        "cure-disease",
+        "fortify-light-armor",
+        "fortify-one-handed"
+      ]
+    },
+    {
+      "id": "hawks-egg",
+      "name": "Hawk's Egg",
+      "plugin": "HearthFires.esm",
+      "form_id": 61900,
+      "effects": [
+        "lingering-damage-magicka",
+        "night-eye-caco",
+        "fortify-smithing",
+        "lingering-damage-stamina"
+      ]
+    },
+    {
+      "id": "heather",
+      "name": "Heather",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551475,
+      "effects": [
+        "damage-stamina-regen",
+        "fortify-persuasion-caco",
+        "slow",
+        "fortify-lockpicking"
+      ]
+    },
+    {
+      "id": "heather-extract",
+      "name": "Heather Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916370,
+      "effects": [
+        "damage-stamina-regen",
+        "fortify-persuasion-caco",
+        "slow",
+        "fortify-lockpicking"
+      ]
+    },
+    {
+      "id": "histcarp",
+      "name": "Histcarp",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076760,
+      "effects": [
+        "damage-stamina-regen",
+        "restore-stamina",
+        "waterbreathing",
+        "resist-disease"
+      ]
+    },
+    {
+      "id": "honeycomb",
+      "name": "Honeycomb",
+      "plugin": "Skyrim.esm",
+      "form_id": 723141,
+      "effects": [
+        "regenerate-magicka",
+        "fortify-one-handed",
+        "ravage-stamina",
+        "fortify-illusion"
+      ]
+    },
+    {
+      "id": "horker-tusk",
+      "name": "Horker Tusk",
+      "plugin": "Update.esm",
+      "form_id": 13410609,
+      "effects": [
+        "fortify-magicka",
+        "fortify-conjuration",
+        "lingering-damage-stamina",
+        "detect-life"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "horse-hair",
+      "name": "Horse Hair",
+      "plugin": "Update.esm",
+      "form_id": 13370945,
+      "effects": [
+        "speed",
+        "cure-poison-caco",
+        "resist-shock",
+        "weakness-to-poison"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "human-heart",
+      "name": "Human Heart",
+      "plugin": "Skyrim.esm",
+      "form_id": 727245,
+      "effects": [
+        "regenerate-stamina",
+        "detect-life",
+        "damage-magicka",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "ice-wraith-teeth",
+      "name": "Ice Wraith Teeth",
+      "plugin": "Skyrim.esm",
+      "form_id": 241002,
+      "effects": [
+        "weakness-to-frost",
+        "regenerate-magicka",
+        "etherealize",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "imp-gall-d0417",
+      "name": "Imp Gall",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853015,
+      "effects": [
+        "fortify-persuasion-caco",
+        "resist-paralysis",
+        "lingering-damage-health",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "imp-stool",
+      "name": "Imp Stool",
+      "plugin": "Skyrim.esm",
+      "form_id": 317987,
+      "effects": [
+        "lingering-damage-health",
+        "regenerate-health",
+        "restore-health",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "ironwood-extract",
+      "name": "Ironwood Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916368,
+      "effects": [
+        "fortify-health",
+        "fortify-conjuration",
+        "resist-fire",
+        "ravage-stamina"
+      ]
+    },
+    {
+      "id": "ironwood-nuts",
+      "name": "Ironwood Nuts",
+      "plugin": "Update.esm",
+      "form_id": 13410581,
+      "effects": [
+        "fortify-health",
+        "fortify-conjuration",
+        "resist-fire",
+        "ravage-stamina"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "jarrin-root",
+      "name": "Jarrin Root",
+      "plugin": "Skyrim.esm",
+      "form_id": 113852,
+      "effects": [
+        "damage-health",
+        "damage-stamina",
+        "damage-magicka",
+        "drain-strength"
+      ]
+    },
+    {
+      "id": "jazbay-extract",
+      "name": "Jazbay Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916366,
+      "effects": [
+        "fortify-magicka",
+        "weakness-to-magic",
+        "ravage-health",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "jazbay-grapes",
+      "name": "Jazbay Grapes",
+      "plugin": "Skyrim.esm",
+      "form_id": 437322,
+      "effects": [
+        "fortify-magicka",
+        "weakness-to-magic",
+        "ravage-health",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "juniper-berries",
+      "name": "Juniper Berries",
+      "plugin": "Skyrim.esm",
+      "form_id": 329582,
+      "effects": [
+        "fortify-marksman",
+        "damage-stamina-regen",
+        "regenerate-health",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "juniper-berry-extract",
+      "name": "Juniper Berry Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916364,
+      "effects": [
+        "fortify-marksman",
+        "damage-stamina-regen",
+        "regenerate-health",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "khajiit-eye",
+      "name": "Khajiit Eye",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060537,
+      "effects": [
+        "night-eye-caco",
+        "fortify-pickpocket",
+        "detect-life",
+        "fear"
+      ]
+    },
+    {
+      "id": "kwama-cuttle",
+      "name": "Kwama Cuttle",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551552,
+      "effects": [
+        "water-walking",
+        "resist-poison",
+        "ravage-stamina",
+        "waterbreathing"
+      ]
+    },
+    {
+      "id": "kwama-egg",
+      "name": "Kwama Egg",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551553,
+      "effects": [
+        "fortify-health",
+        "restore-stamina",
+        "resist-frost",
+        "resist-paralysis"
+      ]
+    },
+    {
+      "id": "large-antlers",
+      "name": "Large Antlers",
+      "plugin": "Skyrim.esm",
+      "form_id": 441354,
+      "effects": [
+        "fortify-stamina",
+        "restore-stamina",
+        "damage-stamina-regen",
+        "slow"
+      ]
+    },
+    {
+      "id": "lavender",
+      "name": "Lavender",
+      "plugin": "Skyrim.esm",
+      "form_id": 285736,
+      "effects": [
+        "fortify-persuasion-caco",
+        "fortify-stamina",
+        "drain-intelligence",
+        "fortify-conjuration"
+      ]
+    },
+    {
+      "id": "lavender-extract",
+      "name": "Lavender Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916362,
+      "effects": [
+        "fortify-persuasion-caco",
+        "fortify-stamina",
+        "drain-intelligence",
+        "fortify-conjuration"
+      ]
+    },
+    {
+      "id": "lotus-seeds",
+      "name": "Lotus Seeds",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853033,
+      "effects": [
+        "water-walking",
+        "fortify-carry-weight",
+        "cure-poison-caco",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "luna-moth-wing",
+      "name": "Luna Moth Wing",
+      "plugin": "Skyrim.esm",
+      "form_id": 468959,
+      "effects": [
+        "damage-magicka",
+        "regenerate-magicka",
+        "fortify-light-armor",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "mandrake-root",
+      "name": "Mandrake Root",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 666169,
+      "effects": [
+        "fear",
+        "cure-disease",
+        "fortify-destruction",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "marsh-fritillary",
+      "name": "Marsh Fritillary",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405285,
+      "effects": [
+        "speed",
+        "fortify-light-armor",
+        "fortify-illusion",
+        "fear"
+      ]
+    },
+    {
+      "id": "marshmerrow-a2a38",
+      "name": "Marshmerrow",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 666168,
+      "effects": [
+        "regenerate-health",
+        "damage-stamina-regen",
+        "restore-health",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "marshmerrow-extract",
+      "name": "Marshmerrow Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916360,
+      "effects": [
+        "regenerate-health",
+        "damage-stamina-regen",
+        "restore-health",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "monkshood-root-pulp",
+      "name": "Monkshood Root Pulp",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853021,
+      "effects": [
+        "fortify-unarmed",
+        "drain-intelligence",
+        "slow",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "moon-sugar",
+      "name": "Moon Sugar",
+      "plugin": "Skyrim.esm",
+      "form_id": 888383,
+      "effects": [
+        "restore-magicka",
+        "resist-frost",
+        "regenerate-magicka",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "mora-tapinella",
+      "name": "Mora Tapinella",
+      "plugin": "Skyrim.esm",
+      "form_id": 968816,
+      "effects": [
+        "fortify-alteration",
+        "fortify-illusion",
+        "fortify-magicka",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "morning-glory-root-pulp",
+      "name": "Morning Glory Root Pulp",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853025,
+      "effects": [
+        "fortify-illusion",
+        "resist-frost",
+        "slow",
+        "lingering-damage-stamina"
+      ]
+    },
+    {
+      "id": "mourning-cloak",
+      "name": "Mourning Cloak",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363772,
+      "effects": [
+        "lingering-damage-magicka",
+        "fortify-lockpicking",
+        "resist-disease",
+        "lingering-damage-stamina"
+      ]
+    },
+    {
+      "id": "mudcrab-chitin",
+      "name": "Mudcrab Chitin",
+      "plugin": "Skyrim.esm",
+      "form_id": 441344,
+      "effects": [
+        "resist-disease",
+        "cure-disease",
+        "restore-stamina",
+        "resist-fire"
+      ]
+    },
+    {
+      "id": "mugwort-seeds",
+      "name": "Mugwort Seeds",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853027,
+      "effects": [
+        "restore-health",
+        "fortify-one-handed",
+        "fortify-light-armor",
+        "regenerate-stamina"
+      ]
+    },
+    {
+      "id": "namiras-rot",
+      "name": "Namira's Rot",
+      "plugin": "Skyrim.esm",
+      "form_id": 317988,
+      "effects": [
+        "fear",
+        "damage-magicka",
+        "regenerate-health",
+        "fortify-lockpicking"
+      ]
+    },
+    {
+      "id": "netch-jelly",
+      "name": "Netch Jelly",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118130,
+      "effects": [
+        "restore-stamina",
+        "resist-paralysis",
+        "fortify-carry-weight",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "nightshade",
+      "name": "Nightshade",
+      "plugin": "Skyrim.esm",
+      "form_id": 193612,
+      "effects": [
+        "fortify-destruction",
+        "lingering-damage-magicka",
+        "damage-magicka-regen",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "nightshade-extract",
+      "name": "Nightshade Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916358,
+      "effects": [
+        "fortify-destruction",
+        "lingering-damage-magicka",
+        "damage-magicka-regen",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "nirnroot",
+      "name": "Nirnroot",
+      "plugin": "Skyrim.esm",
+      "form_id": 367494,
+      "effects": [
+        "damage-health",
+        "invisibility",
+        "resist-magic",
+        "drain-strength"
+      ]
+    },
+    {
+      "id": "nordic-barnacle",
+      "name": "Nordic Barnacle",
+      "plugin": "Skyrim.esm",
+      "form_id": 519669,
+      "effects": [
+        "waterbreathing",
+        "fortify-pickpocket",
+        "regenerate-health",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "nordic-swallowtail",
+      "name": "Nordic Swallowtail",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363776,
+      "effects": [
+        "restore-health",
+        "weakness-to-fire",
+        "fortify-two-handed",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "ogre-s-teeth",
+      "name": "Ogre's Teeth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 686927,
+      "effects": [
+        "frenzy",
+        "fortify-unarmed",
+        "weakness-to-shock",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "orange-dartwing",
+      "name": "Orange Dartwing",
+      "plugin": "Skyrim.esm",
+      "form_id": 768342,
+      "effects": [
+        "fortify-pickpocket",
+        "lingering-damage-health",
+        "ravage-magicka",
+        "speed"
+      ]
+    },
+    {
+      "id": "orange-tip-butterfly",
+      "name": "Orange Tip Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363762,
+      "effects": [
+        "weakness-to-fire",
+        "detect-life",
+        "cure-disease",
+        "fortify-marksman"
+      ]
+    },
+    {
+      "id": "orc-liver",
+      "name": "Orc Liver",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060538,
+      "effects": [
+        "fortify-smithing",
+        "fortify-heavy-armor",
+        "fortify-stamina",
+        "regenerate-stamina"
+      ]
+    },
+    {
+      "id": "oxgall",
+      "name": "Oxgall",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363779,
+      "effects": [
+        "damage-stamina",
+        "fortify-unarmed",
+        "fortify-heavy-armor",
+        "fortify-restoration"
+      ]
+    },
+    {
+      "id": "padomaic-tigerfish",
+      "name": "Padomaic Tigerfish",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405269,
+      "effects": [
+        "fortify-unarmed",
+        "frenzy",
+        "fortify-alteration",
+        "waterbreathing"
+      ]
+    },
+    {
+      "id": "painted-lady",
+      "name": "Painted Lady",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363782,
+      "effects": [
+        "damage-magicka-regen",
+        "weakness-to-poison",
+        "cure-poison-caco",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "peacock-butterfly",
+      "name": "Peacock Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363784,
+      "effects": [
+        "fortify-block",
+        "cure-disease",
+        "fortify-pickpocket",
+        "fortify-sneak"
+      ]
+    },
+    {
+      "id": "pearl",
+      "name": "Pearl",
+      "plugin": "Skyrim.esm",
+      "form_id": 546046,
+      "effects": [
+        "restore-magicka",
+        "resist-paralysis",
+        "water-walking",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "peony-seeds",
+      "name": "Peony Seeds",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853030,
+      "effects": [
+        "fortify-stamina",
+        "slow",
+        "lingering-damage-health",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "pheasant-feathers",
+      "name": "Pheasant Feathers",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363786,
+      "effects": [
+        "fortify-pickpocket",
+        "fortify-restoration",
+        "cure-disease",
+        "damage-stamina"
+      ]
+    },
+    {
+      "id": "pine-thrush-egg",
+      "name": "Pine Thrush Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 146799,
+      "effects": [
+        "fortify-lockpicking",
+        "resist-shock",
+        "weakness-to-poison",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "poison-bloom",
+      "name": "Poison Bloom",
+      "plugin": "Dawnguard.esm",
+      "form_id": 99835,
+      "effects": [
+        "slow",
+        "damage-health",
+        "fear",
+        "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "polyphemus-moth",
+      "name": "Polyphemus Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363788,
+      "effects": [
+        "fortify-illusion",
+        "fear",
+        "fortify-conjuration",
+        "detect-life"
+      ]
+    },
+    {
+      "id": "powdered-mammoth-tusk",
+      "name": "Powdered Mammoth Tusk",
+      "plugin": "Skyrim.esm",
+      "form_id": 441360,
+      "effects": [
+        "fortify-block",
+        "weakness-to-fire",
+        "fortify-unarmed",
+        "fear"
+      ]
+    },
+    {
+      "id": "purple-mountain-flower",
+      "name": "Purple Mountain Flower",
+      "plugin": "Skyrim.esm",
+      "form_id": 491038,
+      "effects": [
+        "fortify-sneak",
+        "fortify-marksman",
+        "lingering-damage-stamina",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "purple-mountain-flower-extract",
+      "name": "Purple Mountain Flower Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916356,
+      "effects": [
+        "fortify-sneak",
+        "fortify-marksman",
+        "lingering-damage-stamina",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "putrefied-flesh",
+      "name": "Putrefied Flesh",
+      "plugin": "Update.esm",
+      "form_id": 13410614,
+      "effects": [
+        "ravage-health",
+        "damage-magicka-regen",
+        "drain-strength",
+        "resist-poison"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "racer-plumes",
+      "name": "Racer Plumes",
+      "plugin": "Update.esm",
+      "form_id": 13410626,
+      "effects": [
+        "speed",
+        "fortify-sneak",
+        "regenerate-stamina",
+        "lingering-damage-magicka"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "red-admiral-butterfly",
+      "name": "Red Admiral Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405286,
+      "effects": [
+        "weakness-to-magic",
+        "restore-health",
+        "damage-stamina-regen",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "red-cracker-butterfly",
+      "name": "Red Cracker Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3384527,
+      "effects": [
+        "fortify-pickpocket",
+        "weakness-to-poison",
+        "cure-poison-caco",
+        "ravage-health"
+      ]
+    },
+    {
+      "id": "red-lichen",
+      "name": "Red Lichen",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551389,
+      "effects": [
+        "slow",
+        "fortify-persuasion-caco",
+        "cure-disease",
+        "drain-intelligence"
+      ]
+    },
+    {
+      "id": "red-mountain-flower",
+      "name": "Red Mountain Flower",
+      "plugin": "Skyrim.esm",
+      "form_id": 491037,
+      "effects": [
+        "drain-intelligence",
+        "fortify-health",
+        "damage-magicka-regen",
+        "restore-health"
+      ]
+    },
+    {
+      "id": "red-mountain-flower-extract",
+      "name": "Red Mountain Flower Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916354,
+      "effects": [
+        "drain-intelligence",
+        "fortify-health",
+        "damage-magicka-regen",
+        "restore-health"
+      ]
+    },
+    {
+      "id": "redbelly-dace",
+      "name": "Redbelly Dace",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363766,
+      "effects": [
+        "fortify-restoration",
+        "cure-disease",
+        "cure-poison-caco",
+        "weakness-to-frost"
+      ]
+    },
+    {
+      "id": "redwort-flower-a10000",
+      "name": "Redwort Flower",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551296,
+      "effects": [
+        "fortify-destruction",
+        "ravage-health",
+        "resist-frost",
+        "cure-poison-caco"
+      ]
+    },
+    {
+      "id": "rock-warbler-egg",
+      "name": "Rock Warbler Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 518344,
+      "effects": [
+        "restore-health",
+        "cure-poison-caco",
+        "weakness-to-magic",
+        "damage-stamina"
+      ]
+    },
+    {
+      "id": "roobrush-33a4d0",
+      "name": "Roobrush",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3384528,
+      "effects": [
+        "fortify-pickpocket",
+        "damage-stamina-regen",
+        "cure-poison-caco",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "ruby-shiner",
+      "name": "Ruby Shiner",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3384530,
+      "effects": [
+        "resist-disease",
+        "weakness-to-frost",
+        "restore-health",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "sabre-cat-tooth",
+      "name": "Sabre Cat Tooth",
+      "plugin": "Skyrim.esm",
+      "form_id": 441348,
+      "effects": [
+        "fortify-stamina",
+        "weakness-to-poison",
+        "fortify-one-handed",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "salmon-roe",
+      "name": "Salmon Roe",
+      "plugin": "HearthFires.esm",
+      "form_id": 13637,
+      "effects": [
+        "waterbreathing",
+        "fortify-magicka",
+        "regenerate-magicka",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "salt-pile",
+      "name": "Salt Pile",
+      "plugin": "Skyrim.esm",
+      "form_id": 216287,
+      "effects": [
+        "fortify-unarmed",
+        "regenerate-stamina",
+        "weakness-to-magic",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "salt-pile-74a19",
+      "name": "Salt Pile",
+      "plugin": "Skyrim.esm",
+      "form_id": 477721,
+      "effects": [
+        "fortify-unarmed",
+        "regenerate-stamina",
+        "weakness-to-magic",
+        "damage-stamina-regen"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "saltrice-cca116",
+      "name": "Saltrice",
+      "plugin": "Update.esm",
+      "form_id": 13410582,
+      "effects": [
+        "regenerate-stamina",
+        "fortify-health",
+        "lingering-damage-magicka",
+        "fortify-stamina"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "saltrice-extract",
+      "name": "Saltrice Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916352,
+      "effects": [
+        "regenerate-stamina",
+        "fortify-health",
+        "lingering-damage-magicka",
+        "fortify-stamina"
+      ]
+    },
+    {
+      "id": "sawtooth-butterfly",
+      "name": "Sawtooth Butterfly",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853018,
+      "effects": [
+        "fortify-marksman",
+        "night-eye-caco",
+        "resist-paralysis",
+        "weakness-to-frost"
+      ]
+    },
+    {
+      "id": "scaly-pholiota",
+      "name": "Scaly Pholiota",
+      "plugin": "Skyrim.esm",
+      "form_id": 457040,
+      "effects": [
+        "fortify-carry-weight",
+        "regenerate-stamina",
+        "speed",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "scamp-skin",
+      "name": "Scamp Skin",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551591,
+      "effects": [
+        "lingering-damage-health",
+        "resist-shock",
+        "damage-magicka",
+        "fortify-block"
+      ]
+    },
+    {
+      "id": "scathecraw",
+      "name": "Scathecraw",
+      "plugin": "Dragonborn.esm",
+      "form_id": 97943,
+      "effects": [
+        "ravage-health",
+        "lingering-damage-health",
+        "ravage-stamina",
+        "ravage-magicka"
+      ]
+    },
+    {
+      "id": "scrib-jelly-cca140",
+      "name": "Scrib Jelly",
+      "plugin": "Update.esm",
+      "form_id": 13410624,
+      "effects": [
+        "fortify-restoration",
+        "cure-poison-caco",
+        "cure-disease",
+        "fortify-alteration"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "silverjaw-minnow",
+      "name": "Silverjaw Minnow",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405271,
+      "effects": [
+        "lingering-damage-magicka",
+        "waterbreathing",
+        "lingering-damage-stamina",
+        "cure-disease"
+      ]
+    },
+    {
+      "id": "silverside-perch",
+      "name": "Silverside Perch",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076764,
+      "effects": [
+        "damage-stamina-regen",
+        "resist-frost",
+        "restore-stamina",
+        "ravage-health"
+      ]
+    },
+    {
+      "id": "skeever-tail",
+      "name": "Skeever Tail",
+      "plugin": "Skyrim.esm",
+      "form_id": 241007,
+      "effects": [
+        "damage-stamina-regen",
+        "fortify-sneak",
+        "ravage-health",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "slaughterfish-egg",
+      "name": "Slaughterfish Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 518341,
+      "effects": [
+        "waterbreathing",
+        "fortify-stamina",
+        "lingering-damage-health",
+        "fortify-pickpocket"
+      ]
+    },
+    {
+      "id": "slaughterfish-scales",
+      "name": "Slaughterfish Scales",
+      "plugin": "Skyrim.esm",
+      "form_id": 241008,
+      "effects": [
+        "fortify-block",
+        "lingering-damage-health",
+        "fortify-heavy-armor",
+        "water-walking"
+      ]
+    },
+    {
+      "id": "sload-soap-cca141",
+      "name": "Sload Soap",
+      "plugin": "Update.esm",
+      "form_id": 13410625,
+      "effects": [
+        "lingering-damage-magicka",
+        "fortify-pickpocket",
+        "resist-fire",
+        "fortify-sneak"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "small-antlers",
+      "name": "Small Antlers",
+      "plugin": "Skyrim.esm",
+      "form_id": 441355,
+      "effects": [
+        "fortify-restoration",
+        "lingering-damage-magicka",
+        "weakness-to-poison",
+        "speed"
+      ]
+    },
+    {
+      "id": "small-pearl",
+      "name": "Small Pearl",
+      "plugin": "Skyrim.esm",
+      "form_id": 546048,
+      "effects": [
+        "water-walking",
+        "restore-stamina",
+        "fortify-magicka",
+        "fortify-restoration"
+      ]
+    },
+    {
+      "id": "snowberries",
+      "name": "Snowberries",
+      "plugin": "Skyrim.esm",
+      "form_id": 111549,
+      "effects": [
+        "fortify-enchanting",
+        "resist-fire",
+        "resist-frost",
+        "resist-shock"
+      ]
+    },
+    {
+      "id": "snowberry-extract",
+      "name": "Snowberry Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916350,
+      "effects": [
+        "fortify-enchanting",
+        "resist-fire",
+        "resist-frost",
+        "resist-shock"
+      ]
+    },
+    {
+      "id": "soul-husk",
+      "name": "Soul Husk",
+      "plugin": "Update.esm",
+      "form_id": 13410610,
+      "effects": [
+        "dlc-1-food-soul-husk-effect",
+        "resist-paralysis",
+        "paralysis",
+        "etherealize"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "spawn-ash",
+      "name": "Spawn Ash",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118125,
+      "effects": [
+        "drain-strength",
+        "fortify-enchanting",
+        "ravage-stamina",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "spider-egg",
+      "name": "Spider Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 595227,
+      "effects": [
+        "fortify-marksman",
+        "damage-stamina",
+        "damage-magicka-regen",
+        "detect-life"
+      ]
+    },
+    {
+      "id": "spider-silk",
+      "name": "Spider Silk",
+      "plugin": "Update.esm",
+      "form_id": 13370936,
+      "effects": [
+        "damage-stamina-regen",
+        "resist-disease",
+        "fortify-light-armor",
+        "fortify-lockpicking"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "spiky-grass-extract",
+      "name": "Spiky Grass Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916374,
+      "effects": [
+        "drain-intelligence",
+        "cure-poison-caco",
+        "fortify-alteration",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "spriggan-sap",
+      "name": "Spriggan Sap",
+      "plugin": "Skyrim.esm",
+      "form_id": 408415,
+      "effects": [
+        "fortify-alteration",
+        "fortify-smithing",
+        "damage-magicka-regen",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "st-jahn-s-wort-nectar",
+      "name": "St. Jahn's Wort Nectar",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853036,
+      "effects": [
+        "waterbreathing",
+        "cure-poison-caco",
+        "resist-shock",
+        "etherealize"
+      ]
+    },
+    {
+      "id": "stoneflower",
+      "name": "Stoneflower",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 2222386,
+      "effects": [
+        "lingering-damage-stamina",
+        "restore-stamina",
+        "fortify-persuasion-caco",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "sulfur",
+      "name": "Sulfur",
+      "plugin": "Update.esm",
+      "form_id": 13370935,
+      "effects": [
+        "resist-disease",
+        "lingering-damage-stamina",
+        "restore-stamina",
+        "ravage-health"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "swamp-betty",
+      "name": "Swamp Betty",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3405274,
+      "effects": [
+        "weakness-to-shock",
+        "fortify-heavy-armor",
+        "fortify-two-handed",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "swamp-fungal-pod",
+      "name": "Swamp Fungal Pod",
+      "plugin": "Skyrim.esm",
+      "form_id": 518327,
+      "effects": [
+        "lingering-damage-stamina",
+        "resist-shock",
+        "damage-magicka-regen",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "taproot",
+      "name": "Taproot",
+      "plugin": "Skyrim.esm",
+      "form_id": 241009,
+      "effects": [
+        "fortify-illusion",
+        "restore-magicka",
+        "regenerate-magicka",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "thistle-branch",
+      "name": "Thistle Branch",
+      "plugin": "Skyrim.esm",
+      "form_id": 79018,
+      "effects": [
+        "ravage-stamina",
+        "fortify-heavy-armor",
+        "resist-poison",
+        "resist-frost"
+      ]
+    },
+    {
+      "id": "thistle-extract",
+      "name": "Thistle Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916348,
+      "effects": [
+        "ravage-stamina",
+        "fortify-heavy-armor",
+        "resist-poison",
+        "resist-frost"
+      ]
+    },
+    {
+      "id": "tiger-lily-nectar",
+      "name": "Tiger Lily Nectar",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853038,
+      "effects": [
+        "water-walking",
+        "fortify-smithing",
+        "drain-strength",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "tinder-polypore-cap",
+      "name": "Tinder Polypore Cap",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551326,
+      "effects": [
+        "fortify-alteration",
+        "damage-magicka",
+        "invisibility",
+        "resist-disease"
+      ]
+    },
+    {
+      "id": "torchbug-thorax",
+      "name": "Torchbug Thorax",
+      "plugin": "Skyrim.esm",
+      "form_id": 318067,
+      "effects": [
+        "lingering-damage-stamina",
+        "fortify-stamina",
+        "weakness-to-magic",
+        "detect-life"
+      ]
+    },
+    {
+      "id": "trama-root",
+      "name": "Trama Root",
+      "plugin": "Dragonborn.esm",
+      "form_id": 94216,
+      "effects": [
+        "weakness-to-shock",
+        "damage-magicka",
+        "drain-strength",
+        "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "troll-fat",
+      "name": "Troll Fat",
+      "plugin": "Skyrim.esm",
+      "form_id": 241010,
+      "effects": [
+        "resist-disease",
+        "frenzy",
+        "fortify-two-handed",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "troll-s-blood",
+      "name": "Troll's Blood",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060512,
+      "effects": [
+        "regenerate-health",
+        "weakness-to-fire",
+        "fortify-health",
+        "ravage-health"
+      ]
+    },
+    {
+      "id": "tundra-cotton",
+      "name": "Tundra Cotton",
+      "plugin": "Skyrim.esm",
+      "form_id": 260088,
+      "effects": [
+        "fortify-unarmed",
+        "resist-paralysis",
+        "fortify-block",
+        "fortify-persuasion-caco"
+      ]
+    },
+    {
+      "id": "tundra-cotton-extract",
+      "name": "Tundra Cotton Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916347,
+      "effects": [
+        "fortify-unarmed",
+        "resist-paralysis",
+        "fortify-block",
+        "fortify-persuasion-caco"
+      ]
+    },
+    {
+      "id": "vampire-dust",
+      "name": "Vampire Dust",
+      "plugin": "Skyrim.esm",
+      "form_id": 241014,
+      "effects": [
+        "regenerate-health",
+        "ravage-magicka",
+        "invisibility",
+        "cure-disease"
+      ]
+    },
+    {
+      "id": "violet-coprinus",
+      "name": "Violet Coprinus",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551392,
+      "effects": [
+        "ravage-stamina",
+        "ravage-health",
+        "speed",
+        "water-walking"
+      ]
+    },
+    {
+      "id": "void-salts",
+      "name": "Void Salts",
+      "plugin": "Skyrim.esm",
+      "form_id": 240992,
+      "effects": [
+        "weakness-to-shock",
+        "resist-shock",
+        "ravage-magicka",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "warpaint-shiner",
+      "name": "Warpaint Shiner",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3343014,
+      "effects": [
+        "damage-stamina-regen",
+        "fortify-illusion",
+        "damage-magicka-regen",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "water-hyacinth-nectar",
+      "name": "Water Hyacinth Nectar",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 853040,
+      "effects": [
+        "waterbreathing",
+        "weakness-to-magic",
+        "restore-magicka",
+        "ravage-stamina"
+      ]
+    },
+    {
+      "id": "werebear-claws",
+      "name": "Werebear Claws",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 998263,
+      "effects": [
+        "fortify-block",
+        "fortify-one-handed",
+        "fortify-two-handed",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "werewolf-blood",
+      "name": "Werewolf Blood",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 1060521,
+      "effects": [
+        "detect-life",
+        "fear",
+        "fortify-alteration",
+        "cure-disease"
+      ]
+    },
+    {
+      "id": "wheat",
+      "name": "Wheat",
+      "plugin": "Skyrim.esm",
+      "form_id": 307386,
+      "effects": [
+        "restore-health",
+        "fortify-health",
+        "damage-magicka-regen",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "wheat-extract",
+      "name": "Wheat Extract",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 5916344,
+      "effects": [
+        "restore-health",
+        "fortify-health",
+        "damage-magicka-regen",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "white-cap",
+      "name": "White Cap",
+      "plugin": "Skyrim.esm",
+      "form_id": 317986,
+      "effects": [
+        "weakness-to-frost",
+        "drain-intelligence",
+        "fortify-restoration",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "white-witch-moth",
+      "name": "White Witch Moth",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 3363774,
+      "effects": [
+        "weakness-to-poison",
+        "ravage-magicka",
+        "fortify-sneak",
+        "fortify-one-handed"
+      ]
+    },
+    {
+      "id": "widow-skimmer",
+      "name": "Widow Skimmer",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 6684674,
+      "effects": [
+        "water-walking",
+        "weakness-to-shock",
+        "ravage-health",
+        "fortify-lockpicking"
+      ]
+    },
+    {
+      "id": "wisp-stalks",
+      "name": "Wisp Stalks",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551432,
+      "effects": [
+        "water-walking",
+        "damage-stamina",
+        "damage-health",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "wisp-wrappings",
+      "name": "Wisp Wrappings",
+      "plugin": "Skyrim.esm",
+      "form_id": 441358,
+      "effects": [
+        "etherealize",
+        "detect-life",
+        "fortify-destruction",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "wolf-liver",
+      "name": "Wolf Liver",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 2076967,
+      "effects": [
+        "fortify-unarmed",
+        "weakness-to-fire",
+        "resist-disease",
+        "detect-life"
+      ]
+    },
+    {
+      "id": "wormwood-leaves",
+      "name": "Wormwood Leaves",
+      "plugin": "complete alchemy & cooking overhaul.esp",
+      "form_id": 10551615,
+      "effects": [
+        "lingering-damage-health",
+        "lingering-damage-stamina",
+        "fortify-sneak",
+        "fortify-marksman"
+      ]
+    },
+    {
+      "id": "yellow-mountain-flower",
+      "name": "Yellow Mountain Flower",
+      "plugin": "Dawnguard.esm",
+      "form_id": 10872,
+      "effects": [
+        "fortify-restoration",
+        "fortify-health",
+        "damage-stamina-regen",
+        "resist-poison"
+      ]
+    }
+  ]
+}
