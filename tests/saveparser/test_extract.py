@@ -17,7 +17,8 @@ from alchemy_helper.saveparser.api import PlayerState, UnknownForm, parse_save
 from alchemy_helper.saveparser.body import PluginList
 from alchemy_helper.saveparser.changeforms import ChangeForm
 from alchemy_helper.saveparser.extract import (
-    CHANGE_INGREDIENT_USE, _skip_extra_data_entry, build_ingredient_lookup,
+    CHANGE_INGREDIENT_USE, _skip_extra_data_entry, _skip_item_extra_data,
+    build_ingredient_lookup,
     decode_form_id, extract_forms, parse_known_effect_slots,
     parse_player_inventory, resolve_ref_id)
 from alchemy_helper.saveparser.header import SaveFormatError
@@ -329,29 +330,57 @@ def test_inventory_entries_decode_as_ref_id_signed_count_and_extras():
         (0x04B0BA, 22), (0x0341A0, 1), (0x034D22, 30), (0x00000F, -4)]
 
 
-def test_wrapper_extra_type_consumes_exactly_its_nested_entries():
-    # Type 20 wraps five entries; the walk must land on the sentinel
-    # immediately after them and not one byte to either side.
-    nested = (bytes([159]) + b"\x01\x02\x03\x04\x05\x06"   # UniqueId, 6
-              + bytes([28]) + b"\x00\x00\x00"              # ReferenceHandle, 3
-              + bytes([73]) + b"\x07"                      # HotKey, 1
-              + bytes([40]) + b"\x00\x00\x80\x3f"          # Charge, 4
-              + bytes([22]))                               # Worn, 0
-    data = bytes([20]) + nested + b"SENTINEL"
+def test_six_property_item_stack_parses_exactly():
+    # An item's extra data is a vsval stack count, then per stack a
+    # vsval ENTRY count followed by that many TLV entries. The bytes
+    # once read as "wrapper types" 4/8/12/16/20 are those entry counts
+    # in vsval form -- byte-identical up to five entries, which hid the
+    # truth until a save carried a worn + hotkeyed + tempered + renamed
+    # + player-enchanted weapon: six entries, count byte 0x18, which
+    # the wrapper theory misread as a type. These are that item's live
+    # bytes (Save219, item 0x139AE).
+    stack = bytes.fromhex(
+        "18"                       # vsval: 6 entries
+        "4903"                     # HotKey, slot 3
+        "2533331340"               # Health f32 (tempered to 2.3)
+        "99000000000000ffffffff"   # TextDisplayData, no custom name
+        "9b8016f4b80b"             # Enchantment: created refID + u16
+        "28d8180641"               # Charge f32
+        "16")                      # Worn
+    data = bytes([0x04]) + stack + b"SENTINEL"   # vsval: 1 stack
     reader = Reader(data)
-    _skip_extra_data_entry(reader)
-    assert reader.pos == 1 + len(nested)
+    _skip_item_extra_data(reader)
     assert data[reader.pos:] == b"SENTINEL"
 
 
-def test_nested_wrapper_types_recurse():
-    # 4/8/12 wrap 1/2/3 entries; a wrapper inside a wrapper still lands
-    # exactly, which is what keeps the item walk aligned.
-    inner = bytes([4]) + bytes([28]) + b"\x00\x00\x00"     # wrapper-of-1
-    data = bytes([8]) + inner + bytes([36]) + b"\x02\x00" + b"END"
+def test_multi_stack_item_extra_data_parses_exactly():
+    # Two stacks of one pile each (e.g. one enchanted copy and one
+    # hotkeyed copy of the same base item).
+    data = (bytes([0x08])                          # vsval: 2 stacks
+            + bytes([0x04, 22])                    # 1 entry: Worn
+            + bytes([0x08, 73, 5])                 # 2 entries: HotKey..
+            + bytes([40]) + b"\x00\x00\x80\x3f"    # ..and Charge
+            + b"SENTINEL")
+    reader = Reader(data)
+    _skip_item_extra_data(reader)
+    assert data[reader.pos:] == b"SENTINEL"
+
+
+def test_attached_arrows_extra_type_consumes_exactly_its_payload():
+    # Type 152 (AttachedArrows3D) - arrows lodged in an actor's body.
+    # A vsval count of arrow entries, each shaped by two conditionals,
+    # then two trailing u16s. All three arrow shapes in one list:
+    arrows = (b"\x00\x00\x00"                   # zero refID: nothing more
+              + b"\x01\x02\x03" + b"\xff\xff"   # refID + u16 0xFFFF: stops
+              + b"\x04\x05\x06" + b"\x02\x00"   # refID + other u16:
+              + b"\x2a\x00\x00\x00"             #   u32
+              + b"\x00\x00\x80\x3f" * 8)        #   8 f32
+    data = (bytes([152]) + bytes([3 << 2])      # vsval count 3, 1-byte form
+            + arrows + b"\x00\x00\x01\x00"      # trailing u16 + u16
+            + b"SENTINEL")
     reader = Reader(data)
     _skip_extra_data_entry(reader)
-    assert data[reader.pos:] == b"END"
+    assert data[reader.pos:] == b"SENTINEL"
 
 
 def test_unmodelled_extra_type_raises_naming_the_type():

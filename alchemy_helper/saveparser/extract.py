@@ -106,15 +106,22 @@ Inventory entry (the format the brief asked for):
     count   i32 little-endian, SIGNED -- change forms store deltas
             against the base object's inventory, so zero and negative
             values occur and mean "carrying none"
-    extra   an extra-data list, usually the single byte 0x00
+    extra   item extra data, usually the single byte 0x00
 
-Extra-data list:
+Actor-level extra-data list (between the fixed fields and inventory):
 
     vsval count, then `count` entries, each a u8 type followed by a
-    type-dependent payload (_EXTRA_FIXED / _EXTRA_VS_ARRAY below).
-    Types 4/8/12 are wrappers holding 1/2/3 nested entries -- which is
-    exactly why a naive "skip N bytes" heuristic drifts: an entry can
-    be a tree, not a record.
+    type-dependent payload (_EXTRA_FIXED / _EXTRA_VS_ARRAY /
+    _EXTRA_STRUCTURED below).
+
+Item extra data (per inventory entry):
+
+    vsval count of STACKS (piles of the item with distinct properties),
+    then per stack a vsval count of entries + that many TLV entries as
+    above. The stack layer is why a naive "skip N bytes" heuristic
+    drifts, and why entry-count vsvals (1..5 encode as bytes 4/8/12/
+    16/20) were long mistaken for ReSaver's ExtraExtraData wrapper
+    types -- see the note above _skip_item_extra_data.
 
 Verification against tests/fixtures/player.ess (player ACHR, 55511
 bytes of data, changeFlags 0xB8000C26 -> MOVE, HAVOK_MOVE, INVENTORY,
@@ -208,6 +215,12 @@ _REF_ID_SIZE = 3
 # ones ReSaver uses; sizes are the sum of its field reads (refID = 3).
 _EXTRA_FIXED = {
     0: 0,      # NULL
+    6: 56,     # (unnamed; no ReSaver case) -- observed on the player's
+               # actor-level list alongside a TrespassPackage entry.
+               # Size derived empirically: six live saves, two list
+               # shapes (5- and 6-entry, one shape followed by a type-
+               # 152 arrows entry), all align to the same 56-byte
+               # payload, holding two refs to the player among unknowns.
     22: 0,     # Worn
     23: 0,     # WornLeft
     24: 19,    # PackageStartLocation: refID + 3 f32 + f32
@@ -276,16 +289,15 @@ _EXTRA_VS_ARRAY = {
     140: 3,    # PromotedRef: refID[]
 }
 
-# Wrapper types: instead of a payload they hold `type // 4` nested
-# entries. ReSaver names 4/8/12 (ExtraExtraData1/2/3) and leaves a
-# commented-out `case 16:` behind; this fixture also contains type 20,
-# whose five nested entries (UniqueId, ReferenceHandle, HotKey, Charge,
-# Worn on a hotkeyed enchanted item) parse exactly and land on the next
-# item, confirming the pattern continues. 24 is a real type
-# (PackageStartLocation), so the series stops at 20.
-_EXTRA_NESTED = {4: 1, 8: 2, 12: 3, 16: 4, 20: 5}
-
-_EXTRA_MAX_DEPTH = 8
+# A historical wrong turn, kept as a warning: bytes 4/8/12/16/20 at the
+# head of an item's extra data were once modelled as "wrapper types"
+# holding type//4 nested entries (following ReSaver's ExtraExtraData1/2/3
+# naming). They are actually vsval-encoded ENTRY COUNTS of an item
+# stack -- the vsval encodings of 1..5 are exactly 4/8/12/16/20, so the
+# two models are byte-identical up to five entries. A save carrying a
+# six-property item (count byte 0x18 = 24, which ReSaver labels
+# PackageStartLocation) broke the wrapper reading and exposed the truth;
+# see _skip_item_extra_data.
 
 
 def _skip_text_display_data(r: Reader) -> None:
@@ -303,8 +315,26 @@ def _skip_text_display_data(r: Reader) -> None:
         r.wstring()
 
 
+def _skip_attached_arrows_3d(r: Reader) -> None:
+    """Extra-data type 152, AttachedArrows3D -- arrows lodged in an
+    actor's body, so it appears on the player mid-combat-heavy sessions.
+
+    vsval count of arrow entries: refID; a nonzero refID adds a u16;
+    a u16 other than 0xFFFF adds a u32 + 8 f32. Two u16s trail the
+    array. (Layout per ReSaver's ChangeFormExtraDataData.AttachedArrow.)
+    """
+    count = _vsval(r)
+    for _ in range(count):
+        ref = r.read(_REF_ID_SIZE)
+        if any(ref):
+            if r.u16() != 0xFFFF:
+                r.read(4 + 32)
+    r.read(4)
+
+
 # Extra-data types whose payload is not a fixed size or a flat array.
-_EXTRA_STRUCTURED = {153: _skip_text_display_data}
+_EXTRA_STRUCTURED = {152: _skip_attached_arrows_3d,
+                     153: _skip_text_display_data}
 
 
 def _vsval(r: Reader) -> int:
@@ -421,12 +451,7 @@ def parse_known_effect_slots(change_form: ChangeForm) -> frozenset[int] | None:
     return frozenset(slot for slot in range(4) if mask & (1 << slot))
 
 
-def _skip_extra_data_entry(r: Reader, depth: int = 0) -> None:
-    if depth > _EXTRA_MAX_DEPTH:
-        raise SaveFormatError(
-            f"Extra-data entries nested more than {_EXTRA_MAX_DEPTH} deep "
-            f"at offset {r.pos}; refusing to keep descending"
-        )
+def _skip_extra_data_entry(r: Reader) -> None:
     entry_type = r.u8()
     if entry_type in _EXTRA_FIXED:
         r.read(_EXTRA_FIXED[entry_type])
@@ -435,9 +460,6 @@ def _skip_extra_data_entry(r: Reader, depth: int = 0) -> None:
         r.read(count * _EXTRA_VS_ARRAY[entry_type])
     elif entry_type in _EXTRA_STRUCTURED:
         _EXTRA_STRUCTURED[entry_type](r)
-    elif entry_type in _EXTRA_NESTED:
-        for _ in range(_EXTRA_NESTED[entry_type]):
-            _skip_extra_data_entry(r, depth + 1)
     else:
         raise SaveFormatError(
             f"Unsupported extra-data type {entry_type} at offset "
@@ -456,6 +478,31 @@ def _skip_extra_data(r: Reader) -> None:
         )
     for _ in range(count):
         _skip_extra_data_entry(r)
+
+
+def _skip_item_extra_data(r: Reader) -> None:
+    """An inventory item's extra data: a vsval count of stacks (piles of
+    the item with distinct properties), then per stack a vsval count of
+    TLV entries followed by the entries themselves.
+
+    Distinct from the actor-level list above, which is a flat vsval +
+    TLV entries with no stack layer.
+    """
+    stacks = _vsval(r)
+    if stacks > 1024:
+        raise SaveFormatError(
+            f"Implausible item stack count {stacks} at offset {r.pos}; "
+            f"the item array is not laid out as expected"
+        )
+    for _ in range(stacks):
+        entries = _vsval(r)
+        if entries > 1024:
+            raise SaveFormatError(
+                f"Implausible stack entry count {entries} at offset "
+                f"{r.pos}; the item array is not laid out as expected"
+            )
+        for _ in range(entries):
+            _skip_extra_data_entry(r)
 
 
 def _read_initial_data(r: Reader, initial_type: int) -> None:
@@ -530,7 +577,7 @@ def parse_player_inventory(change_form: ChangeForm,
                         f"refID (type {ref_type}, value {ref_value}) does "
                         f"not resolve to a form in this save"
                     )
-                _skip_extra_data(r)
+                _skip_item_extra_data(r)
             except SaveFormatError as exc:
                 raise SaveFormatError(
                     f"Failed reading inventory item {index} of "
