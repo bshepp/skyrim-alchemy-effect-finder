@@ -221,6 +221,8 @@ _EXTRA_FIXED = {
                # shapes (5- and 6-entry, one shape followed by a type-
                # 152 arrows entry), all align to the same 56-byte
                # payload, holding two refs to the player among unknowns.
+               # Graduated by round-trip: the inventory parsed past it
+               # matched the in-game pouch item-for-item (2026-09-03).
     22: 0,     # Worn
     23: 0,     # WornLeft
     24: 19,    # PackageStartLocation: refID + 3 f32 + f32
