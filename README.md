@@ -39,6 +39,15 @@ the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare
 Curios), and Plague of the Dead's Mort Flesh – 180 ingredients, 60 effects,
 built from UESP documentation.
 
+Since 1.1.0, **dataset packs** extend that to supported mods: the app reads
+your save's plugin list and activates the matching packs automatically –
+Complete Alchemy and Cooking Overhaul (CACO, an overhaul pack that replaces
+the vanilla ingredient table with its 358-ingredient one) and The Cause's
+three Oblivion ingredients ship in the box, both verified against live saves.
+Packs are plain JSON under `alchemy_helper/data/packs/`, and
+`scripts/extract_pack.py` builds one straight from a mod's `.esp`/`.esm`
+files.
+
 ## Setup
 
 **Easiest:** download `Alembic-<version>.zip` from the
@@ -251,8 +260,9 @@ path forward for now (Phase 1 has no "browse for a folder" picker).
 
 **"Unknown ingredients" appear after loading a save** – a change form in
 your save referenced an ingredient FormID that isn't in the shipped dataset.
-This is expected if you're running mods that add ingredients (the dataset is
-vanilla + DLC + free Creations only); it's collected and shown rather than
+This is expected if you're running ingredient-adding mods the app has no
+dataset pack for (vanilla + DLC + free Creations + shipped packs is the
+current coverage); it's collected and shown rather than
 silently dropped or crashing the parse, and doubles as an early warning that
 the dataset may be out of date if it happens on an unmodded save.
 
@@ -263,8 +273,10 @@ back to extend it:
 
 - Support for other game versions (Legendary Edition, VR, GOG, older SE
   patches).
-- Mod-added ingredients and effects – would need plugin (`.esp`/`.esm`) and
-  BSA parsing beyond what the save parser does today.
+- Mod-added ingredients and effects – shipped in 1.1.0 as dataset packs
+  (CACO, The Cause), with `scripts/extract_pack.py` reading them from
+  plugin files. Remaining: more packs (Beyond Skyrim: Bruma is next) and
+  effects delivered only inside BSA archives.
 - Potion value / leveling optimization (magnitude and gold math), not just
   which effects a mix produces.
 - "Eat an ingredient" as a discovery action inside the discovery plan
