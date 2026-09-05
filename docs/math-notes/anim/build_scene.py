@@ -15,6 +15,7 @@ Glare node in the compositor (Eevee's legacy bloom toggle is gone) or
 render in Cycles. Everything animates via per-object custom property
 "lit", read by the shared materials' Object Attribute node.
 """
+import colorsys
 import json
 import math
 from pathlib import Path
@@ -22,6 +23,7 @@ from pathlib import Path
 import bpy
 
 DATA = Path(__file__).resolve().parent / 'plans-uesp.json'
+VERSION = 'v3'   # bump per meaningful change; renders never overwrite
 
 FPS = 24
 FRAMES_PER_BREW = 12          # 2 brews per second
@@ -31,9 +33,17 @@ SIDE_OFFSET = 14.0            # each ring's center at +/- this on X
 FLASH = 2.5                   # ignition overshoot before settling to 1
 ING_GLOW = 0.06               # resting glow of ingredient nodes
 
-# per-side identity: greedy burns amber, optimal runs ice-blue
-SIDES = [('greedy', -SIDE_OFFSET, 'GREEDY - 76 BREWS', (1.0, 0.62, 0.18)),
-         ('optimal', +SIDE_OFFSET, 'OPTIMAL - 70 BREWS', (0.45, 0.75, 1.0))]
+# per-side identity kept, brew ORDER painted into the lines: each edge
+# wears the hue of the brew that lit it, sweeping (hue_start, hue_end).
+# greedy burns deep red -> gold; optimal runs deep blue -> teal. For a
+# full shared rainbow, set both to (0.0, 0.83).
+SIDES = [('greedy', -SIDE_OFFSET, 'GREEDY - 76 BREWS', (0.0, 0.13)),
+         ('optimal', +SIDE_OFFSET, 'OPTIMAL - 70 BREWS', (0.72, 0.47))]
+
+
+def brew_color(hue_range, frac):
+    hue = hue_range[0] + (hue_range[1] - hue_range[0]) * frac
+    return colorsys.hsv_to_rgb(hue % 1.0, 0.85, 0.6 + 0.4 * frac)
 
 
 def clean_scene():
@@ -61,6 +71,31 @@ def lit_material(name, color, floor=0.0):
     add.operation = 'ADD'
     add.inputs[1].default_value = floor
     nt.links.new(attr.outputs['Fac'], add.inputs[0])
+    nt.links.new(add.outputs['Value'], emit.inputs['Strength'])
+    nt.links.new(emit.outputs['Emission'], out.inputs['Surface'])
+    return mat
+
+
+def edge_material(name):
+    """Emission color from per-object "col", strength from "lit" - one
+    material serves every edge; each object carries its own brew hue."""
+    mat = bpy.data.materials.new(name)
+    mat.use_nodes = True
+    nt = mat.node_tree
+    nt.nodes.clear()
+    out = nt.nodes.new('ShaderNodeOutputMaterial')
+    emit = nt.nodes.new('ShaderNodeEmission')
+    col = nt.nodes.new('ShaderNodeAttribute')
+    col.attribute_type = 'OBJECT'
+    col.attribute_name = 'col'
+    lit = nt.nodes.new('ShaderNodeAttribute')
+    lit.attribute_type = 'OBJECT'
+    lit.attribute_name = 'lit'
+    add = nt.nodes.new('ShaderNodeMath')
+    add.operation = 'ADD'
+    add.inputs[1].default_value = 0.015
+    nt.links.new(col.outputs['Color'], emit.inputs['Color'])
+    nt.links.new(lit.outputs['Fac'], add.inputs[0])
     nt.links.new(add.outputs['Value'], emit.inputs['Strength'])
     nt.links.new(emit.outputs['Emission'], out.inputs['Surface'])
     return mat
@@ -137,14 +172,20 @@ def build():
     kind = {n['id']: n['kind'] for n in data['nodes']}
     last_frame = START_FRAME
 
-    for plan_key, cx, label, color in SIDES:
-        pale = tuple(0.55 + 0.45 * c for c in color)
+    for plan_key, cx, label, hue_range in SIDES:
+        mid = brew_color(hue_range, 0.5)
+        pale = tuple(0.55 + 0.45 * c for c in mid)
         cyl = base_cyl.copy()
-        cyl.materials.append(
-            lit_material(f'edge-{plan_key}', color, floor=0.015))
+        cyl.materials.append(edge_material(f'edge-{plan_key}'))
         sph_eff = base_sph_eff.copy()
         sph_eff.materials.append(
             lit_material(f'effect-{plan_key}', pale, floor=0.01))
+
+        plan = data['plans'][plan_key]
+        brew_frac = {}
+        for k, brew in enumerate(plan):
+            for j in brew['lit']:
+                brew_frac[j] = k / max(1, len(plan) - 1)
         col = bpy.data.collections.new(plan_key)
         scene.collection.children.link(col)
 
@@ -169,6 +210,7 @@ def build():
             obj = bpy.data.objects.new(f'{plan_key}:e{j}', cyl)
             place_edge(obj, at(e['ing']), at(e['eff']), 0.018)
             key_lit(obj, 0, 0.0)
+            obj['col'] = list(brew_color(hue_range, brew_frac.get(j, 0.0)))
             col.objects.link(obj)
             edge_objs.append(obj)
 
@@ -248,8 +290,8 @@ def build():
 
     legend = bpy.data.curves.new('legend', type='FONT')
     legend.body = ('outer dots: ingredients   ·   inner dots: effects   ·   '
-                   'each line: one ingredient effect, lit when a brew '
-                   'discovers it')
+                   'each line: one ingredient effect, colored by the brew '
+                   'that discovers it (dark early, bright late)')
     legend.align_x = 'CENTER'
     legend.size = 0.55
     legend.materials.append(lit_material('legend', (0.6, 0.62, 0.68),
@@ -291,7 +333,7 @@ def build():
     scene.render.ffmpeg.format = 'MPEG4'
     scene.render.ffmpeg.codec = 'H264'
     scene.render.ffmpeg.constant_rate_factor = 'HIGH'
-    scene.render.filepath = str(DATA.parent / 'render' / 'cascade-')
+    scene.render.filepath = str(DATA.parent / 'render' / f'cascade-{VERSION}-')
 
     world = bpy.data.worlds.get('World') or bpy.data.worlds.new('World')
     scene.world = world
