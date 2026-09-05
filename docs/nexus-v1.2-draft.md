@@ -20,6 +20,12 @@ Beyond Skyrim: Bruma support - 125 Cyrodiil ingredients (the shared Beyond Skyri
 - Known quirk, faithfully modelled: Viper's Bugloss's first effect is the vanilla AlchUnknown placeholder - no second ingredient shares it, so it can never be brewed. The three single-effect Mountain Berries are not modelled (the discovery model assumes four-slot ingredients).
 ```
 
+## Fun stat for the notes
+
+Vanilla + Bruma is a 305-ingredient world: 1,220 effect-slots, 9 of
+them unbrewable (Viper's Bugloss's placeholder among them), and the
+app's greedy planner discovers all 1,211 reachable ones in 177 brews.
+
 ## Comment replies (adapt to the actual threads)
 
 To the Bruma requester:
