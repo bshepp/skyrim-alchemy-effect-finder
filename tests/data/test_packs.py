@@ -192,6 +192,26 @@ def test_real_caco_pack():
     assert [p.id for p in active] == ["caco"]
 
 
+def test_real_bruma_pack():
+    """The extracted Beyond Skyrim: Bruma pack: extend mode, the shared
+    BSAssets ingredient library (92 four-effect ingredients; the three
+    single-effect Mountain Berries are deliberately not modelled)."""
+    ds = load_dataset(packs=["bruma"])
+    assert len(ds.ingredients) == 272          # 180 vanilla + 92
+    assert len(ds.effects) == 79               # 60 vanilla + 19 new
+    # pure extension: no vanilla record may change
+    base = load_dataset()
+    for iid, ing in base.ingredients.items():
+        assert ds.ingredients[iid].effects == ing.effects
+    # a Cyrodiil classic carries a genuinely new effect
+    assert "fire-damage" in {e for i in ds.ingredients.values()
+                             for e in i.effects if i.plugin == "BSAssets.esm"}
+    packs = load_packs()
+    active = packs_for_plugins(
+        packs.values(), ["Skyrim.esm", "BSAssets.esm", "BSHeartland.esm"])
+    assert [p.id for p in active] == ["bruma"]
+
+
 def test_caco_and_the_cause_together():
     ds = load_dataset(packs=["caco", "the-cause"])
     assert len(ds.ingredients) == 361

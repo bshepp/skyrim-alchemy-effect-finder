@@ -1,0 +1,1231 @@
+{
+  "id": "bruma",
+  "name": "Beyond Skyrim: Bruma",
+  "_source": "Extracted from BSAssets.esm by scripts/extract_pack.py; DRAFT pending human verification.",
+  "plugins": [
+    "BSAssets.esm"
+  ],
+  "mode": "extend",
+  "effects": [
+    {
+      "id": "cure-paralysis",
+      "name": "Cure Paralysis",
+      "description": "Breaks paralysis.",
+      "harmful": false
+    },
+    {
+      "id": "cure-poison-bruma",
+      "name": "Cure Poison",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "damage-health-regen",
+      "name": "Damage Health Regen",
+      "description": "Decrease the target's Health regeneration by <mag>% for <dur> seconds.",
+      "harmful": true
+    },
+    {
+      "id": "detect-animal",
+      "name": "Detect Animal",
+      "description": "Detect animals for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "detect-life",
+      "name": "Detect Life",
+      "description": "Detect life for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "fire-damage",
+      "name": "Fire Damage",
+      "description": "Causes <mag> points of fire damage",
+      "harmful": true
+    },
+    {
+      "id": "fortify-alchemy",
+      "name": "Fortify Alchemy",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "fortify-persuasion-bruma",
+      "name": "Fortify Persuasion",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "fortify-speed",
+      "name": "Fortify Speed",
+      "description": "Speed is increased by <mag> points for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "frost-damage",
+      "name": "Frost Damage",
+      "description": "Causes <mag> points of frost damage.",
+      "harmful": true
+    },
+    {
+      "id": "light-bruma",
+      "name": "Light",
+      "description": "Causes the imbiber to become a source of light for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "night-eye-bruma",
+      "name": "Night Eye",
+      "description": "Improved night vision for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "reflect-damage",
+      "name": "Reflect Damage",
+      "description": "Reflect <mag>% damage for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "reflect-spell",
+      "name": "Reflect Spell",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "resist-disease",
+      "name": "Resist Disease",
+      "description": "Resist <mag>% of disease for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "restore-magicka-all",
+      "name": "Restore Magicka All",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "shock-damage",
+      "name": "Shock Damage",
+      "description": "Causes <mag> points of shock damage.",
+      "harmful": true
+    },
+    {
+      "id": "waterwalking",
+      "name": "Waterwalking",
+      "description": "Can walk on water for <dur> seconds.",
+      "harmful": false
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "alkanet",
+      "name": "Alkanet",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297791,
+      "effects": [
+        "restore-magicka",
+        "resist-poison",
+        "light-bruma",
+        "damage-stamina"
+      ]
+    },
+    {
+      "id": "aloe-vera-leaves-6018d1",
+      "name": "Aloe Vera Leaves",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297809,
+      "effects": [
+        "restore-stamina",
+        "restore-health",
+        "damage-magicka",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "arrowroot",
+      "name": "Arrowroot",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297817,
+      "effects": [
+        "restore-stamina",
+        "slow",
+        "regenerate-stamina",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "ash-salts",
+      "name": "Ash Salts",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297792,
+      "effects": [
+        "slow",
+        "resist-magic",
+        "cure-disease",
+        "fortify-magicka"
+      ]
+    },
+    {
+      "id": "azra-root",
+      "name": "Azra Root",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297795,
+      "effects": [
+        "fortify-magicka",
+        "damage-stamina",
+        "fortify-marksman",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "bamboo-leaf",
+      "name": "Bamboo Leaf",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297846,
+      "effects": [
+        "restore-stamina",
+        "fortify-health",
+        "weakness-to-frost",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "bergamot-seeds",
+      "name": "Bergamot Seeds",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301882,
+      "effects": [
+        "resist-disease",
+        "resist-magic",
+        "damage-magicka",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "bjoulsae-hake",
+      "name": "Bjoulsae Hake",
+      "plugin": "BSAssets.esm",
+      "form_id": 6299716,
+      "effects": [
+        "weakness-to-frost",
+        "fortify-sneak",
+        "weakness-to-poison",
+        "fortify-restoration"
+      ]
+    },
+    {
+      "id": "black-lichen",
+      "name": "Black Lichen",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297896,
+      "effects": [
+        "damage-stamina-regen",
+        "resist-frost",
+        "slow",
+        "cure-poison-bruma"
+      ]
+    },
+    {
+      "id": "black-poppy",
+      "name": "Black Poppy",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297868,
+      "effects": [
+        "damage-magicka",
+        "damage-magicka-regen",
+        "restore-magicka",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "blackberries",
+      "name": "Blackberries",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297793,
+      "effects": [
+        "regenerate-health",
+        "resist-shock",
+        "fortify-heavy-armor",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "blessed-thistle-branch",
+      "name": "Blessed Thistle Branch",
+      "plugin": "BSAssets.esm",
+      "form_id": 6299717,
+      "effects": [
+        "restore-stamina",
+        "fortify-two-handed",
+        "ravage-health",
+        "fortify-speed"
+      ]
+    },
+    {
+      "id": "bloat",
+      "name": "Bloat",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297889,
+      "effects": [
+        "damage-magicka",
+        "fortify-magicka",
+        "regenerate-magicka",
+        "detect-animal"
+      ]
+    },
+    {
+      "id": "bloombell",
+      "name": "Bloombell",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296616,
+      "effects": [
+        "ravage-health",
+        "fortify-barter",
+        "ravage-magicka",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "blue-entoloma",
+      "name": "Blue Entoloma",
+      "plugin": "BSAssets.esm",
+      "form_id": 6298861,
+      "effects": [
+        "ravage-magicka",
+        "weakness-to-magic",
+        "restore-health",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "blue-flax",
+      "name": "Blue Flax",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297858,
+      "effects": [
+        "restore-magicka",
+        "fortify-carry-weight",
+        "shield",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "blueberries",
+      "name": "Blueberries",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297852,
+      "effects": [
+        "regenerate-health",
+        "resist-shock",
+        "fortify-heavy-armor",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "bog-beacon-601cec",
+      "name": "Bog Beacon",
+      "plugin": "BSAssets.esm",
+      "form_id": 6298860,
+      "effects": [
+        "restore-magicka",
+        "damage-magicka",
+        "frenzy",
+        "damage-health-regen"
+      ]
+    },
+    {
+      "id": "bungler-s-bane",
+      "name": "Bungler's Bane",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297794,
+      "effects": [
+        "slow",
+        "damage-health-regen",
+        "regenerate-stamina",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "cairn-bolete",
+      "name": "Cairn Bolete",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297796,
+      "effects": [
+        "restore-health",
+        "damage-magicka",
+        "resist-poison",
+        "shock-damage"
+      ]
+    },
+    {
+      "id": "chokeweed-6018c5",
+      "name": "Chokeweed",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297797,
+      "effects": [
+        "weakness-to-poison",
+        "restore-stamina",
+        "cure-disease",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "clouded-funnel",
+      "name": "Clouded Funnel",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297815,
+      "effects": [
+        "restore-magicka",
+        "fortify-magicka",
+        "ravage-health",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "cold-fire-salts",
+      "name": "Cold Fire Salts",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297808,
+      "effects": [
+        "weakness-to-frost",
+        "resist-fire",
+        "restore-magicka",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "corkbulb-root-602563",
+      "name": "Corkbulb Root",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301027,
+      "effects": [
+        "cure-poison-bruma",
+        "restore-health",
+        "resist-shock",
+        "fortify-persuasion-bruma"
+      ]
+    },
+    {
+      "id": "daedroth-teeth-6018c8",
+      "name": "Daedroth Teeth",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297800,
+      "effects": [
+        "weakness-to-frost",
+        "resist-frost",
+        "invisibility",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "dark-cluster",
+      "name": "Dark Cluster",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296617,
+      "effects": [
+        "restore-magicka-all",
+        "fortify-alchemy",
+        "regenerate-health",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "dark-moss",
+      "name": "Dark Moss",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296622,
+      "effects": [
+        "lingering-damage-magicka",
+        "fortify-health",
+        "ravage-magicka",
+        "fortify-restoration"
+      ]
+    },
+    {
+      "id": "dawnshade",
+      "name": "Dawnshade",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296613,
+      "effects": [
+        "damage-magicka",
+        "ravage-magicka",
+        "lingering-damage-magicka",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "domica-redwort",
+      "name": "Domica Redwort",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297859,
+      "effects": [
+        "resist-frost",
+        "cure-poison-bruma",
+        "damage-health",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "dryad-saddle-polypore",
+      "name": "Dryad Saddle Polypore",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297803,
+      "effects": [
+        "fortify-lockpicking",
+        "resist-frost",
+        "slow",
+        "frost-damage"
+      ]
+    },
+    {
+      "id": "earth-moss",
+      "name": "Earth Moss",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297804,
+      "effects": [
+        "fortify-one-handed",
+        "damage-health",
+        "damage-magicka-regen",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "elf-cup",
+      "name": "Elf Cup",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297857,
+      "effects": [
+        "frenzy",
+        "cure-disease",
+        "restore-stamina",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "eltheric-grouper",
+      "name": "Eltheric Grouper",
+      "plugin": "BSAssets.esm",
+      "form_id": 6299715,
+      "effects": [
+        "restore-stamina",
+        "damage-stamina-regen",
+        "ravage-health",
+        "resist-frost"
+      ]
+    },
+    {
+      "id": "emetic-russula",
+      "name": "Emetic Russula",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297856,
+      "effects": [
+        "restore-stamina",
+        "shield",
+        "frenzy",
+        "damage-health-regen"
+      ]
+    },
+    {
+      "id": "fire-petal-6018cd",
+      "name": "Fire Petal",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297805,
+      "effects": [
+        "resist-fire",
+        "damage-health",
+        "resist-magic",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "flax-seeds",
+      "name": "Flax Seeds",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301688,
+      "effects": [
+        "restore-magicka",
+        "fortify-carry-weight",
+        "shield",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "frozen-spriggan-sap",
+      "name": "Frozen Spriggan Sap",
+      "plugin": "BSAssets.esm",
+      "form_id": 6302691,
+      "effects": [
+        "damage-magicka-regen",
+        "fortify-enchanting",
+        "fortify-smithing",
+        "fortify-alteration"
+      ]
+    },
+    {
+      "id": "ginkgo-leaves",
+      "name": "Ginkgo Leaves",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297860,
+      "effects": [
+        "restore-stamina",
+        "fortify-magicka",
+        "weakness-to-magic",
+        "shock-damage"
+      ]
+    },
+    {
+      "id": "ginseng",
+      "name": "Ginseng",
+      "plugin": "BSAssets.esm",
+      "form_id": 6300762,
+      "effects": [
+        "restore-health",
+        "fortify-conjuration",
+        "fortify-health",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "goblin-wax",
+      "name": "Goblin Wax",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297933,
+      "effects": [
+        "resist-poison",
+        "fortify-two-handed",
+        "frenzy",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "golden-poppy",
+      "name": "Golden Poppy",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297870,
+      "effects": [
+        "fortify-persuasion-bruma",
+        "fortify-carry-weight",
+        "damage-health",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "green-lichen",
+      "name": "Green Lichen",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297897,
+      "effects": [
+        "fortify-persuasion-bruma",
+        "cure-disease",
+        "damage-stamina-regen",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "green-stain-cup",
+      "name": "Green Stain Cup",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297894,
+      "effects": [
+        "restore-stamina",
+        "slow",
+        "reflect-damage",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "hackle-lo-leaves",
+      "name": "Hackle-Lo Leaves",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297853,
+      "effects": [
+        "restore-stamina",
+        "paralysis",
+        "waterbreathing",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "imp-gall-6018be",
+      "name": "Imp Gall",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297790,
+      "effects": [
+        "fortify-persuasion-bruma",
+        "cure-paralysis",
+        "damage-health",
+        "fire-damage"
+      ]
+    },
+    {
+      "id": "ironwood-nuts",
+      "name": "Ironwood Nuts",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297906,
+      "effects": [
+        "restore-magicka",
+        "resist-fire",
+        "damage-stamina",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "kwama-egg",
+      "name": "Kwama Egg",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297806,
+      "effects": [
+        "restore-stamina",
+        "paralysis",
+        "resist-frost",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "lady-s-mantle-leaves",
+      "name": "Lady's Mantle Leaves",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301895,
+      "effects": [
+        "restore-health",
+        "damage-stamina",
+        "night-eye-bruma",
+        "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "lady-s-smock-leaves",
+      "name": "Lady's Smock Leaves",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301697,
+      "effects": [
+        "restore-magicka",
+        "resist-fire",
+        "damage-stamina",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "land-dreugh-wax",
+      "name": "Land Dreugh Wax",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297801,
+      "effects": [
+        "damage-stamina",
+        "resist-poison",
+        "waterbreathing",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "lava-root",
+      "name": "Lava Root",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296614,
+      "effects": [
+        "lingering-damage-stamina",
+        "fortify-pickpocket",
+        "fortify-two-handed",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "limeberries",
+      "name": "Limeberries",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296620,
+      "effects": [
+        "resist-poison",
+        "damage-stamina",
+        "resist-magic",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "mandrake-root",
+      "name": "Mandrake Root",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297850,
+      "effects": [
+        "cure-disease",
+        "resist-poison",
+        "ravage-stamina",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "marshmerrow-6018ff",
+      "name": "Marshmerrow",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297855,
+      "effects": [
+        "restore-health",
+        "fortify-enchanting",
+        "damage-magicka-regen",
+        "damage-stamina"
+      ]
+    },
+    {
+      "id": "milk-thistle-branch",
+      "name": "Milk Thistle Branch",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297788,
+      "effects": [
+        "light-bruma",
+        "frost-damage",
+        "cure-poison-bruma",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "minotaur-horn-6026e4",
+      "name": "Minotaur Horn",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301412,
+      "effects": [
+        "regenerate-magicka",
+        "paralysis",
+        "fortify-stamina",
+        "resist-poison"
+      ]
+    },
+    {
+      "id": "mort-flesh-602424",
+      "name": "Mort Flesh",
+      "plugin": "BSAssets.esm",
+      "form_id": 6300708,
+      "effects": [
+        "damage-stamina",
+        "fear",
+        "fortify-health",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "motherwort-sprig",
+      "name": "Motherwort Sprig",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301696,
+      "effects": [
+        "resist-poison",
+        "damage-stamina",
+        "damage-magicka",
+        "cure-poison-bruma"
+      ]
+    },
+    {
+      "id": "muck",
+      "name": "Muck",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297903,
+      "effects": [
+        "ravage-magicka",
+        "fortify-lockpicking",
+        "fear",
+        "cure-disease"
+      ]
+    },
+    {
+      "id": "oceanroot",
+      "name": "Oceanroot",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296615,
+      "effects": [
+        "damage-health",
+        "damage-stamina",
+        "invisibility",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "ogre-teeth",
+      "name": "Ogre Teeth",
+      "plugin": "BSAssets.esm",
+      "form_id": 6301382,
+      "effects": [
+        "damage-magicka",
+        "paralysis",
+        "weakness-to-shock",
+        "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "onion",
+      "name": "Onion",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297864,
+      "effects": [
+        "restore-stamina",
+        "waterbreathing",
+        "detect-life",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "orange-lavender",
+      "name": "Orange Lavender",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296612,
+      "effects": [
+        "resist-poison",
+        "fortify-stamina",
+        "slow",
+        "fortify-destruction"
+      ]
+    },
+    {
+      "id": "rasberries",
+      "name": "Rasberries",
+      "plugin": "BSAssets.esm",
+      "form_id": 6302520,
+      "effects": [
+        "regenerate-health",
+        "resist-shock",
+        "fortify-heavy-armor",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "red-cinnabar-polypore",
+      "name": "Red Cinnabar Polypore",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297798,
+      "effects": [
+        "restore-health",
+        "fortify-heavy-armor",
+        "damage-magicka",
+        "damage-stamina"
+      ]
+    },
+    {
+      "id": "red-flax",
+      "name": "Red Flax",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297930,
+      "effects": [
+        "restore-magicka",
+        "fortify-carry-weight",
+        "shield",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "red-lichen",
+      "name": "Red Lichen",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297898,
+      "effects": [
+        "slow",
+        "light-bruma",
+        "cure-disease",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "red-moss",
+      "name": "Red Moss",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296618,
+      "effects": [
+        "damage-magicka",
+        "fortify-heavy-armor",
+        "ravage-health",
+        "fortify-smithing"
+      ]
+    },
+    {
+      "id": "red-onion",
+      "name": "Red Onion",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297865,
+      "effects": [
+        "damage-stamina",
+        "fortify-magicka",
+        "weakness-to-frost",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "red-poppy",
+      "name": "Red Poppy",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297869,
+      "effects": [
+        "damage-stamina-regen",
+        "damage-stamina",
+        "restore-stamina",
+        "fortify-stamina"
+      ]
+    },
+    {
+      "id": "rhino-horn",
+      "name": "Rhino Horn",
+      "plugin": "BSAssets.esm",
+      "form_id": 6298376,
+      "effects": [
+        "restore-stamina",
+        "fortify-persuasion-bruma",
+        "regenerate-stamina",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "rice",
+      "name": "Rice",
+      "plugin": "BSAssets.esm",
+      "form_id": 6298837,
+      "effects": [
+        "restore-stamina",
+        "fortify-health",
+        "damage-stamina-regen",
+        "lingering-damage-magicka"
+      ]
+    },
+    {
+      "id": "saltrice-60191d",
+      "name": "Saltrice",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297885,
+      "effects": [
+        "restore-stamina",
+        "fortify-magicka",
+        "damage-stamina-regen",
+        "restore-health"
+      ]
+    },
+    {
+      "id": "scamp-skin",
+      "name": "Scamp Skin",
+      "plugin": "BSAssets.esm",
+      "form_id": 6299578,
+      "effects": [
+        "ravage-magicka",
+        "damage-health",
+        "regenerate-health",
+        "resist-shock"
+      ]
+    },
+    {
+      "id": "sload-soap-601fb9",
+      "name": "Sload Soap",
+      "plugin": "BSAssets.esm",
+      "form_id": 6299577,
+      "effects": [
+        "fear",
+        "resist-fire",
+        "fortify-stamina",
+        "restore-stamina"
+      ]
+    },
+    {
+      "id": "solberries",
+      "name": "Solberries",
+      "plugin": "BSAssets.esm",
+      "form_id": 6296621,
+      "effects": [
+        "resist-fire",
+        "fortify-destruction",
+        "fortify-sneak",
+        "fortify-magicka"
+      ]
+    },
+    {
+      "id": "somnalius-frond",
+      "name": "Somnalius Frond",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297880,
+      "effects": [
+        "resist-fire",
+        "damage-health-regen",
+        "fortify-health",
+        "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "steel-blue-entoloma",
+      "name": "Steel-Blue Entoloma",
+      "plugin": "BSAssets.esm",
+      "form_id": 6298838,
+      "effects": [
+        "restore-magicka",
+        "fire-damage",
+        "resist-frost",
+        "weakness-to-poison"
+      ]
+    },
+    {
+      "id": "stinkhorn",
+      "name": "Stinkhorn",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297874,
+      "effects": [
+        "damage-health",
+        "restore-magicka",
+        "waterwalking",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "stoneflower",
+      "name": "Stoneflower",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297884,
+      "effects": [
+        "restore-stamina",
+        "fortify-magicka",
+        "weakness-to-magic",
+        "fortify-persuasion-bruma"
+      ]
+    },
+    {
+      "id": "sugarcane",
+      "name": "Sugarcane",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297851,
+      "effects": [
+        "fortify-stamina",
+        "resist-frost",
+        "fortify-speed",
+        "paralysis"
+      ]
+    },
+    {
+      "id": "summer-bolete",
+      "name": "Summer Bolete",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297904,
+      "effects": [
+        "restore-stamina",
+        "fortify-light-armor",
+        "fear",
+        "damage-health-regen"
+      ]
+    },
+    {
+      "id": "teardrop-pepper",
+      "name": "Teardrop Pepper",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297861,
+      "effects": [
+        "weakness-to-fire",
+        "cure-disease",
+        "frenzy",
+        "fortify-stamina"
+      ]
+    },
+    {
+      "id": "tinder-polypore",
+      "name": "Tinder Polypore",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297910,
+      "effects": [
+        "restore-magicka",
+        "resist-disease",
+        "invisibility",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "water-dreugh-wax",
+      "name": "Water Dreugh Wax",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297802,
+      "effects": [
+        "fortify-carry-weight",
+        "restore-health",
+        "weakness-to-poison",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "white-poppy",
+      "name": "White Poppy",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297871,
+      "effects": [
+        "damage-magicka",
+        "damage-magicka-regen",
+        "lingering-damage-magicka",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "wisp-stalk",
+      "name": "Wisp Stalk",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297892,
+      "effects": [
+        "damage-health",
+        "damage-magicka-regen",
+        "damage-magicka",
+        "fortify-speed"
+      ]
+    },
+    {
+      "id": "wolfsbane",
+      "name": "Wolfsbane",
+      "plugin": "BSAssets.esm",
+      "form_id": 6298841,
+      "effects": [
+        "resist-magic",
+        "invisibility",
+        "damage-stamina",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "wormwood",
+      "name": "Wormwood",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297886,
+      "effects": [
+        "fortify-stamina",
+        "invisibility",
+        "damage-health",
+        "damage-magicka"
+      ]
+    },
+    {
+      "id": "yellow-amanita",
+      "name": "Yellow Amanita",
+      "plugin": "BSAssets.esm",
+      "form_id": 6299722,
+      "effects": [
+        "weakness-to-poison",
+        "waterbreathing",
+        "frenzy",
+        "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "yellow-cinnabar-polypore",
+      "name": "Yellow Cinnabar Polypore",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297799,
+      "effects": [
+        "restore-health",
+        "regenerate-health",
+        "frenzy",
+        "reflect-spell"
+      ]
+    },
+    {
+      "id": "yellow-flax",
+      "name": "Yellow Flax",
+      "plugin": "BSAssets.esm",
+      "form_id": 6297931,
+      "effects": [
+        "restore-magicka",
+        "fortify-carry-weight",
+        "shield",
+        "damage-health"
+      ]
+    }
+  ]
+}

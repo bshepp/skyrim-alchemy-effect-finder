@@ -297,7 +297,10 @@ def main():
         "_source": (f"Extracted from {target.name} by scripts/"
                     f"extract_pack.py; DRAFT pending human verification."),
         "plugins": [target.name],
-        "mode": "overhaul",
+        # extend is the stricter contract (collisions error instead of
+        # replacing); only claim overhaul when the plugin actually
+        # overrides vanilla ingredient records.
+        "mode": "overhaul" if overrides else "extend",
         "effects": sorted(new_effects.values(), key=lambda e: e["id"]),
         "ingredients": sorted(overrides + additions,
                               key=lambda i: i["id"]),
