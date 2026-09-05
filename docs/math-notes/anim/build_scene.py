@@ -31,8 +31,9 @@ SIDE_OFFSET = 14.0            # each ring's center at +/- this on X
 FLASH = 2.5                   # ignition overshoot before settling to 1
 ING_GLOW = 0.06               # resting glow of ingredient nodes
 
-SIDES = [('greedy', -SIDE_OFFSET, 'GREEDY - 76 BREWS'),
-         ('optimal', +SIDE_OFFSET, 'OPTIMAL - 70 BREWS')]
+# per-side identity: greedy burns amber, optimal runs ice-blue
+SIDES = [('greedy', -SIDE_OFFSET, 'GREEDY - 76 BREWS', (1.0, 0.62, 0.18)),
+         ('optimal', +SIDE_OFFSET, 'OPTIMAL - 70 BREWS', (0.45, 0.75, 1.0))]
 
 
 def clean_scene():
@@ -124,23 +125,26 @@ def build():
     scene.render.fps = FPS
     clean_scene()
 
-    mat_edge = lit_material('edge', (1.0, 0.72, 0.25), floor=0.015)
-    mat_ing = lit_material('ingredient', (0.55, 0.8, 1.0), floor=0.0)
-    mat_eff = lit_material('effect', (1.0, 0.95, 0.7), floor=0.01)
+    mat_ing = lit_material('ingredient', (1.0, 1.0, 1.0), floor=0.0)
     mat_text = lit_material('label', (0.85, 0.85, 0.9), floor=1.0)
 
-    cyl = unit_cylinder()
-    cyl.materials.append(mat_edge)
+    base_cyl = unit_cylinder()
     sph_ing = unit_sphere(2)
     sph_ing.materials.append(mat_ing)
-    sph_eff = unit_sphere(2)
-    sph_eff.materials.append(mat_eff)
+    base_sph_eff = unit_sphere(2)
 
     pos = {n['id']: n['pos'] for n in data['nodes']}
     kind = {n['id']: n['kind'] for n in data['nodes']}
     last_frame = START_FRAME
 
-    for plan_key, cx, label in SIDES:
+    for plan_key, cx, label, color in SIDES:
+        pale = tuple(0.55 + 0.45 * c for c in color)
+        cyl = base_cyl.copy()
+        cyl.materials.append(
+            lit_material(f'edge-{plan_key}', color, floor=0.015))
+        sph_eff = base_sph_eff.copy()
+        sph_eff.materials.append(
+            lit_material(f'effect-{plan_key}', pale, floor=0.01))
         col = bpy.data.collections.new(plan_key)
         scene.collection.children.link(col)
 
@@ -187,6 +191,15 @@ def build():
                 key_lit(obj, frame - 1, obj.get('lit', 0.0))
                 key_lit(obj, frame, frac * 1.5)
 
+        # the finish beat: the moment a side completes, its whole web
+        # takes one slow breath and settles - stillness as a statement
+        plan = data['plans'][plan_key]
+        done = START_FRAME + (len(plan) - 1) * FRAMES_PER_BREW + 8
+        for obj in edge_objs:
+            key_lit(obj, done, 1.0)
+            key_lit(obj, done + 10, 1.9)
+            key_lit(obj, done + 26, 1.0)
+
         text_curve = bpy.data.curves.new(f'{plan_key}-label', type='FONT')
         text_curve.body = label
         text_curve.align_x = 'CENTER'
@@ -196,13 +209,76 @@ def build():
         text_obj.location = (cx, -12.3, 0.0)
         col.objects.link(text_obj)
 
+        # brew counter: one text object per count, visibility-keyed so
+        # the number ticks up with each brew and freezes when done
+        total = len(plan)
+        for k in range(total):
+            frame = START_FRAME + k * FRAMES_PER_BREW
+            nxt = (START_FRAME + (k + 1) * FRAMES_PER_BREW
+                   if k + 1 < total else None)
+            tc = bpy.data.curves.new(f'{plan_key}-n{k}', type='FONT')
+            tc.body = f'{k + 1} of {total}'
+            tc.align_x = 'CENTER'
+            tc.size = 0.85
+            tc.materials.append(mat_text)
+            to = bpy.data.objects.new(f'{plan_key}:n{k}', tc)
+            to.location = (cx, -14.0, 0.0)
+            col.objects.link(to)
+            for prop in ('hide_render', 'hide_viewport'):
+                setattr(to, prop, True)
+                to.keyframe_insert(prop, frame=0)
+                setattr(to, prop, False)
+                to.keyframe_insert(prop, frame=frame)
+                if nxt is not None:
+                    setattr(to, prop, True)
+                    to.keyframe_insert(prop, frame=nxt)
+
     scene.frame_start = 1
     scene.frame_end = last_frame + FRAMES_PER_BREW + HOLD_FRAMES
 
-    bpy.ops.object.camera_add(location=(0, -1.5, 46), rotation=(0, 0, 0))
+    bpy.ops.object.camera_add(location=(0, -1.5, 47.5), rotation=(0, 0, 0))
     cam = bpy.context.object
     cam.data.lens = 32
     scene.camera = cam
+    # one slow breath inward across the whole piece
+    cam.keyframe_insert('location', frame=1)
+    cam.location = (0, -1.5, 41.5)
+    cam.keyframe_insert('location', frame=scene.frame_end)
+
+    # bloom via compositor glare - Blender 5.0 style: a compositor node
+    # GROUP assigned to the scene, ending in a NodeGroupOutput (the old
+    # scene.node_tree / Composite node are gone). Tolerate API drift -
+    # the render is correct without it, just drier.
+    try:
+        scene.render.use_compositing = True
+        ng = bpy.data.node_groups.new('cascade-glare', 'CompositorNodeTree')
+        ng.interface.new_socket('Image', in_out='OUTPUT',
+                                socket_type='NodeSocketColor')
+        rl = ng.nodes.new('CompositorNodeRLayers')
+        glare = ng.nodes.new('CompositorNodeGlare')
+        # 5.0 exposes glare options as input sockets, Type as a menu
+        for name, value in (('Type', 'Bloom'), ('Threshold', 0.8),
+                            ('Strength', 0.35), ('Size', 7)):
+            try:
+                glare.inputs[name].default_value = value
+            except (KeyError, TypeError) as exc:
+                print(f'glare input {name!r} left at default: {exc}')
+        out = ng.nodes.new('NodeGroupOutput')
+        ng.links.new(rl.outputs['Image'], glare.inputs['Image'])
+        ng.links.new(glare.outputs['Image'], out.inputs['Image'])
+        scene.compositing_node_group = ng
+    except Exception as exc:                       # noqa: BLE001
+        print(f'compositor glare skipped: {exc}')
+
+    # output: H.264 MP4, ready for `blender -b --python ... -a`
+    scene.render.resolution_x = 1920
+    scene.render.resolution_y = 1080
+    scene.render.image_settings.media_type = 'VIDEO'
+    scene.render.image_settings.file_format = 'FFMPEG'
+    scene.render.ffmpeg.format = 'MPEG4'
+    scene.render.ffmpeg.codec = 'H264'
+    scene.render.ffmpeg.constant_rate_factor = 'HIGH'
+    scene.render.filepath = str(DATA.parent / 'render' / 'cascade-')
 
     world = bpy.data.worlds.get('World') or bpy.data.worlds.new('World')
     scene.world = world
