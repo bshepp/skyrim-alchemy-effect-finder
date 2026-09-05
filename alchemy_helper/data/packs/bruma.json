@@ -1,12 +1,19 @@
 {
   "id": "bruma",
   "name": "Beyond Skyrim: Bruma",
-  "_source": "Extracted from BSAssets.esm by scripts/extract_pack.py; DRAFT pending human verification.",
+  "_source": "Extracted from BSAssets.esm, BSHeartland.esm by scripts/extract_pack.py; DRAFT pending human verification.",
   "plugins": [
-    "BSAssets.esm"
+    "BSAssets.esm",
+    "BSHeartland.esm"
   ],
   "mode": "extend",
   "effects": [
+    {
+      "id": "burden",
+      "name": "Burden",
+      "description": "",
+      "harmful": false
+    },
     {
       "id": "cure-paralysis",
       "name": "Cure Paralysis",
@@ -116,6 +123,12 @@
       "harmful": true
     },
     {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "",
+      "harmful": false
+    },
+    {
       "id": "waterwalking",
       "name": "Waterwalking",
       "description": "Can walk on water for <dur> seconds.",
@@ -196,6 +209,18 @@
       ]
     },
     {
+      "id": "beetle",
+      "name": "Beetle",
+      "plugin": "BSHeartland.esm",
+      "form_id": 913329,
+      "effects": [
+        "damage-health",
+        "ravage-stamina",
+        "fortify-sneak",
+        "damage-stamina"
+      ]
+    },
+    {
       "id": "bergamot-seeds",
       "name": "Bergamot Seeds",
       "plugin": "BSAssets.esm",
@@ -217,6 +242,42 @@
         "fortify-sneak",
         "weakness-to-poison",
         "fortify-restoration"
+      ]
+    },
+    {
+      "id": "black-dartwing",
+      "name": "Black Dartwing",
+      "plugin": "BSHeartland.esm",
+      "form_id": 836311,
+      "effects": [
+        "restore-magicka",
+        "ravage-health",
+        "fortify-destruction",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "black-eagle-beak",
+      "name": "Black Eagle Beak",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388945,
+      "effects": [
+        "restore-stamina",
+        "resist-frost",
+        "fortify-carry-weight",
+        "resist-shock"
+      ]
+    },
+    {
+      "id": "black-eagle-feathers",
+      "name": "Black Eagle Feathers",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388944,
+      "effects": [
+        "cure-disease",
+        "fortify-light-armor",
+        "fortify-one-handed",
+        "fortify-sneak"
       ]
     },
     {
@@ -292,6 +353,18 @@
       ]
     },
     {
+      "id": "blue-athrasina-flower",
+      "name": "Blue Athrasina Flower",
+      "plugin": "BSHeartland.esm",
+      "form_id": 716066,
+      "effects": [
+        "restore-health",
+        "fortify-conjuration",
+        "fortify-health",
+        "damage-magicka-regen"
+      ]
+    },
+    {
       "id": "blue-entoloma",
       "name": "Blue Entoloma",
       "plugin": "BSAssets.esm",
@@ -340,6 +413,18 @@
       ]
     },
     {
+      "id": "buck-moth-wing",
+      "name": "Buck Moth Wing",
+      "plugin": "BSHeartland.esm",
+      "form_id": 444462,
+      "effects": [
+        "restore-stamina",
+        "damage-magicka",
+        "cure-disease",
+        "weakness-to-magic"
+      ]
+    },
+    {
       "id": "bungler-s-bane",
       "name": "Bungler's Bane",
       "plugin": "BSAssets.esm",
@@ -361,6 +446,18 @@
         "damage-magicka",
         "resist-poison",
         "shock-damage"
+      ]
+    },
+    {
+      "id": "chili-powder",
+      "name": "Chili Powder",
+      "plugin": "BSHeartland.esm",
+      "form_id": 718123,
+      "effects": [
+        "weakness-to-fire",
+        "cure-disease",
+        "frenzy",
+        "fortify-stamina"
       ]
     },
     {
@@ -397,6 +494,18 @@
         "resist-fire",
         "restore-magicka",
         "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "colovian-nuthatch-egg",
+      "name": "Colovian Nuthatch Egg",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388951,
+      "effects": [
+        "restore-stamina",
+        "fortify-carry-weight",
+        "slow",
+        "paralysis"
       ]
     },
     {
@@ -496,6 +605,18 @@
       ]
     },
     {
+      "id": "eastern-wallcreeper-egg",
+      "name": "Eastern Wallcreeper Egg",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388952,
+      "effects": [
+        "regenerate-magicka",
+        "resist-frost",
+        "weakness-to-magic",
+        "damage-health"
+      ]
+    },
+    {
       "id": "elf-cup",
       "name": "Elf Cup",
       "plugin": "BSAssets.esm",
@@ -529,6 +650,18 @@
         "shield",
         "frenzy",
         "damage-health-regen"
+      ]
+    },
+    {
+      "id": "emperor-moth-wing",
+      "name": "Emperor Moth Wing",
+      "plugin": "BSHeartland.esm",
+      "form_id": 571034,
+      "effects": [
+        "weakness-to-poison",
+        "restore-magicka",
+        "waterbreathing",
+        "damage-stamina"
       ]
     },
     {
@@ -604,6 +737,18 @@
       ]
     },
     {
+      "id": "golden-kingfisher-egg",
+      "name": "Golden Kingfisher Egg",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388950,
+      "effects": [
+        "fortify-speed",
+        "shock-damage",
+        "lingering-damage-stamina",
+        "fortify-health"
+      ]
+    },
+    {
       "id": "golden-poppy",
       "name": "Golden Poppy",
       "plugin": "BSAssets.esm",
@@ -613,6 +758,30 @@
         "fortify-carry-weight",
         "damage-health",
         "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "goldengill",
+      "name": "Goldengill",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388947,
+      "effects": [
+        "shock-damage",
+        "fortify-speed",
+        "resist-frost",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "green-dartwing",
+      "name": "Green Dartwing",
+      "plugin": "BSHeartland.esm",
+      "form_id": 836312,
+      "effects": [
+        "resist-fire",
+        "ravage-magicka",
+        "fortify-lockpicking",
+        "frenzy"
       ]
     },
     {
@@ -640,6 +809,30 @@
       ]
     },
     {
+      "id": "grey-stag-s-antlers",
+      "name": "Grey Stag's Antlers",
+      "plugin": "BSHeartland.esm",
+      "form_id": 709129,
+      "effects": [
+        "restore-stamina",
+        "fortify-stamina",
+        "slow",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "gypsy-moth-wing",
+      "name": "Gypsy Moth Wing",
+      "plugin": "BSHeartland.esm",
+      "form_id": 461601,
+      "effects": [
+        "shock-damage",
+        "waterbreathing",
+        "fortify-sneak",
+        "weakness-to-poison"
+      ]
+    },
+    {
       "id": "hackle-lo-leaves",
       "name": "Hackle-Lo Leaves",
       "plugin": "BSAssets.esm",
@@ -649,6 +842,18 @@
         "paralysis",
         "waterbreathing",
         "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "heartland-highfin",
+      "name": "Heartland Highfin",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388943,
+      "effects": [
+        "damage-magicka",
+        "fortify-destruction",
+        "damage-health-regen",
+        "light-bruma"
       ]
     },
     {
@@ -712,6 +917,18 @@
       ]
     },
     {
+      "id": "ladybug",
+      "name": "Ladybug",
+      "plugin": "BSHeartland.esm",
+      "form_id": 913328,
+      "effects": [
+        "restore-health",
+        "ravage-stamina",
+        "resist-shock",
+        "weakness-to-poison"
+      ]
+    },
+    {
       "id": "land-dreugh-wax",
       "name": "Land Dreugh Wax",
       "plugin": "BSAssets.esm",
@@ -745,6 +962,30 @@
         "damage-stamina",
         "resist-magic",
         "paralysis"
+      ]
+    },
+    {
+      "id": "lotus-flower",
+      "name": "Lotus Flower",
+      "plugin": "BSHeartland.esm",
+      "form_id": 717611,
+      "effects": [
+        "resist-fire",
+        "fortify-enchanting",
+        "resist-frost",
+        "resist-shock"
+      ]
+    },
+    {
+      "id": "magus-mint",
+      "name": "Magus Mint",
+      "plugin": "BSHeartland.esm",
+      "form_id": 465541,
+      "effects": [
+        "restore-magicka",
+        "weakness-to-frost",
+        "cure-poison-bruma",
+        "slow"
       ]
     },
     {
@@ -808,6 +1049,18 @@
       ]
     },
     {
+      "id": "motherwort",
+      "name": "Motherwort",
+      "plugin": "BSHeartland.esm",
+      "form_id": 738606,
+      "effects": [
+        "resist-poison",
+        "damage-stamina",
+        "damage-magicka",
+        "invisibility"
+      ]
+    },
+    {
       "id": "motherwort-sprig",
       "name": "Motherwort Sprig",
       "plugin": "BSAssets.esm",
@@ -820,6 +1073,18 @@
       ]
     },
     {
+      "id": "mountain-lion-teeth",
+      "name": "Mountain Lion Teeth",
+      "plugin": "BSHeartland.esm",
+      "form_id": 872892,
+      "effects": [
+        "restore-health",
+        "fortify-two-handed",
+        "fortify-carry-weight",
+        "damage-magicka-regen"
+      ]
+    },
+    {
       "id": "muck",
       "name": "Muck",
       "plugin": "BSAssets.esm",
@@ -829,6 +1094,30 @@
         "fortify-lockpicking",
         "fear",
         "cure-disease"
+      ]
+    },
+    {
+      "id": "nibenay-snapper",
+      "name": "Nibenay Snapper",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388953,
+      "effects": [
+        "fortify-magicka",
+        "damage-stamina-regen",
+        "invisibility",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "nibenese-silverbird-egg",
+      "name": "Nibenese Silverbird Egg",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388948,
+      "effects": [
+        "restore-magicka",
+        "slow",
+        "weakness-to-fire",
+        "fortify-lockpicking"
       ]
     },
     {
@@ -877,6 +1166,30 @@
         "fortify-stamina",
         "slow",
         "fortify-destruction"
+      ]
+    },
+    {
+      "id": "pink-athrasina-flower",
+      "name": "Pink Athrasina Flower",
+      "plugin": "BSHeartland.esm",
+      "form_id": 716069,
+      "effects": [
+        "restore-stamina",
+        "fortify-sneak",
+        "lingering-damage-magicka",
+        "resist-frost"
+      ]
+    },
+    {
+      "id": "rainbow-fish",
+      "name": "Rainbow Fish",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388949,
+      "effects": [
+        "restore-stamina",
+        "weakness-to-frost",
+        "fortify-illusion",
+        "resist-poison"
       ]
     },
     {
@@ -940,6 +1253,18 @@
       ]
     },
     {
+      "id": "red-mudcrab-chitin",
+      "name": "Red Mudcrab Chitin",
+      "plugin": "BSHeartland.esm",
+      "form_id": 14595,
+      "effects": [
+        "restore-stamina",
+        "cure-disease",
+        "resist-poison",
+        "resist-fire"
+      ]
+    },
+    {
       "id": "red-onion",
       "name": "Red Onion",
       "plugin": "BSAssets.esm",
@@ -964,6 +1289,18 @@
       ]
     },
     {
+      "id": "refined-frost-salts",
+      "name": "Refined Frost Salts",
+      "plugin": "BSHeartland.esm",
+      "form_id": 866559,
+      "effects": [
+        "weakness-to-fire",
+        "resist-frost",
+        "restore-magicka",
+        "fortify-conjuration"
+      ]
+    },
+    {
       "id": "rhino-horn",
       "name": "Rhino Horn",
       "plugin": "BSAssets.esm",
@@ -985,6 +1322,30 @@
         "fortify-health",
         "damage-stamina-regen",
         "lingering-damage-magicka"
+      ]
+    },
+    {
+      "id": "rice-grains",
+      "name": "Rice Grains",
+      "plugin": "BSHeartland.esm",
+      "form_id": 718122,
+      "effects": [
+        "restore-stamina",
+        "fortify-health",
+        "damage-stamina-regen",
+        "lingering-damage-magicka"
+      ]
+    },
+    {
+      "id": "root-pulp",
+      "name": "Root Pulp",
+      "plugin": "BSHeartland.esm",
+      "form_id": 879482,
+      "effects": [
+        "restore-magicka",
+        "resist-frost",
+        "fortify-magicka",
+        "fortify-illusion"
       ]
     },
     {
@@ -1108,6 +1469,18 @@
       ]
     },
     {
+      "id": "swamp-sparrow-egg",
+      "name": "Swamp Sparrow Egg",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388954,
+      "effects": [
+        "resist-poison",
+        "restore-magicka",
+        "waterwalking",
+        "ravage-health"
+      ]
+    },
+    {
       "id": "teardrop-pepper",
       "name": "Teardrop Pepper",
       "plugin": "BSAssets.esm",
@@ -1129,6 +1502,18 @@
         "resist-disease",
         "invisibility",
         "damage-magicka"
+      ]
+    },
+    {
+      "id": "viper-s-bugloss",
+      "name": "Viper's Bugloss",
+      "plugin": "BSHeartland.esm",
+      "form_id": 880720,
+      "effects": [
+        "unknown",
+        "night-eye-bruma",
+        "burden",
+        "cure-paralysis"
       ]
     },
     {
@@ -1180,6 +1565,18 @@
       ]
     },
     {
+      "id": "wood-warbler-egg",
+      "name": "Wood Warbler Egg",
+      "plugin": "BSHeartland.esm",
+      "form_id": 388946,
+      "effects": [
+        "damage-stamina",
+        "frenzy",
+        "invisibility",
+        "fortify-speed"
+      ]
+    },
+    {
       "id": "wormwood",
       "name": "Wormwood",
       "plugin": "BSAssets.esm",
@@ -1201,6 +1598,18 @@
         "waterbreathing",
         "frenzy",
         "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "yellow-athrasina-flower",
+      "name": "Yellow Athrasina Flower",
+      "plugin": "BSHeartland.esm",
+      "form_id": 716165,
+      "effects": [
+        "restore-magicka",
+        "ravage-magicka",
+        "fortify-magicka",
+        "damage-health"
       ]
     },
     {

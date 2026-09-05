@@ -156,7 +156,9 @@ def key(owner, local):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("plugin", type=Path)
+    ap.add_argument("plugin", type=Path, nargs="+",
+                    help="plugin files in load order; on the same form id, "
+                         "later plugins override earlier ones")
     ap.add_argument("--game-data", type=Path, required=True)
     ap.add_argument("--pack-id", required=True)
     ap.add_argument("--pack-name", required=True)
@@ -203,16 +205,23 @@ def main():
             print("  CONFLICT:", c)
         raise SystemExit("rosetta inconsistent - slot-order assumption broken")
 
-    target = Plugin(args.plugin)
-    if target.localized:
-        raise SystemExit(f"{target.name} is localized - names unavailable")
-    print(f"{target.name}: masters={target.masters}")
-    print(f"  INGR records: {len(target.records['INGR'])}, "
-          f"MGEF records: {len(target.records['MGEF'])}")
+    targets = [Plugin(p) for p in args.plugin]
+    target_names = {t.name.lower() for t in targets}
+    for target in targets:
+        if target.localized:
+            raise SystemExit(f"{target.name} is localized - names unavailable")
+        print(f"{target.name}: masters={target.masters}")
+        print(f"  INGR records: {len(target.records['INGR'])}, "
+              f"MGEF records: {len(target.records['MGEF'])}")
 
-    own_mgefs = {key(o, l): (full, desc, flags)
-                 for o, l, _e, full, desc, flags in mgef_entries(target)
-                 if o.lower() == target.name.lower()}
+    # A pack-owned MGEF is one whose record lives in any of the pack's
+    # plugins - including one plugin overriding another's (last wins).
+    own_mgefs = {}
+    for target in targets:
+        own_mgefs.update(
+            {key(o, l): (full, desc, flags)
+             for o, l, _e, full, desc, flags in mgef_entries(target)
+             if o.lower() in target_names})
 
     new_effects = {}       # slug -> Effect dict
     used_slugs = set(dataset.effects)
@@ -253,12 +262,20 @@ def main():
         unresolved.append((context, k, "unknown effect form"))
         return None
 
+    # Merge INGR records across the pack's plugins in load order: a later
+    # plugin's record for the same form id replaces the earlier one,
+    # exactly as the game resolves them.
+    merged_ingrs = {}
+    for target in targets:
+        for owner, local, full, efids in ingr_entries(target):
+            merged_ingrs[key(owner, local)] = (owner, local, full, efids)
+
     overrides, additions, unresolved, skipped = [], [], [], []
-    for owner, local, full, efids in ingr_entries(target):
+    for owner, local, full, efids in merged_ingrs.values():
         if len(efids) != 4:
             skipped.append((owner, local, full, f"{len(efids)} effects"))
             continue
-        is_own = owner.lower() == target.name.lower()
+        is_own = owner.lower() in target_names
         base = by_form.get(key(owner, local))
         slugs = [translate(o, l, full or (base.id if base else f"{local:X}"))
                  for o, l in efids]
@@ -294,9 +311,10 @@ def main():
     pack = {
         "id": args.pack_id,
         "name": args.pack_name,
-        "_source": (f"Extracted from {target.name} by scripts/"
+        "_source": (f"Extracted from "
+                    f"{', '.join(t.name for t in targets)} by scripts/"
                     f"extract_pack.py; DRAFT pending human verification."),
-        "plugins": [target.name],
+        "plugins": [t.name for t in targets],
         # extend is the stricter contract (collisions error instead of
         # replacing); only claim overhaul when the plugin actually
         # overrides vanilla ingredient records.
