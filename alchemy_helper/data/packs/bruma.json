@@ -1,7 +1,7 @@
 {
   "id": "bruma",
   "name": "Beyond Skyrim: Bruma",
-  "_source": "Extracted from BSAssets.esm, BSHeartland.esm by scripts/extract_pack.py; DRAFT pending human verification.",
+  "_source": "Extracted from BSAssets.esm, BSHeartland.esm by scripts/extract_pack.py; BS_DLC_patch.esp checked 2026-09-05: no INGR/MGEF records. DRAFT pending live-save verification.",
   "plugins": [
     "BSAssets.esm",
     "BSHeartland.esm"
