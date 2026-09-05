@@ -236,14 +236,27 @@ def build():
     scene.frame_start = 1
     scene.frame_end = last_frame + FRAMES_PER_BREW + HOLD_FRAMES
 
-    bpy.ops.object.camera_add(location=(0, -1.5, 47.5), rotation=(0, 0, 0))
+    bpy.ops.object.camera_add(location=(0, -1.5, 52.5), rotation=(0, 0, 0))
     cam = bpy.context.object
     cam.data.lens = 32
     scene.camera = cam
-    # one slow breath inward across the whole piece
+    # one slow breath inward; the END must still hold both full rings
+    # (half-width at distance z is z*18/32; the rings span +/-24.6)
     cam.keyframe_insert('location', frame=1)
-    cam.location = (0, -1.5, 41.5)
+    cam.location = (0, -1.5, 46.5)
     cam.keyframe_insert('location', frame=scene.frame_end)
+
+    legend = bpy.data.curves.new('legend', type='FONT')
+    legend.body = ('outer dots: ingredients   ·   inner dots: effects   ·   '
+                   'each line: one ingredient effect, lit when a brew '
+                   'discovers it')
+    legend.align_x = 'CENTER'
+    legend.size = 0.55
+    legend.materials.append(lit_material('legend', (0.6, 0.62, 0.68),
+                                         floor=0.8))
+    legend_obj = bpy.data.objects.new('legend', legend)
+    legend_obj.location = (0, 12.6, 0.0)
+    scene.collection.objects.link(legend_obj)
 
     # bloom via compositor glare - Blender 5.0 style: a compositor node
     # GROUP assigned to the scene, ending in a NodeGroupOutput (the old
