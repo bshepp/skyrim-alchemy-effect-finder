@@ -18,12 +18,23 @@ render in Cycles. Everything animates via per-object custom property
 import colorsys
 import json
 import math
+import sys
 from pathlib import Path
 
 import bpy
 
 DATA = Path(__file__).resolve().parent / 'plans-uesp.json'
-VERSION = 'v4'   # bump per meaningful change; renders never overwrite
+
+# what the spectrum encodes - pass after `--` on the command line:
+#   brew        each side divides red->violet by its brew count (default)
+#   ingredient  the outer ring is a color wheel; lines wear their
+#               ingredient's hue
+#   effect      the inner ring is a color wheel; lines wear their
+#               effect's hue
+_extra = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
+MODE = _extra[0] if _extra else 'brew'
+VERSION = {'brew': 'v4', 'ingredient': 'v5-ingredients',
+           'effect': 'v6-effects'}[MODE]
 
 FPS = 24
 FRAMES_PER_BREW = 12          # 2 brews per second
@@ -76,9 +87,9 @@ def lit_material(name, color, floor=0.0):
     return mat
 
 
-def edge_material(name):
+def edge_material(name, floor=0.015):
     """Emission color from per-object "col", strength from "lit" - one
-    material serves every edge; each object carries its own brew hue."""
+    material serves many objects; each carries its own hue."""
     mat = bpy.data.materials.new(name)
     mat.use_nodes = True
     nt = mat.node_tree
@@ -93,7 +104,7 @@ def edge_material(name):
     lit.attribute_name = 'lit'
     add = nt.nodes.new('ShaderNodeMath')
     add.operation = 'ADD'
-    add.inputs[1].default_value = 0.015
+    add.inputs[1].default_value = floor
     nt.links.new(col.outputs['Color'], emit.inputs['Color'])
     nt.links.new(lit.outputs['Fac'], add.inputs[0])
     nt.links.new(add.outputs['Value'], emit.inputs['Strength'])
@@ -160,25 +171,30 @@ def build():
     scene.render.fps = FPS
     clean_scene()
 
-    mat_ing = lit_material('ingredient', (1.0, 1.0, 1.0), floor=0.0)
     mat_text = lit_material('label', (0.85, 0.85, 0.9), floor=1.0)
 
     base_cyl = unit_cylinder()
     sph_ing = unit_sphere(2)
-    sph_ing.materials.append(mat_ing)
+    sph_ing.materials.append(edge_material('ingredient', floor=0.0))
     base_sph_eff = unit_sphere(2)
 
     pos = {n['id']: n['pos'] for n in data['nodes']}
     kind = {n['id']: n['kind'] for n in data['nodes']}
     last_frame = START_FRAME
 
+    def ring_hue(node_id):
+        """Position on the ring as a full color wheel - a line's color
+        points back at its source node."""
+        x, y = pos[node_id]
+        return colorsys.hsv_to_rgb((math.atan2(y, x) / math.tau) % 1.0,
+                                   1.0, 1.0)
+
     for plan_key, cx, label, hue_range in SIDES:
-        pale = (0.9, 0.9, 0.95)
         cyl = base_cyl.copy()
         cyl.materials.append(edge_material(f'edge-{plan_key}'))
         sph_eff = base_sph_eff.copy()
         sph_eff.materials.append(
-            lit_material(f'effect-{plan_key}', pale, floor=0.01))
+            edge_material(f'effect-{plan_key}', floor=0.01))
 
         plan = data['plans'][plan_key]
         brew_frac = {}
@@ -194,13 +210,20 @@ def build():
 
         node_objs = {}
         for nid in pos:
-            mesh = sph_ing if kind[nid] == 'ingredient' else sph_eff
-            r = 0.12 if kind[nid] == 'ingredient' else 0.22
+            is_ing = kind[nid] == 'ingredient'
+            mesh = sph_ing if is_ing else sph_eff
+            r = 0.12 if is_ing else 0.22
             obj = bpy.data.objects.new(f'{plan_key}:{nid}', mesh)
             obj.location = at(nid)
             obj.scale = (r, r, r)
-            base = ING_GLOW if kind[nid] == 'ingredient' else 0.0
+            base = ING_GLOW if is_ing else 0.0
             key_lit(obj, 0, base)
+            if MODE == 'ingredient' and is_ing:
+                obj['col'] = list(ring_hue(nid))
+            elif MODE == 'effect' and not is_ing:
+                obj['col'] = list(ring_hue(nid))
+            else:
+                obj['col'] = [1.0, 1.0, 1.0] if is_ing else [0.9, 0.9, 0.95]
             col.objects.link(obj)
             node_objs[nid] = obj
 
@@ -209,7 +232,13 @@ def build():
             obj = bpy.data.objects.new(f'{plan_key}:e{j}', cyl)
             place_edge(obj, at(e['ing']), at(e['eff']), 0.018)
             key_lit(obj, 0, 0.0)
-            obj['col'] = list(brew_color(hue_range, brew_frac.get(j, 0.0)))
+            if MODE == 'ingredient':
+                obj['col'] = list(ring_hue(e['ing']))
+            elif MODE == 'effect':
+                obj['col'] = list(ring_hue(e['eff']))
+            else:
+                obj['col'] = list(brew_color(hue_range,
+                                             brew_frac.get(j, 0.0)))
             col.objects.link(obj)
             edge_objs.append(obj)
 
@@ -288,9 +317,17 @@ def build():
     cam.keyframe_insert('location', frame=scene.frame_end)
 
     legend = bpy.data.curves.new('legend', type='FONT')
-    legend.body = ('outer dots: ingredients   ·   inner dots: effects   ·   '
-                   'each line: one ingredient effect, colored by brew '
-                   'order - red first, violet last')
+    legend.body = {
+        'brew': ('outer dots: ingredients   ·   inner dots: effects   ·   '
+                 'each line: one ingredient effect, colored by brew '
+                 'order - red first, violet last'),
+        'ingredient': ('outer dots: ingredients, colored by ring position   '
+                       '·   inner dots: effects   ·   each line wears its '
+                       "ingredient's color"),
+        'effect': ('outer dots: ingredients   ·   inner dots: effects, '
+                   'colored by ring position   ·   each line wears its '
+                   "effect's color"),
+    }[MODE]
     legend.align_x = 'CENTER'
     legend.size = 0.55
     legend.materials.append(lit_material('legend', (0.6, 0.62, 0.68),
