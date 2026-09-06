@@ -106,7 +106,10 @@ for _ in range(4):
         ing_ang[i.id] = circular_mean([eff_ang[e] for e in i.effects])
     respace(ing_ang)
 
-R_ING, R_EFF = 10.0, 4.5
+# effects ring at R/sqrt(2): the inner disc and the annulus then have
+# EQUAL areas, so ink density inside vs outside compares one-to-one
+R_ING = 10.0
+R_EFF = R_ING / math.sqrt(2)
 nodes = ([{'id': i.id, 'kind': 'ingredient', 'name': i.name,
            'pos': [R_ING * math.cos(ing_ang[i.id]),
                    R_ING * math.sin(ing_ang[i.id])]} for i in ings]

@@ -33,8 +33,8 @@ DATA = Path(__file__).resolve().parent / 'plans-uesp.json'
 #               effect's hue
 _extra = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 MODE = _extra[0] if _extra else 'brew'
-VERSION = {'brew': 'v4', 'ingredient': 'v5-ingredients',
-           'effect': 'v6-effects'}[MODE]
+VERSION = {'brew': 'v7-eq-brew', 'ingredient': 'v8-eq-ingredients',
+           'effect': 'v9-eq-effects'}[MODE]
 
 FPS = 24
 FRAMES_PER_BREW = 12          # 2 brews per second
