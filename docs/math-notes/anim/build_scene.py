@@ -33,8 +33,12 @@ DATA = Path(__file__).resolve().parent / 'plans-uesp.json'
 #               effect's hue
 _extra = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 MODE = _extra[0] if _extra else 'brew'
-VERSION = {'brew': 'v7-eq-brew', 'ingredient': 'v8-eq-ingredients',
-           'effect': 'v9-eq-effects'}[MODE]
+if len(_extra) > 1:            # alternate layout JSON (e.g. chordwheel's)
+    DATA = Path(_extra[1])
+VERSION = (_extra[2] if len(_extra) > 2 else
+           {'brew': 'v7-eq-brew', 'ingredient': 'v8-eq-ingredients',
+            'effect': 'v9-eq-effects'}[MODE])
+RENDER_DIR = Path(__file__).resolve().parent / 'render'
 
 FPS = 24
 FRAMES_PER_BREW = 12          # 2 brews per second
@@ -390,7 +394,7 @@ def build():
     scene.render.ffmpeg.format = 'MPEG4'
     scene.render.ffmpeg.codec = 'H264'
     scene.render.ffmpeg.constant_rate_factor = 'HIGH'
-    scene.render.filepath = str(DATA.parent / 'render' / f'cascade-{VERSION}-')
+    scene.render.filepath = str(RENDER_DIR / f'cascade-{VERSION}-')
 
     world = bpy.data.worlds.get('World') or bpy.data.worlds.new('World')
     scene.world = world
