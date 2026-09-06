@@ -124,7 +124,15 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     that expansion is the same property that defeats LP rounding and
     starves CDCL of exploitable structure at k=69. The visual
     congestion of the graph and the computational hardness of its
-    cover problem are one fact seen twice.
+    cover problem are one fact seen twice. Sharpened by a radius
+    sweep: the density ratio falls monotonically from ~1/r divergence
+    to a floor of 2.55 as the effects ring approaches the ingredient
+    ring (closed form in the merged limit: 4*sum sin(gap/2) /
+    sum 1/sin(gap/2), = 2.547 for this layout's gaps) - so under
+    straight chords and this ordering, equality of inner and outer
+    ink density is impossible at every radius. The layout has an
+    irreducible congestion floor; only reordering (bounded help) or
+    abandoning straight chords (bowed edges, 3D lift) can beat it.
 
 ## Open questions
 
