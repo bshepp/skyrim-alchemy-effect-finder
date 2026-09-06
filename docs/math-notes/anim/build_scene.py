@@ -208,6 +208,11 @@ def build():
             x, y = pos[node_id]
             return (x + cx, y, 0.0)
 
+        # colored-mode source dots glow bright enough to read their hue
+        # from frame one; everything else keeps the dim defaults
+        ing_base = 0.6 if MODE == 'ingredient' else ING_GLOW
+        eff_base = 0.4 if MODE == 'effect' else 0.0
+
         node_objs = {}
         for nid in pos:
             is_ing = kind[nid] == 'ingredient'
@@ -216,7 +221,7 @@ def build():
             obj = bpy.data.objects.new(f'{plan_key}:{nid}', mesh)
             obj.location = at(nid)
             obj.scale = (r, r, r)
-            base = ING_GLOW if is_ing else 0.0
+            base = ing_base if is_ing else eff_base
             key_lit(obj, 0, base)
             if MODE == 'ingredient' and is_ing:
                 obj['col'] = list(ring_hue(nid))
@@ -251,7 +256,7 @@ def build():
             frame = START_FRAME + k * FRAMES_PER_BREW
             last_frame = max(last_frame, frame)
             for iid in brew['ings']:
-                pulse(node_objs[iid], frame, ING_GLOW)
+                pulse(node_objs[iid], frame, ing_base)
             for j in brew['lit']:
                 ignite(edge_objs[j], frame)
                 eff = data['edges'][j]['eff']
@@ -259,16 +264,32 @@ def build():
                 obj = node_objs[eff]
                 frac = eff_lit_count[eff] / eff_degree[eff]
                 key_lit(obj, frame - 1, obj.get('lit', 0.0))
-                key_lit(obj, frame, frac * 1.5)
+                key_lit(obj, frame, eff_base + frac * (1.5 - eff_base))
 
-        # the finish beat: the moment a side completes, its whole web
-        # takes one slow breath and settles - stillness as a statement
-        plan = data['plans'][plan_key]
+        # the finish: a hard specular flash across the whole web, then
+        # one slow settling breath - completion you can feel
         done = START_FRAME + (len(plan) - 1) * FRAMES_PER_BREW + 8
         for obj in edge_objs:
             key_lit(obj, done, 1.0)
-            key_lit(obj, done + 10, 1.9)
-            key_lit(obj, done + 26, 1.0)
+            key_lit(obj, done + 2, 3.4)
+            key_lit(obj, done + 8, 0.85)
+            key_lit(obj, done + 24, 1.0)
+
+        done_curve = bpy.data.curves.new(f'{plan_key}-done', type='FONT')
+        done_curve.body = 'DONE'
+        done_curve.align_x = 'CENTER'
+        done_curve.size = 0.9
+        done_curve.materials.append(mat_text)
+        done_obj = bpy.data.objects.new(f'{plan_key}:done', done_curve)
+        done_obj.location = (cx, -15.4, 0.0)
+        col.objects.link(done_obj)
+        key_lit(done_obj, done + 1, 3.0)
+        key_lit(done_obj, done + 12, 1.0)
+        for prop in ('hide_render', 'hide_viewport'):
+            setattr(done_obj, prop, True)
+            done_obj.keyframe_insert(prop, frame=0)
+            setattr(done_obj, prop, False)
+            done_obj.keyframe_insert(prop, frame=done + 1)
 
         text_curve = bpy.data.curves.new(f'{plan_key}-label', type='FONT')
         text_curve.body = label
