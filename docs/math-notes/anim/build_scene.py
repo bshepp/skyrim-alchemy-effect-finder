@@ -23,7 +23,7 @@ from pathlib import Path
 import bpy
 
 DATA = Path(__file__).resolve().parent / 'plans-uesp.json'
-VERSION = 'v3'   # bump per meaningful change; renders never overwrite
+VERSION = 'v4'   # bump per meaningful change; renders never overwrite
 
 FPS = 24
 FRAMES_PER_BREW = 12          # 2 brews per second
@@ -33,17 +33,17 @@ SIDE_OFFSET = 14.0            # each ring's center at +/- this on X
 FLASH = 2.5                   # ignition overshoot before settling to 1
 ING_GLOW = 0.06               # resting glow of ingredient nodes
 
-# per-side identity kept, brew ORDER painted into the lines: each edge
-# wears the hue of the brew that lit it, sweeping (hue_start, hue_end).
-# greedy burns deep red -> gold; optimal runs deep blue -> teal. For a
-# full shared rainbow, set both to (0.0, 0.83).
-SIDES = [('greedy', -SIDE_OFFSET, 'GREEDY - 76 BREWS', (0.0, 0.13)),
-         ('optimal', +SIDE_OFFSET, 'OPTIMAL - 70 BREWS', (0.72, 0.47))]
+# brew ORDER painted into the lines as the full spectrum: each side
+# divides red -> violet into exactly its brew count, so brew 1's lines
+# are the first color, brew 2's the second, and so on. Both sides share
+# the mapping - equal position in the sequence, equal color.
+SIDES = [('greedy', -SIDE_OFFSET, 'GREEDY - 76 BREWS', (0.0, 0.83)),
+         ('optimal', +SIDE_OFFSET, 'OPTIMAL - 70 BREWS', (0.0, 0.83))]
 
 
 def brew_color(hue_range, frac):
     hue = hue_range[0] + (hue_range[1] - hue_range[0]) * frac
-    return colorsys.hsv_to_rgb(hue % 1.0, 0.85, 0.6 + 0.4 * frac)
+    return colorsys.hsv_to_rgb(hue % 1.0, 1.0, 1.0)
 
 
 def clean_scene():
@@ -173,8 +173,7 @@ def build():
     last_frame = START_FRAME
 
     for plan_key, cx, label, hue_range in SIDES:
-        mid = brew_color(hue_range, 0.5)
-        pale = tuple(0.55 + 0.45 * c for c in mid)
+        pale = (0.9, 0.9, 0.95)
         cyl = base_cyl.copy()
         cyl.materials.append(edge_material(f'edge-{plan_key}'))
         sph_eff = base_sph_eff.copy()
@@ -290,8 +289,8 @@ def build():
 
     legend = bpy.data.curves.new('legend', type='FONT')
     legend.body = ('outer dots: ingredients   ·   inner dots: effects   ·   '
-                   'each line: one ingredient effect, colored by the brew '
-                   'that discovers it (dark early, bright late)')
+                   'each line: one ingredient effect, colored by brew '
+                   'order - red first, violet last')
     legend.align_x = 'CENTER'
     legend.size = 0.55
     legend.materials.append(lit_material('legend', (0.6, 0.62, 0.68),
