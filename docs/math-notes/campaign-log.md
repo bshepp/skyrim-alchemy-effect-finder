@@ -122,17 +122,22 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     inside. No circular ordering can empty the center: each
     ingredient's four effects scatter across the effect space, and
     that expansion is the same property that defeats LP rounding and
-    starves CDCL of exploitable structure at k=69. The visual
-    congestion of the graph and the computational hardness of its
-    cover problem are one fact seen twice. Sharpened by a radius
-    sweep: the density ratio falls monotonically from ~1/r divergence
-    to a floor of 2.55 as the effects ring approaches the ingredient
-    ring (closed form in the merged limit: 4*sum sin(gap/2) /
-    sum 1/sin(gap/2), = 2.547 for this layout's gaps) - so under
-    straight chords and this ordering, equality of inner and outer
-    ink density is impossible at every radius. The layout has an
-    irreducible congestion floor; only reordering (bounded help) or
-    abandoning straight chords (bowed edges, 3D lift) can beat it.
+    starves CDCL of exploitable structure at k=69. CORRECTED same day:
+    the claim "no circular ordering can empty the center" was
+    conjecture from expansion intuition, and a 60k-swap hill-climb
+    over ring permutations (scripts/congestion_extremes.py) falsified
+    it - at the equal-area radius the ordering band is [0.43, 3.76]
+    (barycenter sits at 3.61; supremum 4 = all-diameters), so the
+    center CAN be emptied and equality (ratio 1) is crossable by
+    ordering alone. What survives: (a) for the FIXED barycenter
+    ordering, a radius sweep shows the ratio falls monotonically to a
+    2.55 floor (closed form in the merged limit: 4*sum sin(gap/2) /
+    sum 1/sin(gap/2)) and never reaches 1 - the impossibility was
+    ordering-conditional; (b) the dataset's true invariant is the
+    achievable BAND, not any single layout's ratio. The hairball was
+    the heuristic's hardness, not (proven to be) the graph's. Open:
+    render the min-congestion ordering; does min-achievable congestion
+    across the 2,015 labeled small worlds predict their hardness?
 
 ## Open questions
 
