@@ -159,3 +159,9 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
   public repo.
 - Compute-box operational history lives in the operator's machine
   cookbook, not here.
+- The congestion-geometry line of inquiry (result 13 and its
+  correction) spun off 2026-09-05 into its own project - working name
+  chordwheel, local sibling directory - taking the ordering
+  optimization, synthetic finite-material world families, and the
+  congestion-vs-hardness question with it. Its HANDOFF.md points back
+  here; data crossings cite commits.
