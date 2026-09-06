@@ -139,6 +139,20 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     render the min-congestion ordering; does min-achievable congestion
     across the 2,015 labeled small worlds predict their hardness?
 
+14. **Cube-and-conquer does not bite at k=69** (2026-09-06, staged on
+    the desktop, racers untouched): two routes tested and retired.
+    treengeling (12 threads, 20h) spent 74% of its time
+    re-simplifying the 2.65M-var formula, froze at 23 tree nodes,
+    and completed less total search than one racer thread does alone.
+    Manual cubes over the top-4 coverage variables (16 cubes + a
+    baseline, 20k-conflict kissat probes each): remaining-variable
+    percentages 48-53% across cubes vs 52% baseline, with matching
+    propagation and decision profiles - conditioning on the strongest
+    covers leaves subproblems as hard as the whole. Consistent with
+    the flat LP floor: the instance shows no exploitable seam from
+    this direction either. The racer portfolio remains the strongest
+    known attack and runs on.
+
 ## Open questions
 
 - Close the corridors: exact optima for both universes (siege running;
