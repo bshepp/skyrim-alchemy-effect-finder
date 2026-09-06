@@ -113,6 +113,18 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     triple alone, P(x) = x + 6x^2 + 4x^3 - the lone x term is the
     teaching potion. Fence data in `symbolic-ladder.md`: a desktop
     reaches 11 ingredients; jaga should reach ~13-14.
+13. **The hairball is the hardness** (2026-09-05, `anim/` density
+    measurement): in the radial layout (ingredients R=10, effects
+    R=4.5, barycenter-untangled), the disc inside the effects ring
+    carries 4.74x the annulus's ink density, area-compensated; 422 of
+    448 edges penetrate it. With equal-area rings (effects at
+    R/sqrt 2) the ratio is still 3.61x, with 78% of total line length
+    inside. No circular ordering can empty the center: each
+    ingredient's four effects scatter across the effect space, and
+    that expansion is the same property that defeats LP rounding and
+    starves CDCL of exploitable structure at k=69. The visual
+    congestion of the graph and the computational hardness of its
+    cover problem are one fact seen twice.
 
 ## Open questions
 
