@@ -28,7 +28,10 @@ from itertools import combinations
 from math import comb
 from pathlib import Path
 
-sys.path.insert(0, str(Path.home() / 'alembic'))
+for _root in (Path(__file__).resolve().parents[3], Path.home() / 'alembic'):
+    if (_root / 'alchemy_helper').is_dir():
+        sys.path.insert(0, str(_root))
+        break
 from alchemy_helper.data.loader import load_dataset
 
 from pysat.card import CardEnc, EncType
@@ -244,34 +247,46 @@ def selftest():
     print(f'SELFTEST PASSED on {passed} worlds', flush=True)
 
 
-def emit():
+def uesp_ingredients():
     ds = load_dataset()
     plugins = {'Skyrim.esm', 'Update.esm', 'Dawnguard.esm',
                'HearthFires.esm', 'Dragonborn.esm'}
-    ings = [i for i in ds.ingredients.values()
+    return [i for i in ds.ingredients.values()
             if i.plugin in plugins
             and i.id not in {'berits-ashes', 'jarrin-root'}]
-    for sym, name in ((False, 'rung2-plain.cnf'), (True, 'rung2-sym.cnf')):
+
+
+def emit(k=K, outdir=OUTDIR):
+    """Write the rung-2 CNFs for bound k.
+
+    The original k=69 run used un-suffixed names (rung2-plain.cnf,
+    rung2-sym.cnf); ladder rungs carry their k in the filename.
+    """
+    ings = uesp_ingredients()
+    for sym, kind in ((False, 'plain'), (True, 'sym')):
         t0 = time.time()
-        clauses, nv, covs, reps, nr, gens = encode(ings, K, sym)
-        path = OUTDIR / name
+        clauses, nv, covs, reps, nr, gens = encode(ings, k, sym)
+        path = outdir / f'rung2-k{k}-{kind}.cnf'
         with path.open('w') as f:
             f.write(f'p cnf {nv} {len(clauses)}\n')
             for c in clauses:
                 f.write(' '.join(map(str, c)) + ' 0\n')
-        print(f'{name}: {nv} vars, {len(clauses)} clauses, '
+        print(f'{path.name}: {nv} vars, {len(clauses)} clauses, '
               f'{nr} rows, {len(covs)} cols, {gens} sym generators, '
               f'{time.time()-t0:.0f}s, {path.stat().st_size/1e6:.0f} MB',
               flush=True)
         if not sym:
-            (OUTDIR / 'rung2-vars.json').write_text(json.dumps(
-                {'k': K, 'columns': [list(r) for r in reps]}))
+            (outdir / f'rung2-k{k}-vars.json').write_text(json.dumps(
+                {'k': k, 'columns': [list(r) for r in reps]}))
 
 
 if __name__ == '__main__':
-    if sys.argv[1:] == ['selftest']:
+    argv = sys.argv[1:]
+    if argv[:1] == ['selftest']:
         selftest()
-    elif sys.argv[1:] == ['encode']:
-        emit()
+    elif argv[:1] == ['encode']:
+        k = int(argv[1]) if len(argv) > 1 else K
+        outdir = Path(argv[2]) if len(argv) > 2 else OUTDIR
+        emit(k, outdir)
     else:
-        print('usage: rung2_encode.py selftest|encode')
+        print('usage: rung2_encode.py selftest | encode [k] [outdir]')
