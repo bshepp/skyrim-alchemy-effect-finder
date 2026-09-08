@@ -206,12 +206,22 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     **Phase transition in miniature**, from the by-product instrument
     (`make_medium.py`, 26-ingredient sub-universe, 88 rows, 457 pruned
     columns): descending from a greedy cover of 20, k=20 solves SAT in
-    24 s, k=19 in **252 s**, and k=18 remains unresolved after **11
-    hours**. Difficulty explodes approaching the optimum from above,
-    which is the same geometry that makes k=69 the worst possible rung
-    to have attacked and the clearest independent argument for working
-    from the bottom. Caveat: the descent never reached the optimum, so
-    this is a lower bound on the curve, not a measurement of it.
+    **24.4 s**, k=19 in **251.9 s**, and k=18 in **44,773 s (12.4 h)**
+    - escalation factors of **10.3x then 177.7x** for one rung each.
+    Difficulty explodes approaching the optimum from above, which is the
+    same geometry that makes k=69 the worst possible rung to have
+    attacked and the clearest independent argument for working from the
+    bottom. *Updated 2026-09-08 09:2x: k=18 resolved SAT after the entry
+    above was written (it had been recorded as unresolved at 11 h); the
+    descent moved on to k=17.* The consequence is sharper than the
+    curve: this world's optimum is only known to be **at most 18**, and
+    projecting the observed ratios puts k=17 somewhere between 5 days
+    and 3 months. **A 26-ingredient sub-universe therefore cannot have
+    its optimum determined by SAT descent** - on an instance with 88
+    rows and 457 columns, against the real problem's 448 and 37,872.
+    That is the campaign's whole difficulty reproduced in a toy, and it
+    is the strongest evidence yet that the corridor [66, 70] is not
+    closing by search.
 
 ## Open questions
 
