@@ -153,6 +153,66 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     this direction either. The racer portfolio remains the strongest
     known attack and runs on.
 
+15. **The certified ladder, and the checkability horizon** (2026-09-07/08,
+    staged on the desktop; jaga's racers untouched). Premise: the race
+    attacks k=69, the *hardest* UNSAT rung in the family, sitting one
+    step below the flip to SAT. The corridor's floor of 66 is an LP
+    bound that was never tested directly, so k=66..68 are open, each
+    strictly easier to refute, and each one that falls tightens the
+    corridor from below. `rung2_encode.py` now takes the bound on the
+    command line (commit da85d4a; selftest unchanged, 13 worlds).
+    **Certificate pipeline built and validated end to end** on both
+    machines: kissat -> binary DRAT -> drat-trim, cadical -> DRAT ->
+    drat-trim, and cadical -> LRAT -> lrat-check, all returning
+    VERIFIED on small worlds carrying live seqcounter cardinality and
+    lex-leader clauses. Trap recorded: cadical writes LRAT in binary by
+    default and lrat-check reads only text, failing as "Last line
+    checked = 0 / NOT VERIFIED" with exit 0.
+    **Only the plain encoding can certify the claim.** The sym variant's
+    lex-leader clauses are satisfiability-preserving but not implied, so
+    a verified refutation of rung2-sym.cnf certifies the symmetry-broken
+    formula and leaves an unmachine-checked step in front of the actual
+    conclusion. This costs nothing: after 149 h the plain and sym racers
+    are indistinguishable (26%/26% cadical, 33%/33% kissat), so the
+    order-48 clone group buys no measurable search advantage at 2.65 M
+    variables.
+    **Measured costs of proof logging** (identical 20,002-conflict
+    budgets on the full formula): 261.3 s without a proof vs 276.6 s
+    with, i.e. **~6% wall-time overhead**, far cheaper than assumed. The
+    expense is disk: **8,406 bytes per conflict** over a full 5h 24m run
+    (marginal windows 4.9-8.7 KB), about 4.3 MB/s sustained.
+    **The binding constraint is neither time nor disk but memory.**
+    drat-trim verifies backward, reconstructing unit propagations in
+    reverse, which effectively wants the whole proof resident. A 10 M
+    conflict run produced an **84 GB** proof, already past the desktop's
+    48 GB and straining jaga's 251 GB. Disk can be bought; this cannot.
+    The structural fix is to emit **LRAT**, whose resolution hints make
+    checking a forward, single-pass, bounded-memory operation, at the
+    cost of a larger file. Recorded because it reframes the campaign's
+    stopping rule: a rung is certifiable only if it refutes within a
+    conflict budget whose proof we can still check.
+    **Negative result on the ladder's premise.** Same solver, same
+    encoding, three rungs of cardinality slack: kissat on rung2-sym at
+    k=69 plateaus at 33% remaining variables; at k=66 it reaches 29% and
+    stops there too, holding that figure from 1.6 M conflicts through
+    **25.4 M** with no verdict. The easier rung is markedly faster
+    (516 conflicts/sec vs 77 on the same hardware at k=69) but lands on
+    the same structural floor. Lower rungs are so far easier only in
+    throughput, not in kind. Artifact kept with provenance:
+    `F:\_shared-resources\sat-proofs\k66-plain-2026-09-08\` (84 GB
+    partial DRAT + its CNF + solver log; incomplete, proves nothing on
+    its own, but DRAT proofs concatenate so it could still form the
+    front half of a real certificate).
+    **Phase transition in miniature**, from the by-product instrument
+    (`make_medium.py`, 26-ingredient sub-universe, 88 rows, 457 pruned
+    columns): descending from a greedy cover of 20, k=20 solves SAT in
+    24 s, k=19 in **252 s**, and k=18 remains unresolved after **11
+    hours**. Difficulty explodes approaching the optimum from above,
+    which is the same geometry that makes k=69 the worst possible rung
+    to have attacked and the clearest independent argument for working
+    from the bottom. Caveat: the descent never reached the optimum, so
+    this is a lower bound on the curve, not a measurement of it.
+
 ## Open questions
 
 - Close the corridors: exact optima for both universes (siege running;
@@ -161,6 +221,13 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
   instance; covering-polynomial method at small scale, projected model
   counting at full scale).
 - Interpret the 54 generators; explain the size-50 emergent orbit.
+- Does any rung of the corridor refute inside a *checkable* budget? Result
+  15 makes this the operative question: an uncertified UNSAT is a claim,
+  not a theorem, and at ~8.4 KB of DRAT per conflict the certificate
+  outgrows available memory long before the search concludes. Cheapest
+  test is a no-proof scout per rung to find the refutation length first,
+  then re-run in LRAT only where the number says the proof can be
+  checked.
 - The essay's door II (the descent) awaits the corridor verdicts.
 
 ## Where things live
