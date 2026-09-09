@@ -222,6 +222,57 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     That is the campaign's whole difficulty reproduced in a toy, and it
     is the strongest evidence yet that the corridor [66, 70] is not
     closing by search.
+    **CORRECTED 2026-09-08 21:2x, same day: the last two sentences are
+    wrong.** Handed to HiGHS as a straight ILP, the same 88-row /
+    457-column instance solves to proven optimality in **0.04 seconds**,
+    one node, optimum **18** (`scripts/medium_ilp.py`). The descent had
+    spent 12.4 h proving k=18 satisfiable and then 12 h more failing at
+    k=17, which we now know is infeasible because 18 is optimal. So the
+    toy does NOT reproduce the campaign's difficulty; it reproduces
+    **SAT descent's** difficulty, which result 7 had already
+    established. This is the same error as result 13 - attributing an
+    instrument's limitation to the problem - made a second time, and it
+    is why witnesses beat intuitions. What survives: the escalation
+    timings are real, and they are a fair measurement of naive
+    descent as an optimizer. What replaces the false claim: result 16.
+
+16. **Where the difficulty is born: the size sweep** (2026-09-08,
+    `scripts/gap_sweep.py`, HiGHS on lion-o). Prompted by result 15's
+    correction: if the 26-ingredient world is trivial for an ILP, at
+    what size does this problem stop being solvable? Sub-universes are
+    the first n of the UESP-112 list, encoded as plain set cover
+    (one binary per pruned column, one covering constraint per row).
+
+    | n | rows | cols | LP | optimum | dual bound | outcome |
+    |---|---|---|---|---|---|---|
+    | 26 | 88 | 457 | 17.00 | **18** | 18 | proved, 0.04 s |
+    | 35 | 130 | 1,152 | 23.83 | **26** | 26 | proved, 0.26 s |
+    | 45 | 174 | 2,480 | 29.66 | **33** | 33 | proved, 10.4 s |
+    | 55 | 215 | 4,484 | 35.13 | **40** | 40 | proved, 49.8 s |
+    | 65 | 258 | 7,998 | 39.91 | <=46 | >=44 | 120 s cap |
+    | 75 | 300 | 12,000 | 45.02 | <=54 | >=50 | 120 s cap |
+    | 90 | 360 | 20,234 | 51.42 | <=61 | >=55 | 60 s cap |
+    | 112 | 448 | 37,872 | **61.04** | <=75 | >=64 | 60 s cap |
+
+    Three findings.
+    (a) **The full instance's raw LP relaxation is 61.04.** The corridor
+    floor of 66 (results 6, 8) was never the LP value: it is a bound
+    branch-and-bound *earned* by climbing ~5 above the relaxation before
+    stalling. Recorded because the campaign has been describing 66 as
+    "the LP floor" and that is not what it is.
+    (b) **Exact solvability collapses between n=55 and n=65.** At 55
+    ingredients HiGHS proves optimality in under a minute; at 65 it
+    cannot inside two. The wall is not at the full problem, it is a
+    little over half way there.
+    (c) **The integrality gap grows with universe size** - 1.00, 2.17,
+    3.34, 4.87 where the optimum is known, and at least 8.96 at n=112
+    against the 70-brew plan. The hardness is therefore a property of
+    *scale*, not of the problem family: small alchemy worlds are easy,
+    and the difficulty is manufactured by adding ingredients.
+    This also supplies exact optima for four sub-universes (18, 26, 33,
+    40), the first exactly-solved instances the campaign owns above
+    trivial size, and a natural family for the congestion-vs-hardness
+    question spun off to chordwheel.
 
 ## Open questions
 

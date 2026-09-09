@@ -9,3 +9,9 @@ build/
 dist/
 *.spec
 tests/fixtures/local/
+
+# Blender render output and probe stills: large binaries, regenerable from
+# docs/math-notes/anim/build_scene.py. Never commit these - a directory-wide
+# `git add docs/math-notes/` put 844 MB of video on the public repo once.
+docs/math-notes/anim/render/
+docs/math-notes/anim/probe*.png
