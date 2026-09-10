@@ -1,0 +1,908 @@
+{
+  "id": "apothecary",
+  "name": "Apothecary - An Alchemy Overhaul",
+  "_source": "Extracted from Apothecary.esp by scripts/extract_pack.py; DRAFT pending human verification.",
+  "plugins": [
+    "Apothecary.esp"
+  ],
+  "mode": "overhaul",
+  "effects": [
+    {
+      "id": "become-ethereal",
+      "name": "Become Ethereal",
+      "description": "You become ethereal for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "fortify-alchemy",
+      "name": "Fortify Alchemy",
+      "description": "",
+      "harmful": false
+    },
+    {
+      "id": "fortify-speed",
+      "name": "Fortify Speed",
+      "description": "You move <mag>% faster for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "muffle",
+      "name": "Muffle",
+      "description": "You move silently for <dur> seconds.",
+      "harmful": false
+    },
+    {
+      "id": "water-walking",
+      "name": "Water Walking",
+      "description": "",
+      "harmful": false
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "abecean-longfin",
+      "name": "Abecean Longfin",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076763,
+      "effects": [
+        "weakness-to-frost",
+        "fortify-sneak",
+        "fortify-speed",
+        "fortify-restoration"
+      ]
+    },
+    {
+      "id": "ancestor-moth-wing",
+      "name": "Ancestor Moth Wing",
+      "plugin": "Dawnguard.esm",
+      "form_id": 22970,
+      "effects": [
+        "damage-stamina",
+        "fortify-conjuration",
+        "ravage-health",
+        "fortify-alchemy"
+      ]
+    },
+    {
+      "id": "ash-hopper-jelly",
+      "name": "Ash Hopper Jelly",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118129,
+      "effects": [
+        "restore-health",
+        "fortify-enchanting",
+        "resist-shock",
+        "weakness-to-frost"
+      ]
+    },
+    {
+      "id": "bear-claws",
+      "name": "Bear Claws",
+      "plugin": "Skyrim.esm",
+      "form_id": 441346,
+      "effects": [
+        "restore-stamina",
+        "fortify-health",
+        "fortify-one-handed",
+        "ravage-magicka"
+      ]
+    },
+    {
+      "id": "bee",
+      "name": "Bee",
+      "plugin": "Skyrim.esm",
+      "form_id": 692629,
+      "effects": [
+        "restore-stamina",
+        "damage-stamina-regen",
+        "regenerate-stamina",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "beehive-husk",
+      "name": "Beehive Husk",
+      "plugin": "Skyrim.esm",
+      "form_id": 692625,
+      "effects": [
+        "resist-poison",
+        "fortify-enchanting",
+        "fortify-sneak",
+        "fortify-destruction"
+      ]
+    },
+    {
+      "id": "berits-ashes",
+      "name": "Berit's Ashes",
+      "plugin": "Skyrim.esm",
+      "form_id": 460215,
+      "effects": [
+        "damage-stamina",
+        "resist-fire",
+        "fortify-conjuration",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "bleeding-crown",
+      "name": "Bleeding Crown",
+      "plugin": "Skyrim.esm",
+      "form_id": 317984,
+      "effects": [
+        "weakness-to-fire",
+        "fortify-block",
+        "fortify-speed",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "blisterwort",
+      "name": "Blisterwort",
+      "plugin": "Skyrim.esm",
+      "form_id": 317989,
+      "effects": [
+        "restore-health",
+        "frenzy",
+        "resist-magic",
+        "fortify-light-armor"
+      ]
+    },
+    {
+      "id": "blue-butterfly-wing",
+      "name": "Blue Butterfly Wing",
+      "plugin": "Skyrim.esm",
+      "form_id": 468958,
+      "effects": [
+        "damage-stamina",
+        "fortify-conjuration",
+        "ravage-health",
+        "fortify-alchemy"
+      ]
+    },
+    {
+      "id": "blue-mountain-flower",
+      "name": "Blue Mountain Flower",
+      "plugin": "Skyrim.esm",
+      "form_id": 491036,
+      "effects": [
+        "restore-health",
+        "fortify-conjuration",
+        "fortify-health",
+        "ravage-magicka"
+      ]
+    },
+    {
+      "id": "bone-meal",
+      "name": "Bone Meal",
+      "plugin": "Skyrim.esm",
+      "form_id": 216285,
+      "effects": [
+        "fortify-conjuration",
+        "resist-fire",
+        "become-ethereal",
+        "ravage-stamina"
+      ]
+    },
+    {
+      "id": "burnt-spriggan-wood",
+      "name": "Burnt Spriggan Wood",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118126,
+      "effects": [
+        "weakness-to-fire",
+        "fortify-alteration",
+        "ravage-health",
+        "slow"
+      ]
+    },
+    {
+      "id": "chaurus-hunter-antennae",
+      "name": "Chaurus Hunter Antennae",
+      "plugin": "Dawnguard.esm",
+      "form_id": 99255,
+      "effects": [
+        "damage-stamina",
+        "fortify-conjuration",
+        "ravage-magicka",
+        "fortify-alchemy"
+      ]
+    },
+    {
+      "id": "chickens-egg",
+      "name": "Chicken's Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 146807,
+      "effects": [
+        "resist-magic",
+        "ravage-health",
+        "waterbreathing",
+        "lingering-damage-stamina"
+      ]
+    },
+    {
+      "id": "creep-cluster",
+      "name": "Creep Cluster",
+      "plugin": "Skyrim.esm",
+      "form_id": 729475,
+      "effects": [
+        "restore-magicka",
+        "fortify-smithing",
+        "fortify-carry-weight",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "cyrodilic-spadetail",
+      "name": "Cyrodilic Spadetail",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076761,
+      "effects": [
+        "damage-stamina",
+        "fortify-restoration",
+        "fear",
+        "ravage-stamina"
+      ]
+    },
+    {
+      "id": "daedra-heart",
+      "name": "Daedra Heart",
+      "plugin": "Skyrim.esm",
+      "form_id": 240987,
+      "effects": [
+        "restore-health",
+        "fortify-smithing",
+        "damage-magicka",
+        "fear"
+      ]
+    },
+    {
+      "id": "deathbell",
+      "name": "Deathbell",
+      "plugin": "Skyrim.esm",
+      "form_id": 333512,
+      "effects": [
+        "damage-health",
+        "damage-stamina-regen",
+        "weakness-to-poison",
+        "fortify-speed"
+      ]
+    },
+    {
+      "id": "dragons-tongue",
+      "name": "Dragon's Tongue",
+      "plugin": "Skyrim.esm",
+      "form_id": 559522,
+      "effects": [
+        "fortify-carry-weight",
+        "fortify-barter",
+        "fortify-illusion",
+        "fortify-two-handed"
+      ]
+    },
+    {
+      "id": "eye-of-sabre-cat",
+      "name": "Eye of Sabre Cat",
+      "plugin": "Skyrim.esm",
+      "form_id": 441351,
+      "effects": [
+        "restore-stamina",
+        "ravage-stamina",
+        "damage-magicka",
+        "restore-health"
+      ]
+    },
+    {
+      "id": "falmer-ear",
+      "name": "Falmer Ear",
+      "plugin": "Skyrim.esm",
+      "form_id": 240989,
+      "effects": [
+        "water-walking",
+        "frenzy",
+        "resist-poison",
+        "fortify-lockpicking"
+      ]
+    },
+    {
+      "id": "felsaad-tern-feathers",
+      "name": "Felsaad Tern Feathers",
+      "plugin": "Dragonborn.esm",
+      "form_id": 249230,
+      "effects": [
+        "restore-health",
+        "fortify-enchanting",
+        "cure-disease",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "fly-amanita",
+      "name": "Fly Amanita",
+      "plugin": "Skyrim.esm",
+      "form_id": 317952,
+      "effects": [
+        "resist-fire",
+        "fortify-two-handed",
+        "fortify-stamina",
+        "fortify-illusion"
+      ]
+    },
+    {
+      "id": "frost-mirriam",
+      "name": "Frost Mirriam",
+      "plugin": "Skyrim.esm",
+      "form_id": 216370,
+      "effects": [
+        "resist-frost",
+        "fortify-sneak",
+        "damage-magicka-regen",
+        "fortify-smithing"
+      ]
+    },
+    {
+      "id": "giant-lichen",
+      "name": "Giant Lichen",
+      "plugin": "Skyrim.esm",
+      "form_id": 518337,
+      "effects": [
+        "weakness-to-shock",
+        "ravage-stamina",
+        "fortify-speed",
+        "weakness-to-poison"
+      ]
+    },
+    {
+      "id": "giants-toe",
+      "name": "Giant's Toe",
+      "plugin": "Skyrim.esm",
+      "form_id": 240996,
+      "effects": [
+        "become-ethereal",
+        "fortify-health",
+        "fortify-carry-weight",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "glow-dust",
+      "name": "Glow Dust",
+      "plugin": "Skyrim.esm",
+      "form_id": 241011,
+      "effects": [
+        "damage-magicka",
+        "ravage-magicka",
+        "fortify-destruction",
+        "resist-shock"
+      ]
+    },
+    {
+      "id": "glowing-mushroom",
+      "name": "Glowing Mushroom",
+      "plugin": "Skyrim.esm",
+      "form_id": 519681,
+      "effects": [
+        "resist-shock",
+        "fortify-destruction",
+        "fortify-light-armor",
+        "fortify-health"
+      ]
+    },
+    {
+      "id": "grass-pod",
+      "name": "Grass Pod",
+      "plugin": "Skyrim.esm",
+      "form_id": 540260,
+      "effects": [
+        "resist-poison",
+        "damage-magicka-regen",
+        "fortify-alteration",
+        "restore-magicka"
+      ]
+    },
+    {
+      "id": "hagraven-claw",
+      "name": "Hagraven Claw",
+      "plugin": "Skyrim.esm",
+      "form_id": 439945,
+      "effects": [
+        "resist-magic",
+        "lingering-damage-magicka",
+        "fortify-alchemy",
+        "fortify-barter"
+      ]
+    },
+    {
+      "id": "hanging-moss",
+      "name": "Hanging Moss",
+      "plugin": "Skyrim.esm",
+      "form_id": 360337,
+      "effects": [
+        "damage-magicka",
+        "fortify-health",
+        "ravage-health",
+        "fortify-one-handed"
+      ]
+    },
+    {
+      "id": "hawk-feathers",
+      "name": "Hawk Feathers",
+      "plugin": "Skyrim.esm",
+      "form_id": 949968,
+      "effects": [
+        "fortify-enchanting",
+        "cure-disease",
+        "fortify-one-handed",
+        "fortify-sneak"
+      ]
+    },
+    {
+      "id": "hawks-egg",
+      "name": "Hawk's Egg",
+      "plugin": "HearthFires.esm",
+      "form_id": 61900,
+      "effects": [
+        "resist-magic",
+        "ravage-magicka",
+        "waterbreathing",
+        "lingering-damage-stamina"
+      ]
+    },
+    {
+      "id": "histcarp",
+      "name": "Histcarp",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076760,
+      "effects": [
+        "restore-stamina",
+        "fortify-magicka",
+        "fortify-heavy-armor",
+        "waterbreathing"
+      ]
+    },
+    {
+      "id": "honeycomb",
+      "name": "Honeycomb",
+      "plugin": "Skyrim.esm",
+      "form_id": 723141,
+      "effects": [
+        "restore-stamina",
+        "fortify-block",
+        "fortify-enchanting",
+        "damage-stamina-regen"
+      ]
+    },
+    {
+      "id": "human-heart",
+      "name": "Human Heart",
+      "plugin": "Skyrim.esm",
+      "form_id": 727245,
+      "effects": [
+        "damage-health",
+        "damage-magicka",
+        "ravage-magicka",
+        "frenzy"
+      ]
+    },
+    {
+      "id": "ice-wraith-teeth",
+      "name": "Ice Wraith Teeth",
+      "plugin": "Skyrim.esm",
+      "form_id": 241002,
+      "effects": [
+        "weakness-to-frost",
+        "muffle",
+        "invisibility",
+        "weakness-to-fire"
+      ]
+    },
+    {
+      "id": "jarrin-root",
+      "name": "Jarrin Root",
+      "plugin": "Skyrim.esm",
+      "form_id": 113852,
+      "effects": [
+        "damage-health",
+        "damage-magicka",
+        "damage-stamina",
+        "ravage-health"
+      ]
+    },
+    {
+      "id": "jazbay-grapes",
+      "name": "Jazbay Grapes",
+      "plugin": "Skyrim.esm",
+      "form_id": 437322,
+      "effects": [
+        "weakness-to-magic",
+        "fortify-magicka",
+        "regenerate-magicka",
+        "ravage-stamina"
+      ]
+    },
+    {
+      "id": "juniper-berries",
+      "name": "Juniper Berries",
+      "plugin": "Skyrim.esm",
+      "form_id": 329582,
+      "effects": [
+        "weakness-to-fire",
+        "fortify-marksman",
+        "regenerate-health",
+        "fortify-smithing"
+      ]
+    },
+    {
+      "id": "large-antlers",
+      "name": "Large Antlers",
+      "plugin": "Skyrim.esm",
+      "form_id": 441354,
+      "effects": [
+        "restore-stamina",
+        "fortify-stamina",
+        "slow",
+        "fortify-heavy-armor"
+      ]
+    },
+    {
+      "id": "lavender",
+      "name": "Lavender",
+      "plugin": "Skyrim.esm",
+      "form_id": 285736,
+      "effects": [
+        "fortify-light-armor",
+        "regenerate-stamina",
+        "damage-magicka-regen",
+        "fortify-conjuration"
+      ]
+    },
+    {
+      "id": "luna-moth-wing",
+      "name": "Luna Moth Wing",
+      "plugin": "Skyrim.esm",
+      "form_id": 468959,
+      "effects": [
+        "damage-magicka",
+        "fortify-enchanting",
+        "regenerate-health",
+        "invisibility"
+      ]
+    },
+    {
+      "id": "mora-tapinella",
+      "name": "Mora Tapinella",
+      "plugin": "Skyrim.esm",
+      "form_id": 968816,
+      "effects": [
+        "restore-magicka",
+        "lingering-damage-health",
+        "frenzy",
+        "fortify-illusion"
+      ]
+    },
+    {
+      "id": "namiras-rot",
+      "name": "Namira's Rot",
+      "plugin": "Skyrim.esm",
+      "form_id": 317988,
+      "effects": [
+        "fortify-health",
+        "fortify-lockpicking",
+        "fear",
+        "regenerate-health"
+      ]
+    },
+    {
+      "id": "nightshade",
+      "name": "Nightshade",
+      "plugin": "Skyrim.esm",
+      "form_id": 193612,
+      "effects": [
+        "damage-health",
+        "ravage-magicka",
+        "lingering-damage-stamina",
+        "fortify-destruction"
+      ]
+    },
+    {
+      "id": "nirnroot",
+      "name": "Nirnroot",
+      "plugin": "Skyrim.esm",
+      "form_id": 367494,
+      "effects": [
+        "damage-health",
+        "weakness-to-poison",
+        "invisibility",
+        "resist-magic"
+      ]
+    },
+    {
+      "id": "orange-dartwing",
+      "name": "Orange Dartwing",
+      "plugin": "Skyrim.esm",
+      "form_id": 768342,
+      "effects": [
+        "restore-stamina",
+        "damage-magicka-regen",
+        "fortify-pickpocket",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "pine-thrush-egg",
+      "name": "Pine Thrush Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 146799,
+      "effects": [
+        "restore-stamina",
+        "fortify-lockpicking",
+        "fortify-speed",
+        "weakness-to-poison"
+      ]
+    },
+    {
+      "id": "red-mountain-flower",
+      "name": "Red Mountain Flower",
+      "plugin": "Skyrim.esm",
+      "form_id": 491037,
+      "effects": [
+        "restore-magicka",
+        "fortify-barter",
+        "fortify-magicka",
+        "damage-health"
+      ]
+    },
+    {
+      "id": "rock-warbler-egg",
+      "name": "Rock Warbler Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 518344,
+      "effects": [
+        "restore-health",
+        "fortify-one-handed",
+        "become-ethereal",
+        "weakness-to-magic"
+      ]
+    },
+    {
+      "id": "sabre-cat-tooth",
+      "name": "Sabre Cat Tooth",
+      "plugin": "Skyrim.esm",
+      "form_id": 441348,
+      "effects": [
+        "restore-stamina",
+        "muffle",
+        "weakness-to-poison",
+        "fortify-speed"
+      ]
+    },
+    {
+      "id": "salt-pile-74a19",
+      "name": "Salt Pile",
+      "plugin": "Skyrim.esm",
+      "form_id": 477721,
+      "effects": [
+        "weakness-to-magic",
+        "fortify-restoration",
+        "slow",
+        "regenerate-magicka"
+      ],
+      "_injected": true
+    },
+    {
+      "id": "scaly-pholiota",
+      "name": "Scaly Pholiota",
+      "plugin": "Skyrim.esm",
+      "form_id": 457040,
+      "effects": [
+        "weakness-to-magic",
+        "fortify-stamina",
+        "regenerate-stamina",
+        "fortify-carry-weight"
+      ]
+    },
+    {
+      "id": "scathecraw",
+      "name": "Scathecraw",
+      "plugin": "Dragonborn.esm",
+      "form_id": 97943,
+      "effects": [
+        "ravage-stamina",
+        "damage-stamina-regen",
+        "damage-magicka-regen",
+        "lingering-damage-health"
+      ]
+    },
+    {
+      "id": "silverside-perch",
+      "name": "Silverside Perch",
+      "plugin": "Skyrim.esm",
+      "form_id": 1076764,
+      "effects": [
+        "restore-stamina",
+        "fortify-heavy-armor",
+        "ravage-stamina",
+        "resist-frost"
+      ]
+    },
+    {
+      "id": "skeever-tail",
+      "name": "Skeever Tail",
+      "plugin": "Skyrim.esm",
+      "form_id": 241007,
+      "effects": [
+        "fortify-heavy-armor",
+        "ravage-stamina",
+        "water-walking",
+        "fortify-enchanting"
+      ]
+    },
+    {
+      "id": "slaughterfish-scales",
+      "name": "Slaughterfish Scales",
+      "plugin": "Skyrim.esm",
+      "form_id": 241008,
+      "effects": [
+        "resist-frost",
+        "lingering-damage-health",
+        "muffle",
+        "fortify-block"
+      ]
+    },
+    {
+      "id": "small-antlers",
+      "name": "Small Antlers",
+      "plugin": "Skyrim.esm",
+      "form_id": 441355,
+      "effects": [
+        "fortify-speed",
+        "fortify-restoration",
+        "lingering-damage-stamina",
+        "weakness-to-shock"
+      ]
+    },
+    {
+      "id": "snowberries",
+      "name": "Snowberries",
+      "plugin": "Skyrim.esm",
+      "form_id": 111549,
+      "effects": [
+        "resist-fire",
+        "fortify-alchemy",
+        "resist-frost",
+        "resist-shock"
+      ]
+    },
+    {
+      "id": "spawn-ash",
+      "name": "Spawn Ash",
+      "plugin": "Dragonborn.esm",
+      "form_id": 118125,
+      "effects": [
+        "damage-stamina-regen",
+        "resist-fire",
+        "fortify-alchemy",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "spider-egg",
+      "name": "Spider Egg",
+      "plugin": "Skyrim.esm",
+      "form_id": 595227,
+      "effects": [
+        "damage-stamina",
+        "ravage-health",
+        "fortify-lockpicking",
+        "fortify-marksman"
+      ]
+    },
+    {
+      "id": "spriggan-sap",
+      "name": "Spriggan Sap",
+      "plugin": "Skyrim.esm",
+      "form_id": 408415,
+      "effects": [
+        "ravage-magicka",
+        "fortify-alchemy",
+        "fortify-light-armor",
+        "fortify-alteration"
+      ]
+    },
+    {
+      "id": "swamp-fungal-pod",
+      "name": "Swamp Fungal Pod",
+      "plugin": "Skyrim.esm",
+      "form_id": 518327,
+      "effects": [
+        "resist-shock",
+        "lingering-damage-magicka",
+        "paralysis",
+        "water-walking"
+      ]
+    },
+    {
+      "id": "thistle-branch",
+      "name": "Thistle Branch",
+      "plugin": "Skyrim.esm",
+      "form_id": 79018,
+      "effects": [
+        "resist-frost",
+        "damage-stamina-regen",
+        "resist-poison",
+        "muffle"
+      ]
+    },
+    {
+      "id": "troll-fat",
+      "name": "Troll Fat",
+      "plugin": "Skyrim.esm",
+      "form_id": 241010,
+      "effects": [
+        "resist-poison",
+        "fortify-two-handed",
+        "frenzy",
+        "water-walking"
+      ]
+    },
+    {
+      "id": "tundra-cotton",
+      "name": "Tundra Cotton",
+      "plugin": "Skyrim.esm",
+      "form_id": 260088,
+      "effects": [
+        "resist-magic",
+        "fortify-magicka",
+        "fortify-block",
+        "regenerate-magicka"
+      ]
+    },
+    {
+      "id": "void-salts",
+      "name": "Void Salts",
+      "plugin": "Skyrim.esm",
+      "form_id": 240992,
+      "effects": [
+        "weakness-to-shock",
+        "resist-magic",
+        "become-ethereal",
+        "fortify-magicka"
+      ]
+    },
+    {
+      "id": "wheat",
+      "name": "Wheat",
+      "plugin": "Skyrim.esm",
+      "form_id": 307386,
+      "effects": [
+        "restore-health",
+        "fortify-one-handed",
+        "fortify-smithing",
+        "lingering-damage-magicka"
+      ]
+    },
+    {
+      "id": "white-cap",
+      "name": "White Cap",
+      "plugin": "Skyrim.esm",
+      "form_id": 317986,
+      "effects": [
+        "weakness-to-frost",
+        "muffle",
+        "restore-magicka",
+        "damage-magicka-regen"
+      ]
+    },
+    {
+      "id": "yellow-mountain-flower",
+      "name": "Yellow Mountain Flower",
+      "plugin": "Dawnguard.esm",
+      "form_id": 10872,
+      "effects": [
+        "resist-poison",
+        "fortify-restoration",
+        "fortify-health",
+        "fortify-smithing"
+      ]
+    }
+  ]
+}
