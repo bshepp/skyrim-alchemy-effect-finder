@@ -40,10 +40,12 @@ Curios), and Plague of the Dead's Mort Flesh – 180 ingredients, 60 effects,
 built from UESP documentation.
 
 Since 1.1.0, **dataset packs** extend that to supported mods: the app reads
-your save's plugin list and activates the matching packs automatically –
-Complete Alchemy and Cooking Overhaul (CACO, an overhaul pack that replaces
-the vanilla ingredient table with its 358-ingredient one) and The Cause's
-three Oblivion ingredients ship in the box, both verified against live saves.
+your save's plugin list and activates the matching packs automatically.
+Four ship in the box, every one verified against a live save: Complete
+Alchemy and Cooking Overhaul (CACO, an overhaul pack that replaces the
+vanilla ingredient table with its 358-ingredient one), The Cause's three
+Oblivion ingredients, Beyond Skyrim: Bruma (125 Cyrodiil ingredients, 21
+new effects) and Apothecary (71 vanilla ingredients remapped, 5 new effects).
 Packs are plain JSON under `alchemy_helper/data/packs/`, and
 `scripts/extract_pack.py` builds one straight from a mod's `.esp`/`.esm`
 files.
@@ -199,7 +201,7 @@ describes:
 ```bash
 pytest -v
 ```
-→ **92 passed** – dataset, save parser, app state, web API, and
+→ **118 passed** – dataset, save parser, app state, web API, and
 combinatorics, all green.
 
 ```bash
@@ -273,10 +275,12 @@ back to extend it:
 
 - Support for other game versions (Legendary Edition, VR, GOG, older SE
   patches).
-- Mod-added ingredients and effects – shipped in 1.1.0 as dataset packs
-  (CACO, The Cause), with `scripts/extract_pack.py` reading them from
-  plugin files. Remaining: more packs (Beyond Skyrim: Bruma is next) and
-  effects delivered only inside BSA archives.
+- Mod-added ingredients and effects – shipped as dataset packs (CACO and
+  The Cause in 1.1.0; Beyond Skyrim: Bruma and Apothecary in 1.2.0), with
+  `scripts/extract_pack.py` reading them from plugin files and the two-save
+  handshake (`scripts/gen_give_bat.py` + `scripts/verify_pack_save.py`)
+  proving each one against a live save. Remaining: effects delivered only
+  inside BSA archives, and whatever the comment section asks for next.
 - Potion value / leveling optimization (magnitude and gold math), not just
   which effects a mix produces.
 - "Eat an ingredient" as a discovery action inside the discovery plan

@@ -42,3 +42,26 @@ To the Apothecary requester:
 ```
 Done - Apothecary support is in 1.2.0 alongside Bruma. All 71 remapped ingredients and the five new effects, verified by loading a real Apothecary save and eating a Falmer Ear to watch Water Walking show up. Thanks for asking; it made the pair a natural release.
 ```
+
+## GitHub Release body - v1.2.0 (title: "Alembic 1.2.0 - Bruma and Apothecary")
+
+```
+## Dataset packs - two more mods, both verified in-game
+
+The app reads your save's load order and activates matching packs automatically. 1.2.0 adds the two the comment section asked for:
+
+- **Beyond Skyrim: Bruma** - 125 Cyrodiil ingredients (the shared Beyond Skyrim library plus Bruma's local flora) with 21 effects new to Skyrim alchemy, extracted from BSAssets.esm and BSHeartland.esm. Extend mode: vanilla and CACO behaviour unchanged.
+- **Apothecary - An Alchemy Overhaul** - 71 vanilla ingredients take Apothecary's remapped effects, plus 5 new effects (Become Ethereal, Fortify Alchemy, Fortify Speed, Muffle, Water Walking) and the extra Salt Pile the mod injects. Overhaul mode: takes precedence over vanilla when Apothecary.esp is loaded.
+
+Both packs passed a two-save round trip on real saves: every ingredient granted by console parsed back out of the save as the correct record, with no unknown forms, and eating an ingredient in-game discovered the effect the pack says it should (Viper's Bugloss's vanilla AlchUnknown placeholder for Bruma; Falmer Ear's remapped Water Walking for Apothecary).
+
+Known quirk, faithfully modelled: Viper's Bugloss's first effect is the game's own AlchUnknown placeholder - no second ingredient shares it, so it can never be brewed. The three single-effect Mountain Berries are not modelled.
+
+## Tooling
+
+- `scripts/extract_pack.py` now merges several plugins into one pack (Bruma spans two).
+- `scripts/gen_give_bat.py` + `scripts/verify_pack_save.py` - the two-save handshake used to verify both packs: grant every known ingredient by console, save, and assert the round trip through the save parser. Anyone building a pack for another mod can prove it the same way.
+
+Folder build (PyInstaller --onedir), same as 1.0.1 and 1.1.0.
+SHA-256 (Alembic-1.2.0.zip): ac048c8bc22df7273cecc1d688f68815dd8ac9345b4b406d585c536b3a24b40a
+```
