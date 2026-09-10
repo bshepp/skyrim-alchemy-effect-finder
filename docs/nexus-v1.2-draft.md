@@ -66,3 +66,34 @@ Folder build (PyInstaller --onedir), same as 1.0.1 and 1.1.0.
 The shipped exe was launched and pointed at both verification saves before release: it reported version 1.2.0, activated apothecary + the-cause on the Apothecary save (183 carried ingredients) and bruma + the-cause on the Bruma save (307), with no parse errors.
 SHA-256 (Alembic-1.2.0.zip): ac048c8bc22df7273cecc1d688f68815dd8ac9345b4b406d585c536b3a24b40a
 ```
+
+## Review request - fresh ticket to support@nexusmods.com (NOT a reply on 261429)
+
+Same shape as the request that cleared in 4 business days. Windows Defender custom
+scan of the 1.2.0 folder build: 0 detections, signature 1.459.146.0 (2026-09-10).
+Cut the GitHub release before sending so the link resolves.
+
+```
+Subject: Alembic (Skyrim SE mod 189861) - review request for file 1.2.0
+
+Mod page: https://www.nexusmods.com/skyrimspecialedition/mods/189861
+
+Requesting manual review of the newly uploaded file, Alembic 1.2.0. Opening a fresh ticket rather than replying on 261429, since that ticket was resolved with the 1.0.1 approval and the later reply on it may not have re-entered the queue.
+
+What it is: a standalone open-source utility, not a plugin. It reads Skyrim save files and shows alchemy effects; it does not add anything to the game, touch game files, or need SKSE.
+
+Why it trips scanners: it is a Python app frozen with PyInstaller. Since 1.0.1 it ships as a folder build (--onedir) rather than a single self-extracting exe, specifically to avoid the packer heuristics. Windows Defender scans the 1.2.0 folder clean (0 detections, signature 1.459.146.0).
+
+Source (MIT): https://github.com/bshepp/skyrim-alchemy-effect-finder
+Build: powershell -File scripts\build-exe.ps1 (fresh venv, PyInstaller --onedir; the script is in the repo)
+SHA-256 of the uploaded Alembic-1.2.0.zip: ac048c8bc22df7273cecc1d688f68815dd8ac9345b4b406d585c536b3a24b40a
+Identical zip on the GitHub release: https://github.com/bshepp/skyrim-alchemy-effect-finder/releases/tag/v1.2.0
+
+One thing worth knowing: uploading 1.1.0 after the 1.0.1 approval re-quarantined the page and removed the approved 1.0.1 from the file list, so the page currently has no downloadable file at all. Happy to provide anything else needed.
+
+Thanks,
+Brian
+```
+
+Optional final line, only if the AI-tag question is worth asking directly:
+"The page has carried the AI-Generated Content tag since 09-05 under the July guidelines; if that changes the review path, a note would be appreciated."
