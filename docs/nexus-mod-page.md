@@ -1,7 +1,8 @@
 # Nexus mod page copy
 
 Prepared 2026-08-26 for the Skyrim Special Edition → Utilities category,
-posted from the `ohnomomo` account. The summary is the short form; the
+posted from the `ohnomomo` account. Revised 2026-09-10 for 1.2.0 (four
+packs, new SHA-256, release link as the always-available download). The summary is the short form; the
 description is the long form in Nexus BBCode. Update the SHA-256 whenever
 the exe is rebuilt.
 
@@ -48,16 +49,18 @@ Pick a save, click Load, and the app reads your ingredient inventory and – the
 [*][b]Best Potions[/b] – every potion you can craft right now, ranked by how many effects it merges. More merged effects = more gold and more alchemy XP. This is the "what do I brew to level up and get rich" button.
 [/list]
 
-[size=3][b]Mod support - new in 1.1[/b][/size]
+[size=3][b]Mod support[/b][/size]
 
-The app reads your save's load order and switches its ingredient dataset to match, automatically:
+The app reads your save's load order and switches its ingredient dataset to match, automatically. Four packs ship in the box, every one verified by loading a real save and checking every ingredient round-trips through the parser:
 
 [list]
 [*][b]Complete Alchemy and Cooking Overhaul (CACO)[/b] – full support for the rebuilt ingredient table: 358 ingredients with CACO's own effects, extracted from CACO 3.0.1's plugin files and verified live against a real 240-plugin load order.
+[*][b]Beyond Skyrim: Bruma[/b] – new in 1.2: 125 Cyrodiil ingredients (the shared Beyond Skyrim library plus Bruma's local flora) with 21 effects new to Skyrim alchemy. Vanilla and CACO behaviour unchanged.
+[*][b]Apothecary - An Alchemy Overhaul[/b] – new in 1.2: 71 vanilla ingredients take Apothecary's remapped effects, plus 5 new effects (Become Ethereal, Fortify Alchemy, Fortify Speed, Muffle, Water Walking) and the extra Salt Pile the mod adds. Takes precedence over vanilla whenever Apothecary.esp is loaded.
 [*][b]The Cause[/b] – Bloodgrass, Harrada, and Spiddal Stick from beyond the Oblivion gates.
 [/list]
 
-Nothing to configure – load a save with the mod's plugin active and the pack switches on (a note next to the mode badge shows what's active). Playing vanilla? Nothing changes. [b]Beyond Skyrim: Bruma is next in line[/b] – and ingredient mods you'd like supported are exactly what the comment section is for.
+Nothing to configure – load a save with the mod's plugin active and the pack switches on (a note next to the mode badge shows what's active). Playing vanilla? Nothing changes. Both 1.2 packs were requested right here in the comments – ingredient mods you'd like supported next are exactly what this section is for.
 
 [size=3][b]How to use it[/b][/size]
 
@@ -68,8 +71,8 @@ Download the zip, unzip it anywhere, and run [b]SkyrimAlchemyEffectFinder.exe[/b
 [list]
 [*][b]Read-only.[/b] It opens your save, reads it, and never writes a byte. It cannot corrupt a save – it doesn't have the code to write one. That's checkable, not marketing: the source contains exactly one call that touches a save file (a read), and the app's only file-write is its own settings file in its own folder.
 [*][b]Local-only.[/b] Serves only your own machine (127.0.0.1). No internet, no accounts, no telemetry – nothing leaves your PC.
-[*][b]Open source (MIT).[/b] Full source at [url=https://github.com/bshepp/skyrim-alchemy-effect-finder]github.com/bshepp/skyrim-alchemy-effect-finder[/url] – read it, build it yourself with one script, or grab the exe from the GitHub release.
-[*]SHA-256 of the download (Alembic-1.1.0.zip): [code]07dbf4f4128abea863d314ead42178fcebfd835b4194a40f98d1077d48370987[/code]
+[*][b]Open source (MIT).[/b] Full source at [url=https://github.com/bshepp/skyrim-alchemy-effect-finder]github.com/bshepp/skyrim-alchemy-effect-finder[/url] – read it, build it yourself with one script, or grab the identical zip from the [url=https://github.com/bshepp/skyrim-alchemy-effect-finder/releases/tag/v1.2.0]GitHub release[/url] (the same file, always available even while the Nexus copy is in review).
+[*]SHA-256 of the download (Alembic-1.2.0.zip): [code]ac048c8bc22df7273cecc1d688f68815dd8ac9345b4b406d585c536b3a24b40a[/code]
 [/list]
 
 [b]About antivirus warnings:[/b] since 1.0.1 the app ships as a plain folder rather than a single self-extracting exe, specifically because self-extracting Python apps are what antivirus heuristics flag (Windows Defender scans the folder build clean). If your scanner still complains: the source is public, the build script is in the repo, and the checksum above lets you verify the download. Or run it from source with Python – the README shows how.
@@ -78,7 +81,7 @@ Download the zip, unzip it anywhere, and run [b]SkyrimAlchemyEffectFinder.exe[/b
 
 [list]
 [*]Skyrim Special Edition, current Steam release (save format 12). Covers vanilla + Dawnguard, Hearthfire, Dragonborn + the free Creations (Fishing, Survival Mode, Saints & Seducers, Rare Curios) + Plague of the Dead's Mort Flesh.
-[*]Since 1.1: mod ingredients via dataset packs – CACO and The Cause ship in the box (see Mod support above). Mods without a pack yet (and other paid Creations) show up in an "unknown ingredients" notice instead of breaking anything.
+[*]Mod ingredients via dataset packs – CACO, Beyond Skyrim: Bruma, Apothecary and The Cause ship in the box (see Mod support above). Mods without a pack yet (and other paid Creations) show up in an "unknown ingredients" notice instead of breaking anything.
 [*]Not supported yet: Legendary Edition, VR, GOG. If a save can't be read at all, the app tells you why and drops to manual mode – every feature still works, you just enter counts yourself.
 [*]No plugin, no SKSE, no load order impact – it's a separate program, not a mod in your game.
 [/list]
