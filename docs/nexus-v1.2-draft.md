@@ -1,22 +1,25 @@
 # v1.2 Nexus material - DRAFT, nothing here is live
 
-Prepared 2026-09-05 (night shift) for the v1.2 release once the Bruma
-pack graduates. Blockers before any of this posts: BS_DLC_patch.esp
-override check, live-save round-trip verification of the Bruma pack,
-and the v1.1.0 file clearing review.
+Prepared 2026-09-05, rewritten 2026-09-10 now that BOTH community-requested
+packs have passed the two-save handshake on live saves
+(scripts/gen_give_bat.py + scripts/verify_pack_save.py). Remaining blocker
+before any of this posts: the v1.1.0 file clearing Nexus review (every exe
+upload is quarantined and reviewed; approval is per file).
 
 ## File upload form - v1.2.0
 
-File name: Alembic 1.2.0. File version: 1.2.0. Description field:
+File name: Alembic 1.2.0. File version: 1.2.0. Description field (255 max):
 
 ```
-Beyond Skyrim: Bruma support - 125 Cyrodiil ingredients (the shared Beyond Skyrim library plus Bruma's local flora) with 21 effects new to Skyrim alchemy, extracted from the mod's plugins and verified against a live save. Auto-activates when the save's load order carries Bruma. Vanilla and CACO behavior unchanged.
+Beyond Skyrim: Bruma and Apothecary support. Bruma adds 125 Cyrodiil ingredients with 21 new effects; Apothecary remaps 71 vanilla ingredients and adds 5 effects. Both auto-activate from the save's load order and were verified against live saves.
 ```
 
 ## Changelog block
 
 ```
 - Dataset pack: Beyond Skyrim - Bruma. 125 new ingredients across BSAssets.esm and BSHeartland.esm, 21 new effects (Fire Damage, Reflect Spell, Night Eye...). Activates automatically from the save's load order.
+- Dataset pack: Apothecary - An Alchemy Overhaul. 71 vanilla ingredients get Apothecary's remapped effects, 5 new effects (Become Ethereal, Fortify Alchemy, Fortify Speed, Muffle, Water Walking), plus the extra Salt Pile the mod injects. Overhaul mode: takes precedence over vanilla when Apothecary.esp is loaded.
+- Both packs verified in-game: every ingredient granted by console round-tripped through the save parser to the correct record, with no unknown forms.
 - Known quirk, faithfully modelled: Viper's Bugloss's first effect is the vanilla AlchUnknown placeholder - no second ingredient shares it, so it can never be brewed. The three single-effect Mountain Berries are not modelled (the discovery model assumes four-slot ingredients).
 ```
 
@@ -37,5 +40,5 @@ Done - Bruma support just shipped in 1.2.0. All 125 Cyrodiil ingredients (yes, i
 To the Apothecary requester:
 
 ```
-Bruma's out, so Apothecary is up next as promised. It's the same shape of work as the CACO pack, so it should not be a long wait.
+Done - Apothecary support is in 1.2.0 alongside Bruma. All 71 remapped ingredients and the five new effects, verified by loading a real Apothecary save and eating a Falmer Ear to watch Water Walking show up. Thanks for asking; it made the pair a natural release.
 ```
