@@ -138,6 +138,17 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     the heuristic's hardness, not (proven to be) the graph's. Open:
     render the min-congestion ordering; does min-achievable congestion
     across the 2,015 labeled small worlds predict their hardness?
+    **CORRECTED 2026-09-10 (from chordwheel, commit 0ad3266; re-verified
+    here with the parent's own intersection code):** the per-edge
+    density-ratio ceiling at equal area is **2(R+r)/r = 4.83**, reached
+    at the antipodal gap; "supremum 4 = all-diameters" was wrong - 4.00
+    is the ratio at a 135 deg gap. The closed form quoted above is the
+    merged-rings limit for a fixed ordering, not a supremum. Also
+    confirmed: an edge enters the disc only past a 45 deg gap and loads
+    disc and annulus equally at 69.3 deg (ratio 1.000 exactly). The
+    ordering band is wider than the hill-climb found: annealing gives
+    **[0.29, 3.86]**. chordwheel now owns this line of work; see its
+    README and notes/2026-09-07-gap-anatomy.md.
 
 14. **Cube-and-conquer does not bite at k=69** (2026-09-06, staged on
     the desktop, racers untouched): two routes tested and retired.
