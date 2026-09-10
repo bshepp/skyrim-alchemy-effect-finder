@@ -70,3 +70,16 @@ order:
   edges, keyframes, counters, finish beats, camera, bloom, output.
 - `plans-uesp.json` - the committed timeline (regenerable).
 - `render/` - render output, untracked.
+
+## Layout correction (2026-09-10)
+
+Every render to date (v2 through v12) was made from an export whose two
+rings sat a half-turn apart: `respace()` in `export_plans.py` rotated each
+ring by ~175 deg per call and the last call hit only the ingredient ring,
+so effects ended opposite their ingredients (median 173 deg). Found by the
+chordwheel spinoff, fixed here; the old export is preserved as
+`plans-uesp-antialigned-19de3d9.json`. The corrected `plans-uesp.json` is a
+genuinely aligned barycenter layout (median 7 deg) with a much emptier
+centre (equal-area density ratio 0.47 vs the old 3.61). Renders made from
+it will look materially different; treat v2-v12 as pictures of that
+specific, accidental layout.

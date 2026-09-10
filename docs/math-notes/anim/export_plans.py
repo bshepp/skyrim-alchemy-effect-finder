@@ -90,8 +90,19 @@ def circular_mean(angles):
 
 
 def respace(ang):
+    # Even spacing in sorted-angle order. Anchoring rank 0 at angle 0
+    # silently rotated each ring by about a half-turn per call (the node
+    # nearest -pi jumped to 0); the final call hit only the ingredient
+    # ring, leaving every effect opposite its ingredients (median
+    # offset 173 deg, found by chordwheel 2026-09-07). Undo the mean
+    # rotation so re-spacing changes spacing and nothing else.
+    before = dict(ang)
     for rank, key in enumerate(sorted(ang, key=ang.get)):
         ang[key] = 2 * math.pi * rank / len(ang)
+    rot = circular_mean([(ang[k] - before[k] + math.pi) % (2 * math.pi)
+                         - math.pi for k in ang])
+    for k in ang:
+        ang[k] = (ang[k] - rot + math.pi) % (2 * math.pi) - math.pi
 
 
 eff_ings = defaultdict(list)

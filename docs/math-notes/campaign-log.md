@@ -149,6 +149,30 @@ Berit's Ashes and Jarrin Root - matches UESP's own accounting) and
     ordering band is wider than the hill-climb found: annealing gives
     **[0.29, 3.86]**. chordwheel now owns this line of work; see its
     README and notes/2026-09-07-gap-anatomy.md.
+    **CORRECTED 2026-09-10, the big one: the founding layout was never a
+    barycenter layout.** chordwheel measured its seed copy as anti-aligned
+    (every effect opposite the circular mean of its ingredients, median
+    offset 173 deg) and asked the parent to look; re-measured here on
+    anim/plans-uesp.json: median 172.7 deg, 55/55 effects past 90 deg,
+    mean edge gap 136.8 deg (random ~90). Cause, located by an
+    instrumented replica that reproduces those figures to the decimal:
+    export_plans.py's respace() anchored rank 0 at angle 0, so the node
+    nearest -pi jumped to 0 and every call rotated its ring by ~175 deg;
+    the final call touched only the ingredient ring, leaving the two
+    rings a half-turn apart. The sweep itself was correct. Fixed by
+    undoing the mean rotation after re-spacing; re-export gives median
+    offset 7.3 deg, mean gap 43.1 deg. Consequences: at equal area the
+    true barycenter ratio is **0.465** (not 3.61) and at the original
+    r/R = 0.45 about **0.54** (not 4.74); the radius sweep crosses 1 near
+    r/R = 0.15 and falls to 0.09 as r -> R, so the "2.55 floor, never
+    reaches 1" claim is withdrawn - it described the bug. A real
+    barycenter ordering leaves the disc EMPTIER than the annulus. The
+    whole founding observation, "the middle seems too full", was a
+    picture of a rotation error; the ordering band [0.29, 3.86] stands
+    because it does not depend on the seed. The anti-aligned export is
+    kept as anim/plans-uesp-antialigned-19de3d9.json (all eleven cascade
+    renders were made from it). This is the third time this log has
+    attributed an instrument's behaviour to the problem.
 
 14. **Cube-and-conquer does not bite at k=69** (2026-09-06, staged on
     the desktop, racers untouched): two routes tested and retired.
