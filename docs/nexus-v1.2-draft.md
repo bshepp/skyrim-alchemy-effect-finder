@@ -63,5 +63,6 @@ Known quirk, faithfully modelled: Viper's Bugloss's first effect is the game's o
 - `scripts/gen_give_bat.py` + `scripts/verify_pack_save.py` - the two-save handshake used to verify both packs: grant every known ingredient by console, save, and assert the round trip through the save parser. Anyone building a pack for another mod can prove it the same way.
 
 Folder build (PyInstaller --onedir), same as 1.0.1 and 1.1.0.
+The shipped exe was launched and pointed at both verification saves before release: it reported version 1.2.0, activated apothecary + the-cause on the Apothecary save (183 carried ingredients) and bruma + the-cause on the Bruma save (307), with no parse errors.
 SHA-256 (Alembic-1.2.0.zip): ac048c8bc22df7273cecc1d688f68815dd8ac9345b4b406d585c536b3a24b40a
 ```
