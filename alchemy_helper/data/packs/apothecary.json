@@ -1,7 +1,7 @@
 {
   "id": "apothecary",
   "name": "Apothecary - An Alchemy Overhaul",
-  "_source": "Extracted from Apothecary.esp by scripts/extract_pack.py; DRAFT pending human verification.",
+  "_source": "Extracted from Apothecary.esp by scripts/extract_pack.py; Verified 2026-09-10 against a live save (save version 12, form version 78, 71 regular + 169 light plugins, Apothecary.esp at load index 35): all 184 ingredients granted by console round-tripped to the correct dataset ids with no unknown forms, including the Salt Pile Apothecary injects into Skyrim.esm; eating a Falmer Ear discovered its remapped slot 0 as Water Walking in-game; see scripts/verify_pack_save.py.",
   "plugins": [
     "Apothecary.esp"
   ],

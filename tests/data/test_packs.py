@@ -238,3 +238,28 @@ def test_packs_for_plugins_matches_case_insensitively(tmp_path):
         packs.values(), save_plugins + ["testoverhaul_patch.esp"])
     assert [p.id for p in both] == ["test-cause", "test-overhaul"]
     assert packs_for_plugins(packs.values(), ["Skyrim.esm"]) == []
+
+
+def test_real_apothecary_pack():
+    """The extracted Apothecary pack: overhaul mode, a pure alterer that
+    remaps effects across the vanilla set (71 records) and injects one
+    extra Salt Pile into Skyrim.esm. Verified in-game 2026-09-10 via the
+    two-save handshake (scripts/verify_pack_save.py)."""
+    ds = load_dataset(packs=["apothecary"])
+    assert len(ds.ingredients) == 181          # 180 vanilla + injected Salt Pile
+    assert len(ds.effects) == 65               # 60 vanilla + 5 new
+    base = load_dataset()
+    changed = [iid for iid, ing in base.ingredients.items()
+               if ds.ingredients[iid].effects != ing.effects]
+    assert len(changed) == 71                  # exactly the remapped records
+    # the witnessed remap: Falmer Ear's first effect, vanilla Damage Health,
+    # becomes Water Walking (eaten in-game to confirm)
+    assert base.ingredients["falmer-ear"].effects[0] == "damage-health"
+    assert ds.ingredients["falmer-ear"].effects[0] == "water-walking"
+    # the injected record keeps the vanilla Salt Pile's effects
+    salt = ds.ingredients["salt-pile-74a19"]
+    assert salt.plugin == "Skyrim.esm" and salt.form_id == 0x074A19
+    assert salt.effects == base.ingredients["salt-pile"].effects
+    packs = load_packs()
+    active = packs_for_plugins(packs.values(), ["Skyrim.esm", "Apothecary.esp"])
+    assert [p.id for p in active] == ["apothecary"]
