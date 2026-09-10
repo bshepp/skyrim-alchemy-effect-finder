@@ -99,6 +99,8 @@ def main() -> int:
     granted, skipped = expected_grants(dataset, regular, light)
     missing, short = [], []
     for ing in granted:
+        if ing.id in args.eaten:
+            continue  # eating consumes it; the --eaten slot-0 check covers it
         before, after = inv1.get(ing.id, 0), state2.inventory.get(ing.id, 0)
         if after == 0:
             missing.append(ing)

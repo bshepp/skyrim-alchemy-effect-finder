@@ -1,7 +1,7 @@
 {
   "id": "bruma",
   "name": "Beyond Skyrim: Bruma",
-  "_source": "Extracted from BSAssets.esm, BSHeartland.esm by scripts/extract_pack.py; BS_DLC_patch.esp checked 2026-09-05: no INGR/MGEF records. DRAFT pending live-save verification.",
+  "_source": "Extracted from BSAssets.esm, BSHeartland.esm by scripts/extract_pack.py; BS_DLC_patch.esp checked 2026-09-05: no INGR/MGEF records. Verified 2026-09-09 against a live save (save version 12, form version 78, 72 regular + 169 light plugins): all 125 ingredients granted by console round-tripped to the correct dataset ids with no unknown forms, and eating Viper's Bugloss discovered its slot-0 AlchUnknown placeholder in-game; see scripts/verify_pack_save.py.",
   "plugins": [
     "BSAssets.esm",
     "BSHeartland.esm"
