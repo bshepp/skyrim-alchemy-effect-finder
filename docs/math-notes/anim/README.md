@@ -83,3 +83,17 @@ genuinely aligned barycenter layout (median 7 deg) with a much emptier
 centre (equal-area density ratio 0.47 vs the old 3.61). Renders made from
 it will look materially different; treat v2-v12 as pictures of that
 specific, accidental layout.
+
+**Verified by eye, 2026-09-10.** Matched stills from the old equal-area brew
+render (v7) and the first corrected one (v13), same frames:
+`render/probe-v7-antialigned-t39.png` vs `render/probe-v13-aligned-t39.png`
+(cascade complete) and the `-t08` pair (16 brews in). The corrected layout
+reads as a dense annulus with an open centre, and early brews light up as
+short chords hugging the ring rather than being thrown across the disc.
+The pictures agree with the numbers.
+
+The sequential re-render is driven by `render_aligned.ps1` (one Blender at
+a time, per-version logs, new tags so nothing overwrites). Two PowerShell
+traps cost three launches and are commented in it: variable names are
+case-insensitive, so a loop variable `$j` clobbers a path in `$J`; and a
+process-kill pattern that appears in your own command line kills you.
