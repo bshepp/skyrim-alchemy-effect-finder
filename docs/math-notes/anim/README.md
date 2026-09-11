@@ -91,6 +91,12 @@ render (v7) and the first corrected one (v13), same frames:
 reads as a dense annulus with an open centre, and early brews light up as
 short chords hugging the ring rather than being thrown across the disc.
 The pictures agree with the numbers.
+The other two modes confirm it in colour: `render/probe-v14-aligned-t39.png`
+(ingredient wheel) and `render/probe-v15-aligned-t39.png` (effect wheel) show
+each hue staying inside its own wedge of the annulus, with only the sparse
+crossing chords carrying colour through the centre. The aligned set is
+v13-eq-brew-aligned, v14-eq-ingredients-aligned, v15-eq-effects-aligned
+(masters 55-59 MB each, 720p previews 9.6-10.3 MB), rendered 2026-09-10.
 
 The sequential re-render is driven by `render_aligned.ps1` (one Blender at
 a time, per-version logs, new tags so nothing overwrites). Two PowerShell
