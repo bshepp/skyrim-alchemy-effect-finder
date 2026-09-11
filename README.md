@@ -54,6 +54,10 @@ files.
 
 **Easiest:** download `Alembic-<version>.zip` from the
 [latest release](https://github.com/bshepp/skyrim-alchemy-effect-finder/releases),
+which is the canonical download (SHA-256 in the release notes). The same
+zip is mirrored on [Nexus Mods](https://www.nexusmods.com/skyrimspecialedition/mods/189861)
+for people who live there; Nexus quarantines every executable upload for
+manual review, so the GitHub release is the copy that is always available.
 unzip it anywhere, and run `SkyrimAlchemyEffectFinder.exe` inside the
 `Alembic` folder – no Python needed. Your browser opens the app
 automatically.
