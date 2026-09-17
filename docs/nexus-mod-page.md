@@ -95,7 +95,15 @@ Built in collaboration with Claude (Anthropic's AI assistant) under human direct
 
 ## File upload form - v1.1.0
 
-File name: Alembic 1.1.0. File version: 1.1.0. Description field:
+File name: Alembic 1.1.0. File version: 1.1.0. Description field (as drafted; the 255-char limit forced the shorter
+text below, which is what went live and which the 1.2.0 upload inherited
+until corrected 2026-09-16):
+
+```
+Unzip anywhere, run SkyrimAlchemyEffectFinder.exe - opens in your browser. Read-only, no plugins. New in 1.1.0: auto mod support (CACO's full 358 ingredients + The Cause) and save-parser fixes. Checksum and source on GitHub - see description.
+```
+
+Drafted version:
 
 ```
 Dataset packs: the app now reads your save's load order and activates mod support automatically - Complete Alchemy and Cooking Overhaul (full 358-ingredient table, verified live against CACO 3.0.1) and The Cause ship in the box. Save parsing got three real fixes: saves where the character has arrows lodged in their body, saves carrying an item with many properties at once (worn + hotkeyed + tempered + renamed + player-enchanted gear), and one undocumented data entry - all found by soak-testing a 546-save archive, which now parses 546/546. Also new: a brew counter on the Discovery Plan tab, and plan lines group their newly-discovered effects by ingredient. Vanilla saves behave exactly as before.
